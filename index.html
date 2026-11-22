@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wonderful Trip Jogja | Paket Wisata Jogja, Bromo, Tumpak Sewu & Ijen</title>
+  <meta name="description" content="Wonderful Trip Jogja menyediakan paket wisata sharing dan private di Yogyakarta serta trip Bromo, Tumpak Sewu, dan Kawah Ijen start dari Jogja." />
+  <meta name="keywords" content="Wonderful Trip Jogja, paket wisata jogja, tour sharing jogja, private tour yogyakarta, borobudur sunrise, merapi jeep, goa jomblang pindul, pantai timang, paket bromo ijen dari jogja, tour bromo tumpak sewu ijen start jogja" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Wonderful Trip Jogja" />
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Wonderful Trip Jogja | Paket Tour Sharing & Private" />
+  <meta property="og:description" content="Jelajahi destinasi ikonik Yogyakarta hingga Bromo, Tumpak Sewu, dan Kawah Ijen berangkat dari Jogja. Tersedia pilihan paket Sharing dan Private via WhatsApp." />
+  <meta property="og:image" content="images/borobudur-sunrise-1.jpg" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf9',
+              100: '#ccfbef',
+              600: '#0d9488',
+              700: '#0f766e',
+              800: '#115e59',
+              900: '#134e4a',
+            },
+            accent: {
+              500: '#f59e0b',
+              600: '#d97706',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Structured Data SEO (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TravelAgency",
+    "name": "Wonderful Trip Jogja",
+    "description": "Layanan paket wisata sharing dan private di Yogyakarta serta perjalanan darat Bromo, Air Terjun Tumpak Sewu, dan Kawah Ijen berangkat dari Yogyakarta.",
+    "telephone": "+6285747180428",
+    "areaServed": [
+      { "@type": "City", "name": "Yogyakarta" },
+      { "@type": "AdministrativeArea", "name": "Jawa Timur" }
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Paket Wisata Yogyakarta & Overland Jawa Timur",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "TouristTrip", "name": "Borobudur Sunrise Tour" } },
+        { "@type": "Offer", "itemOffered": { "@type": "TouristTrip", "name": "Borobudur & Prambanan Tour" } },
+        { "@type": "Offer", "itemOffered": { "@type": "TouristTrip", "name": "Punthuk Setumbu Sunrise, Borobudur & Prambanan" } },
+        { "@type": "Offer", "itemOffered": { "@type": "TouristTrip", "name": "Merapi Jeep Lava Tour" } },
+        { "@type": "Offer", "itemOffered": { "@type": "TouristTrip", "name": "Goa Jomblang dan Pindul Adventure" } },
+        { "@type": "Offer", "itemOffered": { "@type": "TouristTrip", "name": "Pantai Timang Gondola Tour" } },
+        { "@type": "Offer", "itemOffered": { "@type": "TouristTrip", "name": "Paket Tour Bromo & Kawah Ijen Start dari Jogja" } },
+        { "@type": "Offer", "itemOffered": { "@type": "TouristTrip", "name": "Paket Tour Bromo, Tumpak Sewu Waterfall & Ijen Start dari Jogja" } }
+      ]
+    }
+  }
+  </script>
+
+  <style>
+    .fade-in { animation: fadeIn 0.35s ease-in-out; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand-600 selection:text-white">
+
+  <!-- Navbar -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2.5">
+        <span class="w-9 h-9 rounded-xl bg-brand-700 text-white flex items-center justify-center font-bold text-lg shadow-sm">W</span>
+        <div>
+          <span class="font-bold text-slate-900 text-lg tracking-tight block leading-none">Wonderful Trip Jogja</span>
+          <span class="text-[11px] text-brand-700 font-medium tracking-wide">SHARING &amp; PRIVATE TOUR</span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-600">
+        <a href="#paket-tour" class="hover:text-brand-700 transition">Paket Wisata</a>
+        <a href="#keunggulan" class="hover:text-brand-700 transition">Layanan</a>
+        <a href="#faq" class="hover:text-brand-700 transition">Informasi</a>
+      </nav>
+
+      <a href="https://wa.me/6285747180428?text=Halo%20Wonderful%20Trip%20Jogja%2C%20saya%20ingin%20bertanya%20mengenai%20paket%20wisata."
+         target="_blank" rel="noopener noreferrer"
+         class="inline-flex items-center gap-2 bg-brand-700 hover:bg-brand-800 text-white text-sm font-semibold px-4 py-2 rounded-xl shadow-sm transition">
+        <span>WhatsApp</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative bg-gradient-to-br from-brand-900 via-brand-800 to-slate-900 text-white overflow-hidden">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 relative z-10">
+      <div class="max-w-2xl">
+        <span class="inline-block bg-white/10 border border-white/20 text-brand-100 text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-4">
+          Yogyakarta • Bromo • Tumpak Sewu • Ijen
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-4">
+          Jelajahi Pesona Yogyakarta hingga Gunung Berapi Jawa Timur
+        </h1>
+        <p class="text-slate-200 text-base sm:text-lg leading-relaxed mb-8">
+          Pilihan lengkap paket <strong>Sharing Tour</strong> hemat maupun <strong>Private Tour</strong> fleksibel untuk wisata candi, Merapi, goa eksotis, pantai selatan, hingga overland Bromo, Tumpak Sewu, dan Kawah Ijen berangkat dari Jogja.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href="#paket-tour" class="bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold px-6 py-3 rounded-xl shadow-md transition">
+            Lihat Semua Paket
+          </a>
+          <a href="https://wa.me/6285747180428?text=Halo%20Wonderful%20Trip%20Jogja%2C%20mohon%20info%20jadwal%20dan%20harga%20paket%20tour."
+             target="_blank" rel="noopener noreferrer"
+             class="bg-white/10 hover:bg-white/20 border border-white/25 text-white font-semibold px-6 py-3 rounded-xl transition">
+            Konsultasi Jadwal
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Tour Catalog -->
+  <main id="paket-tour" class="max-w-6xl mx-auto px-4 sm:px-6 py-14">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Pilihan Paket Tour</h2>
+        <p class="text-slate-600 text-sm sm:text-base mt-1">Semua destinasi berangkat dari Yogyakarta dengan opsi keberangkatan gabungan maupun rombongan pribadi.</p>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div class="inline-flex bg-slate-200/80 p-1 rounded-xl self-start" role="group" aria-label="Filter jenis paket">
+        <button type="button" data-filter="all" class="filter-btn bg-white text-slate-900 shadow-sm px-4 py-1.5 rounded-lg text-sm font-semibold transition">
+          Semua Paket
+        </button>
+        <button type="button" data-filter="sharing" class="filter-btn text-slate-600 hover:text-slate-900 px-4 py-1.5 rounded-lg text-sm font-semibold transition">
+          Sharing
+        </button>
+        <button type="button" data-filter="private" class="filter-btn text-slate-600 hover:text-slate-900 px-4 py-1.5 rounded-lg text-sm font-semibold transition">
+          Private
+        </button>
+      </div>
+    </div>
+
+    <!-- Tour Cards Grid -->
+    <div id="tours-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7"></div>
+  </main>
+
+  <!-- Keunggulan Layanan -->
+  <section id="keunggulan" class="bg-white border-y border-slate-200 py-14">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="max-w-2xl mb-10">
+        <h2 class="text-2xl font-bold text-slate-900">Mengapa Memilih Wonderful Trip Jogja?</h2>
+        <p class="text-slate-600 text-sm sm:text-base mt-1">Kami memastikan setiap perjalanan harian maupun multi-hari berlangsung tepat waktu, aman, dan terorganisir.</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80">
+          <h3 class="font-bold text-slate-900 text-lg mb-2">Fleksibel: Sharing atau Private</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Solo traveler dapat bergabung pada paket sharing untuk efisiensi biaya, sedangkan keluarga atau grup dapat memilih armada private.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80">
+          <h3 class="font-bold text-slate-900 text-lg mb-2">Berangkat dari Area Yogyakarta</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Penjemputan langsung dari hotel, homestay, Stasiun Tugu, maupun Stasiun Lempuyangan baik untuk trip dalam kota maupun overland Jawa Timur.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80">
+          <h3 class="font-bold text-slate-900 text-lg mb-2">Konfirmasi Cepat via WhatsApp</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Tanpa proses rumit. Pilih paket, tentukan tanggal perjalanan, dan terhubung langsung dengan tim operasional kami.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section untuk SEO -->
+  <section id="faq" class="max-w-4xl mx-auto px-4 sm:px-6 py-14">
+    <h2 class="text-2xl font-bold text-slate-900 mb-6">Pertanyaan yang Sering Diajukan</h2>
+    <div class="space-y-4">
+      <details class="group bg-white border border-slate-200 rounded-xl p-5" open>
+        <summary class="font-semibold text-slate-900 cursor-pointer list-none flex justify-between items-center">
+          <span>Apa perbedaan paket Sharing Tour dan Private Tour?</span>
+          <span class="text-brand-700 font-bold group-open:rotate-45 transition-transform">+</span>
+        </summary>
+        <p class="text-slate-600 text-sm mt-3 leading-relaxed">
+          Pada <strong>Sharing Tour</strong>, kendaraan dan jadwal perjalanan digabungkan bersama peserta lain dengan rute yang sudah ditentukan. Pada <strong>Private Tour</strong>, kendaraan dikhususkan hanya untuk rombongan Anda sehingga jam penjemputan dan durasi di setiap destinasi lebih leluasa.
+        </p>
+      </details>
+
+      <details class="group bg-white border border-slate-200 rounded-xl p-5">
+        <summary class="font-semibold text-slate-900 cursor-pointer list-none flex justify-between items-center">
+          <span>Bagaimana teknis keberangkatan paket Bromo, Tumpak Sewu &amp; Ijen dari Jogja?</span>
+          <span class="text-brand-700 font-bold group-open:rotate-45 transition-transform">+</span>
+        </summary>
+        <p class="text-slate-600 text-sm mt-3 leading-relaxed">
+          Peserta dijemput langsung di area Kota Yogyakarta menggunakan armada ber-AC menuju Jawa Timur. Setelah rangkaian pendakian Kawah Ijen selesai, peserta dapat memilih pengantaran kembali ke Yogyakarta atau turun di Pelabuhan Ketapang Banyuwangi bagi yang melanjutkan perjalanan ke Bali.
+        </p>
+      </details>
+
+      <details class="group bg-white border border-slate-200 rounded-xl p-5">
+        <summary class="font-semibold text-slate-900 cursor-pointer list-none flex justify-between items-center">
+          <span>Bagaimana cara melakukan pemesanan paket wisata?</span>
+          <span class="text-brand-700 font-bold group-open:rotate-45 transition-transform">+</span>
+        </summary>
+        <p class="text-slate-600 text-sm mt-3 leading-relaxed">
+          Klik tombol <strong>Pesan Paket Ini</strong> pada destinasi yang diinginkan, isi tanggal rencana wisata serta jumlah peserta, lalu kirimkan format pesanan otomatis ke nomor WhatsApp resmi kami di <strong>+62 857-4718-0428</strong>.
+        </p>
+      </details>
+
+      <details class="group bg-white border border-slate-200 rounded-xl p-5">
+        <summary class="font-semibold text-slate-900 cursor-pointer list-none flex justify-between items-center">
+          <span>Pukul berapa penjemputan untuk paket Sunrise di Jogja dimulai?</span>
+          <span class="text-brand-700 font-bold group-open:rotate-45 transition-transform">+</span>
+        </summary>
+        <p class="text-slate-600 text-sm mt-3 leading-relaxed">
+          Untuk paket <strong>Borobudur Sunrise</strong> dan <strong>Punthuk Setumbu Sunrise</strong>, penjemputan di area Kota Yogyakarta dimulai sekitar pukul 03.30 WIB agar tiba di lokasi sebelum matahari terbit.
+        </p>
+      </details>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-300 py-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
+      <div>
+        <p class="text-white font-bold text-lg">Wonderful Trip Jogja</p>
+        <p class="text-sm text-slate-400 mt-1">Layanan Paket Wisata Sharing &amp; Private Yogyakarta, Bromo, Tumpak Sewu &amp; Ijen</p>
+      </div>
+      <div class="text-sm">
+        <p class="text-slate-400">Reservasi &amp; Informasi WhatsApp:</p>
+        <a href="https://wa.me/6285747180428" target="_blank" rel="noopener noreferrer" class="text-accent-500 hover:underline font-semibold text-base">
+          +62 857-4718-0428
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Booking Modal -->
+  <div id="booking-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/60 backdrop-blur-xs p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl fade-in">
+      <div class="flex justify-between items-start mb-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-brand-700">Form Pemesanan Cepat</span>
+          <h3 id="modal-tour-title" class="text-xl font-bold text-slate-900 mt-0.5">Nama Paket</h3>
+        </div>
+        <button type="button" onclick="closeBookingModal()" class="text-slate-400 hover:text-slate-700 text-2xl leading-none">&times;</button>
+      </div>
+
+      <form id="booking-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase mb-1.5">Pilih Tipe Paket</label>
+          <div class="grid grid-cols-2 gap-2.5">
+            <label class="cursor-pointer">
+              <input type="radio" name="tourType" value="Sharing Tour" class="peer sr-only" checked />
+              <div class="text-center py-2.5 px-3 rounded-xl border border-slate-200 text-sm font-semibold text-slate-600 peer-checked:border-brand-600 peer-checked:bg-brand-50 peer-checked:text-brand-800 transition">
+                Sharing Tour
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="tourType" value="Private Tour" class="peer sr-only" />
+              <div class="text-center py-2.5 px-3 rounded-xl border border-slate-200 text-sm font-semibold text-slate-600 peer-checked:border-brand-600 peer-checked:bg-brand-50 peer-checked:text-brand-800 transition">
+                Private Tour
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label for="booking-date" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Tanggal Wisata</label>
+            <input type="date" id="booking-date" required class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm focus:border-brand-600 focus:outline-none" />
+          </div>
+          <div>
+            <label for="booking-pax" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Jumlah Peserta</label>
+            <input type="number" id="booking-pax" min="1" max="50" value="2" required class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm focus:border-brand-600 focus:outline-none" />
+          </div>
+        </div>
+
+        <div>
+          <label for="booking-pickup" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Lokasi Penjemputan</label>
+          <input type="text" id="booking-pickup" placeholder="Contoh: Hotel Malioboro / Stasiun Tugu" required class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm focus:border-brand-600 focus:outline-none" />
+        </div>
+
+        <div>
+          <label for="booking-name" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Nama Pemesan</label>
+          <input type="text" id="booking-name" placeholder="Masukkan nama Anda" required class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm focus:border-brand-600 focus:outline-none" />
+        </div>
+
+        <button type="submit" class="w-full bg-brand-700 hover:bg-brand-800 text-white font-bold py-3 rounded-xl shadow-md transition">
+          Lanjutkan ke WhatsApp
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Lightbox Modal untuk Melihat Foto Ukuran Penuh -->
+  <div id="lightbox-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/90 p-4" onclick="closeLightbox()">
+    <button type="button" class="absolute top-5 right-6 text-white text-3xl font-light">&times;</button>
+    <img id="lightbox-img" src="" alt="Preview Destinasi" class="max-h-[85vh] max-w-full rounded-xl shadow-2xl object-contain" onclick="event.stopPropagation()" />
+    <p id="lightbox-caption" class="absolute bottom-5 text-white/90 text-sm font-medium bg-black/50 px-4 py-1.5 rounded-full"></p>
+  </div>
+
+  <script>
+    const WHATSAPP_NUMBER = "6285747180428";
+
+    // Daftar 8 Paket Tour dengan prefix nama file foto otomatis
+    const toursData = [
+      {
+        id: "borobudur-sunrise",
+        prefix: "borobudur-sunrise",
+        title: "Borobudur Sunrise",
+        types: ["sharing", "private"],
+        duration: "± 6 Jam",
+        pickup: "03.30 WIB",
+        description: "Saksikan momen matahari terbit yang memukau dari kawasan Candi Borobudur dengan udara pagi yang sejuk dan suasana tenang.",
+        highlights: [
+          "Akses pagi untuk menikmati panorama matahari terbit",
+          "Eksplorasi struktur megah Candi Borobudur",
+          "Antar-jemput area Kota Yogyakarta"
+        ],
+        gradient: "from-amber-700 to-stone-800"
+      },
+      {
+        id: "borobudur-prambanan",
+        prefix: "borobudur-prambanan",
+        title: "Borobudur & Prambanan",
+        types: ["sharing", "private"],
+        duration: "± 10 Jam",
+        pickup: "07.00 WIB",
+        description: "Kunjungan sehari penuh menjelajahi dua warisan budaya dunia UNESCO terbesar di Jawa dalam satu rute perjalanan yang efisien.",
+        highlights: [
+          "Kunjungan Candi Borobudur dan Candi Prambanan",
+          "Singgah di Candi Pawon & Candi Mendut",
+          "Transportasi AC nyaman & pengemudi berpengalaman"
+        ],
+        gradient: "from-teal-700 to-slate-800"
+      },
+      {
+        id: "punthuk-setumbu",
+        prefix: "punthuk-setumbu",
+        title: "Punthuk Setumbu Sunrise, Borobudur & Prambanan",
+        types: ["sharing", "private"],
+        duration: "± 12 Jam",
+        pickup: "03.30 WIB",
+        description: "Kombinasi favorit menikmati siluet matahari terbit dari Bukit Punthuk Setumbu berlatar Gunung Merapi dan Candi Borobudur.",
+        highlights: [
+          "Golden sunrise dari puncak Bukit Punthuk Setumbu",
+          "Dilanjutkan tur Candi Borobudur & Candi Prambanan",
+          "Rute terpadu tanpa terburu-buru"
+        ],
+        gradient: "from-orange-700 to-teal-900"
+      },
+      {
+        id: "merapi-jeep",
+        prefix: "merapi-jeep",
+        title: "Merapi Jeep",
+        types: ["sharing", "private"],
+        duration: "± 4–5 Jam",
+        pickup: "Fleksibel (Pagi / Sore)",
+        description: "Petualangan off-road menyusuri jejak erupsi lereng Gunung Merapi menggunakan kendaraan Jeep 4WD yang tangguh.",
+        highlights: [
+          "Bunker Kaliadem & Museum Sisa Hartaku",
+          "Spot foto Batu Alien berlatar puncak Merapi",
+          "Sensasi manuver air di aliran Kalikuning"
+        ],
+        gradient: "from-stone-700 to-zinc-900"
+      },
+      {
+        id: "jomblang-pindul",
+        prefix: "jomblang-pindul",
+        title: "Goa Jomblang dan Pindul",
+        types: ["sharing", "private"],
+        duration: "± 10 Jam",
+        pickup: "06.30 WIB",
+        description: "Eksplorasi petualangan alam bawah tanah di Gunungkidul untuk melihat cahaya surga Goa Jomblang dan menyusuri sungai Goa Pindul.",
+        highlights: [
+          "Penurunan vertikal menuju cahaya surga Goa Jomblang",
+          "Cave tubing menyusuri sungai bawah tanah Goa Pindul",
+          "Perlengkapan keselamatan lengkap & pemandu lokal"
+        ],
+        gradient: "from-emerald-800 to-slate-900"
+      },
+      {
+        id: "pantai-timang",
+        prefix: "pantai-timang",
+        title: "Pantai Timang",
+        types: ["sharing", "private"],
+        duration: "± 9 Jam",
+        pickup: "07.00 WIB",
+        description: "Perjalanan menuju pesisir selatan Gunungkidul yang terkenal dengan tebing karang eksotis dan wahana gondola tradisional.",
+        highlights: [
+          "Penyeberangan gondola atau jembatan gantung Pulau Panjang",
+          "Pemandangan deburan ombak Samudra Hindia",
+          "Opsi kuliner hidangan laut segar khas Pantai Timang"
+        ],
+        gradient: "from-cyan-800 to-blue-950"
+      },
+      {
+        id: "bromo-ijen",
+        prefix: "bromo-ijen",
+        title: "Bromo & Kawah Ijen (Start Jogja)",
+        types: ["sharing", "private"],
+        duration: "3 Hari 2 Malam",
+        pickup: "Start Yogyakarta",
+        description: "Perjalanan overland berangkat dari Yogyakarta menjelajahi panorama matahari terbit Gunung Bromo dan fenomena api biru Kawah Ijen.",
+        highlights: [
+          "Jeep 4WD Bromo Sunrise, Kawah Bromo, Pasir Berbisik & Savana",
+          "Pendakian dini hari menyaksikan Blue Fire & danau kawah Ijen",
+          "Transportasi PP Jogja atau opsi drop-off Pelabuhan Ketapang"
+        ],
+        gradient: "from-indigo-900 to-amber-800"
+      },
+      {
+        id: "bromo-tumpak-sewu-ijen",
+        prefix: "bromo-tumpak-sewu-ijen",
+        title: "Bromo, Tumpak Sewu & Ijen (Start Jogja)",
+        types: ["sharing", "private"],
+        duration: "4 Hari 3 Malam",
+        pickup: "Start Yogyakarta",
+        description: "Ekspedisi lengkap Jawa Timur berangkat dari Yogyakarta menyambangi Air Terjun Tumpak Sewu, Gunung Bromo, dan Kawah Ijen dalam satu rute.",
+        highlights: [
+          "Panorama & eksplorasi dasar Air Terjun Tumpak Sewu Lumajang",
+          "Sunrise view point & petualangan Jeep 4WD kawasan Bromo",
+          "Trekking Kawah Ijen dengan penjemputan dari area Yogyakarta"
+        ],
+        gradient: "from-emerald-900 to-indigo-950"
+      }
+    ];
+
+    // Menyimpan daftar foto yang berhasil terdeteksi untuk setiap paket
+    const detectedGalleries = {};
+    const activeSlideIndex = {};
+
+    // Deteksi foto otomatis berdasarkan pola: images/{prefix}-1.jpg, {prefix}-2.jpg, dst.
+    function probePackageImages(prefix, maxImages = 10) {
+      return new Promise((resolve) => {
+        const found = [];
+        let currentIndex = 1;
+
+        function checkNext() {
+          if (currentIndex > maxImages) {
+            resolve(found);
+            return;
+          }
+          const imgPath = `images/${prefix}-${currentIndex}.jpg`;
+          const tester = new Image();
+          tester.onload = () => {
+            found.push(imgPath);
+            currentIndex++;
+            checkNext();
+          };
+          tester.onerror = () => {
+            resolve(found);
+          };
+          tester.src = imgPath;
+        }
+
+        checkNext();
+      });
+    }
+
+    // Render seluruh kartu paket wisata
+    function renderTours(filter = "all") {
+      const grid = document.getElementById("tours-grid");
+      grid.innerHTML = "";
+
+      const filteredTours = toursData.filter(tour =>
+        filter === "all" ? true : tour.types.includes(filter)
+      );
+
+      filteredTours.forEach((tour) => {
+        const photos = detectedGalleries[tour.id] || [];
+        if (activeSlideIndex[tour.id] === undefined) activeSlideIndex[tour.id] = 0;
+
+        const card = document.createElement("article");
+        card.className = "bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition flex flex-col fade-in";
+
+        // Bagian Media / Galeri Foto Otomatis
+        let mediaHTML = "";
+        if (photos.length > 0) {
+          const currentImg = photos[activeSlideIndex[tour.id]];
+          mediaHTML = `
+            <div class="relative h-56 bg-slate-900 overflow-hidden group">
+              <img id="img-${tour.id}"
+                   src="${currentImg}"
+                   alt="${tour.title} - Wonderful Trip Jogja"
+                   loading="lazy"
+                   onclick="openLightbox('${tour.id}')"
+                   class="w-full h-full object-cover cursor-zoom-in group-hover:scale-105 transition duration-500" />
+              <span id="counter-${tour.id}" class="absolute bottom-3 right-3 bg-black/65 text-white text-xs font-medium px-2.5 py-1 rounded-full">
+                ${activeSlideIndex[tour.id] + 1} / ${photos.length} Foto
+              </span>
+              ${photos.length > 1 ? `
+                <button type="button" onclick="changeSlide('${tour.id}', -1)" aria-label="Foto sebelumnya"
+                        class="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/85 hover:bg-white text-slate-900 flex items-center justify-center shadow transition">
+                  &#8249;
+                </button>
+                <button type="button" onclick="changeSlide('${tour.id}', 1)" aria-label="Foto berikutnya"
+                        class="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/85 hover:bg-white text-slate-900 flex items-center justify-center shadow transition">
+                  &#8250;
+                </button>
+              ` : ""}
+            </div>
+          `;
+        } else {
+          // Tampilan fallback rapi jika foto belum diunggah ke folder images/
+          mediaHTML = `
+            <div class="relative h-56 bg-gradient-to-br ${tour.gradient} p-6 flex flex-col justify-end text-white">
+              <span class="text-xs uppercase tracking-widest text-white/75 font-semibold">Wonderful Trip Jogja</span>
+              <p class="text-lg font-bold leading-snug mt-1">${tour.title}</p>
+            </div>
+          `;
+        }
+
+        const highlightsHTML = tour.highlights
+          .map(item => `<li class="flex items-start gap-2 text-xs sm:text-sm text-slate-600"><span class="text-brand-600 font-bold mt-0.5">&#10003;</span><span>${item}</span></li>`)
+          .join("");
+
+        card.innerHTML = `
+          ${mediaHTML}
+          <div class="p-6 flex-1 flex flex-col">
+            <div class="flex flex-wrap gap-1.5 mb-3">
+              <span class="text-[11px] font-bold uppercase tracking-wide px-2.5 py-0.5 rounded-md bg-brand-50 text-brand-800 border border-brand-100">
+                Sharing Tour
+              </span>
+              <span class="text-[11px] font-bold uppercase tracking-wide px-2.5 py-0.5 rounded-md bg-amber-50 text-amber-800 border border-amber-100">
+                Private Tour
+              </span>
+            </div>
+
+            <h3 class="text-xl font-bold text-slate-900 leading-snug mb-2">${tour.title}</h3>
+
+            <div class="flex items-center gap-3 text-xs text-slate-500 font-medium mb-3">
+              <span>Durasi: ${tour.duration}</span>
+              <span>•</span>
+              <span>${tour.pickup}</span>
+            </div>
+
+            <p class="text-slate-600 text-sm leading-relaxed mb-4">${tour.description}</p>
+
+            <ul class="space-y-1.5 mb-6 flex-1">
+              ${highlightsHTML}
+            </ul>
+
+            <button type="button"
+                    onclick="openBookingModal('${tour.title.replace(/'/g, "\\'")}')"
+                    class="w-full bg-brand-700 hover:bg-brand-800 text-white font-semibold py-2.5 px-4 rounded-xl text-sm transition shadow-xs">
+              Pesan Paket Ini
+            </button>
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+    }
+
+    // Navigasi slider foto pada kartu paket
+    function changeSlide(tourId, direction) {
+      const photos = detectedGalleries[tourId];
+      if (!photos || photos.length <= 1) return;
+
+      const total = photos.length;
+      activeSlideIndex[tourId] = (activeSlideIndex[tourId] + direction + total) % total;
+
+      const imgEl = document.getElementById(`img-${tourId}`);
+      const counterEl = document.getElementById(`counter-${tourId}`);
+      if (imgEl) imgEl.src = photos[activeSlideIndex[tourId]];
+      if (counterEl) counterEl.textContent = `${activeSlideIndex[tourId] + 1} / ${total} Foto`;
+    }
+
+    // Lightbox Preview
+    function openLightbox(tourId) {
+      const photos = detectedGalleries[tourId];
+      if (!photos || photos.length === 0) return;
+
+      const tour = toursData.find(t => t.id === tourId);
+      const idx = activeSlideIndex[tourId] || 0;
+      const modal = document.getElementById("lightbox-modal");
+      document.getElementById("lightbox-img").src = photos[idx];
+      document.getElementById("lightbox-caption").textContent = `${tour.title} (${idx + 1}/${photos.length})`;
+
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    function closeLightbox() {
+      const modal = document.getElementById("lightbox-modal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    // Modal Pemesanan WhatsApp
+    let selectedTourName = "";
+
+    function openBookingModal(tourTitle) {
+      selectedTourName = tourTitle;
+      document.getElementById("modal-tour-title").textContent = tourTitle;
+
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      document.getElementById("booking-date").value = tomorrow.toISOString().split("T")[0];
+
+      const modal = document.getElementById("booking-modal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    function closeBookingModal() {
+      const modal = document.getElementById("booking-modal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    document.getElementById("booking-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const tourType = document.querySelector('input[name="tourType"]:checked').value;
+      const date = document.getElementById("booking-date").value;
+      const pax = document.getElementById("booking-pax").value;
+      const pickup = document.getElementById("booking-pickup").value.trim();
+      const name = document.getElementById("booking-name").value.trim();
+
+      const message =
+        `Halo *Wonderful Trip Jogja*, saya ingin memesan paket wisata:\n\n` +
+        `• *Paket:* ${selectedTourName}\n` +
+        `• *Tipe:* ${tourType}\n` +
+        `• *Tanggal:* ${date}\n` +
+        `• *Jumlah Peserta:* ${pax} orang\n` +
+        `• *Penjemputan:* ${pickup}\n` +
+        `• *Nama Pemesan:* ${name}\n\n` +
+        `Mohon informasi ketersediaan, itinerary lengkap, dan rincian biayanya. Terima kasih.`;
+
+      const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+      window.open(waUrl, "_blank", "noopener,noreferrer");
+      closeBookingModal();
+    });
+
+    // Filter Tab Listener
+    document.querySelectorAll(".filter-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filter-btn").forEach(b => {
+          b.classList.remove("bg-white", "text-slate-900", "shadow-sm");
+          b.classList.add("text-slate-600");
+        });
+        btn.classList.add("bg-white", "text-slate-900", "shadow-sm");
+        btn.classList.remove("text-slate-600");
+
+        renderTours(btn.dataset.filter);
+      });
+    });
+
+    // Inisialisasi: Render awal lalu pindai seluruh folder images/ secara paralel
+    async function initWebsite() {
+      renderTours("all");
+
+      await Promise.all(
+        toursData.map(async (tour) => {
+          const images = await probePackageImages(tour.prefix, 10);
+          detectedGalleries[tour.id] = images;
+        })
+      );
+
+      const activeBtn = document.querySelector(".filter-btn.bg-white");
+      renderTours(activeBtn ? activeBtn.dataset.filter : "all");
+    }
+
+    initWebsite();
+  </script>
+</body>
+</html>
