@@ -16,6 +16,7 @@
   <meta property="og:site_name" content="Wonderful Trip Jogja" />
   <meta property="og:title" content="Wonderful Trip Jogja | Sharing &amp; Private Tour Packages" />
   <meta property="og:description" content="Explore Yogyakarta's iconic temples, Merapi volcano, caves, beaches, and Bromo Tumpak Sewu Ijen overland tours starting from Jogja." />
+  <meta property="og:image" content="https://ardhoihsanaputra-blip.github.io/wonderfuljogjatrip/borobudur-sunrise-1.jpg" />
 
   <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -45,6 +46,7 @@
       {
         "@type": "TravelAgency",
         "name": "Wonderful Trip Jogja",
+        "url": "https://ardhoihsanaputra-blip.github.io/wonderfuljogjatrip/",
         "description": "Sharing and private tour packages in Yogyakarta, Borobudur, Prambanan, Merapi Jeep, Jomblang Cave, Timang Beach, and Bromo Tumpak Sewu Ijen overland from Jogja.",
         "telephone": "+6285747180428",
         "priceRange": "$$",
@@ -88,7 +90,7 @@
       opacity: 0.45;
     }
     .slide-fade {
-      transition: opacity 0.4s ease-in-out, transform 0.5s ease;
+      transition: opacity 0.35s ease-in-out, transform 0.5s ease;
     }
   </style>
 </head>
@@ -140,12 +142,12 @@
     <div class="absolute -bottom-24 left-1/3 w-80 h-80 rounded-full bg-cyan-400 blob-glow pointer-events-none"></div>
 
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-      <div class="lg:col-span-7">
+      <div class="lg:col-span-6">
         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 backdrop-blur-xs border border-white/20 text-amber-200 text-xs font-bold uppercase tracking-wider mb-5">
           <span>Yogyakarta • Bromo • Tumpak Sewu • Ijen</span>
         </div>
 
-        <h1 class="font-display text-3xl sm:text-5xl lg:text-[52px] font-extrabold leading-[1.12] tracking-tight mb-5" data-i18n="heroTitle">
+        <h1 class="font-display text-3xl sm:text-5xl lg:text-[50px] font-extrabold leading-[1.12] tracking-tight mb-5" data-i18n="heroTitle">
           Liburan Seru ke <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-orange-300 to-pink-300">Jogja, Bromo &amp; Kawah Ijen</span> Tanpa Ribet
         </h1>
 
@@ -178,17 +180,17 @@
         </div>
       </div>
 
-      <div class="lg:col-span-5">
+      <div class="lg:col-span-6">
         <div class="p-2 rounded-3xl bg-gradient-to-tr from-amber-400 via-fuchsia-500 to-cyan-400 shadow-2xl">
-          <div class="relative rounded-[20px] overflow-hidden bg-slate-900 aspect-[3/2] flex items-center justify-center">
-            <img id="hero-showcase-img"
-                 src=""
-                 alt="Wonderful Trip Jogja Showcase"
-                 class="hidden w-full h-full object-cover slide-fade" />
-            <div id="hero-placeholder" class="text-center p-6 text-indigo-200 text-xs font-semibold">
-              Memuat foto dari repositori...
-            </div>
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent flex flex-col justify-end p-6 pointer-events-none">
+          <div class="relative rounded-[20px] overflow-hidden bg-slate-900 aspect-[4/3] min-h-[260px]">
+            <picture id="hero-picture" class="block w-full h-full">
+              <source id="hero-source-webp" srcset="borobudur-sunrise-1.webp" type="image/webp" />
+              <img id="hero-showcase-img"
+                   src="borobudur-sunrise-1.jpg"
+                   alt="Wonderful Trip Jogja Showcase"
+                   class="w-full h-full object-cover object-center slide-fade" />
+            </picture>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent flex flex-col justify-end p-6 pointer-events-none">
               <span class="self-start text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 mb-2" data-i18n="heroCardBadge">
                 Berangkat Setiap Hari
               </span>
@@ -403,10 +405,10 @@
     </div>
   </div>
 
-  <!-- Lightbox Modal -->
+  <!-- Lightbox Modal (tampil utuh tanpa terpotong) -->
   <div id="lightbox-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/90 p-4" onclick="closeLightbox()">
     <button type="button" aria-label="Close" class="absolute top-5 right-6 text-white text-3xl font-light">&times;</button>
-    <img id="lightbox-img" src="" alt="Tour Preview" class="max-h-[85vh] max-w-full rounded-2xl shadow-2xl object-contain" onclick="event.stopPropagation()" />
+    <img id="lightbox-img" src="" alt="Tour Preview" class="max-h-[88vh] max-w-[94vw] rounded-2xl shadow-2xl object-contain" onclick="event.stopPropagation()" />
     <p id="lightbox-caption" class="absolute bottom-5 text-white text-xs sm:text-sm font-bold bg-gradient-to-r from-fuchsia-600 to-orange-500 px-4 py-1.5 rounded-full"></p>
   </div>
 
@@ -414,7 +416,6 @@
     const WHATSAPP_NUMBER = "6285747180428";
     const AUTO_SLIDE_INTERVAL_MS = 3500;
 
-    // Konfigurasi repositori GitHub milik Anda
     const GITHUB_OWNER = "ardhoihsanaputra-blip";
     const GITHUB_REPO = "wonderfuljogjatrip";
     const GITHUB_BRANCH = "main";
@@ -547,6 +548,7 @@
     const toursData = [
       {
         id: "punthuk-setumbu",
+        defaultImage: "punthuk-setumbu-1.jpg",
         keywords: ["punthuk", "setumbu", "situmbu"],
         category: "jogja",
         accentGradient: "from-rose-500 via-pink-600 to-purple-600",
@@ -577,6 +579,7 @@
       },
       {
         id: "borobudur-prambanan",
+        defaultImage: "borobudur-prambanan-1.jpg",
         keywords: ["borobudur-prambanan", "prambanan"],
         category: "jogja",
         accentGradient: "from-fuchsia-600 via-purple-600 to-indigo-600",
@@ -607,6 +610,7 @@
       },
       {
         id: "borobudur-sunrise",
+        defaultImage: "borobudur-sunrise-1.jpg",
         keywords: ["borobudur"],
         category: "jogja",
         accentGradient: "from-amber-500 via-orange-500 to-rose-500",
@@ -637,6 +641,7 @@
       },
       {
         id: "merapi-jeep",
+        defaultImage: "merapi-jeep-1.jpg",
         keywords: ["merapi", "jeep"],
         category: "jogja",
         accentGradient: "from-orange-500 via-red-500 to-amber-600",
@@ -667,6 +672,7 @@
       },
       {
         id: "jomblang-pindul",
+        defaultImage: "jomblang-pindul-1.jpg",
         keywords: ["jomblang", "pindul"],
         category: "jogja",
         accentGradient: "from-emerald-500 via-teal-500 to-cyan-600",
@@ -697,6 +703,7 @@
       },
       {
         id: "pantai-timang",
+        defaultImage: "pantai-timang-1.jpg",
         keywords: ["timang", "pantai"],
         category: "jogja",
         accentGradient: "from-cyan-500 via-sky-500 to-blue-600",
@@ -727,6 +734,7 @@
       },
       {
         id: "bromo-tumpak-sewu-ijen",
+        defaultImage: "bromo-tumpak-sewu-ijen-1.jpg",
         keywords: ["tumpak", "sewu"],
         category: "jatim",
         accentGradient: "from-violet-600 via-fuchsia-600 to-orange-500",
@@ -757,6 +765,7 @@
       },
       {
         id: "bromo-ijen",
+        defaultImage: "bromo-ijen-1.jpg",
         keywords: ["bromo", "ijen"],
         category: "jatim",
         accentGradient: "from-indigo-600 via-blue-600 to-cyan-500",
@@ -787,20 +796,42 @@
       }
     ];
 
-    function detectInitialLanguage() {
+    function detectAutoLanguage() {
       const saved = localStorage.getItem("wtj_lang");
       if (saved === "id" || saved === "en") return saved;
-      const browserLang = (navigator.language || navigator.userLanguage || "en").toLowerCase();
-      return browserLang.startsWith("id") ? "id" : "en";
+      const langs = Array.isArray(navigator.languages) && navigator.languages.length > 0
+        ? navigator.languages
+        : [navigator.language || navigator.userLanguage || "en"];
+      const hasIndonesian = langs.some(code => String(code).toLowerCase().startsWith("id"));
+      return hasIndonesian ? "id" : "en";
     }
 
-    let currentLang = detectInitialLanguage();
+    let currentLang = detectAutoLanguage();
     let currentFilter = "all";
     const detectedGalleries = {};
     const activeSlideIndex = {};
     const slideTimers = {};
     const pausedCards = {};
     let allRepoImageUrls = [];
+
+    toursData.forEach(t => {
+      detectedGalleries[t.id] = [t.defaultImage];
+      activeSlideIndex[t.id] = 0;
+    });
+
+    function buildPictureHTML(imgId, srcPath, altText, extraImgClass = "") {
+      const webpPath = srcPath.replace(/\.(jpg|jpeg|png)$/i, ".webp");
+      return `
+        <picture class="block w-full h-full">
+          <source srcset="${webpPath}" type="image/webp" />
+          <img id="${imgId}"
+               src="${srcPath}"
+               alt="${altText}"
+               loading="lazy"
+               class="w-full h-full object-cover object-center slide-fade ${extraImgClass}" />
+        </picture>
+      `;
+    }
 
     function applyTranslations() {
       const dict = uiStrings[currentLang];
@@ -838,7 +869,15 @@
       renderTours(currentFilter);
     }
 
-    // Mengambil daftar file secara rekursif dari GitHub Contents API
+    // Ikuti perubahan bahasa sistem/browser jika pengguna belum memilih bahasa secara manual
+    window.addEventListener("languagechange", () => {
+      if (!localStorage.getItem("wtj_lang")) {
+        currentLang = detectAutoLanguage();
+        applyTranslations();
+        renderTours(currentFilter);
+      }
+    });
+
     async function fetchRepoImageUrls(folderPath = "") {
       const endpoint = folderPath
         ? `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${encodeURIComponent(folderPath)}?ref=${GITHUB_BRANCH}`
@@ -857,7 +896,6 @@
 
       for (const item of entries) {
         if (item.type === "file" && imageExtRegex.test(item.name)) {
-          // Gunakan path relatif agar tetap ringan & langsung memuat dari GitHub Pages
           urls.push(item.path);
         } else if (item.type === "dir" && !item.name.startsWith(".")) {
           const nested = await fetchRepoImageUrls(item.path);
@@ -868,29 +906,27 @@
       return urls.sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
     }
 
-    // Mencocokkan tiap file gambar di repositori ke paket tour berdasarkan nama file
     function mapImagesToTours(imagePaths) {
+      if (!imagePaths || imagePaths.length === 0) return;
+
       allRepoImageUrls = imagePaths;
-      toursData.forEach(t => {
-        detectedGalleries[t.id] = [];
-        activeSlideIndex[t.id] = 0;
-      });
+      const tempMap = {};
+      toursData.forEach(t => { tempMap[t.id] = []; });
 
       imagePaths.forEach((filePath) => {
         const lowerName = filePath.toLowerCase();
-
-        // Cek kecocokan spesifik terlebih dahulu (misal: tumpak-sewu sebelum bromo-ijen)
-        let matchedTour = null;
         for (const tour of toursData) {
-          const isMatch = tour.keywords.every(kw => lowerName.includes(kw));
-          if (isMatch) {
-            matchedTour = tour;
+          if (tour.keywords.every(kw => lowerName.includes(kw))) {
+            tempMap[tour.id].push(filePath);
             break;
           }
         }
+      });
 
-        if (matchedTour) {
-          detectedGalleries[matchedTour.id].push(filePath);
+      toursData.forEach(tour => {
+        if (tempMap[tour.id].length > 0) {
+          detectedGalleries[tour.id] = tempMap[tour.id];
+          activeSlideIndex[tour.id] = 0;
         }
       });
     }
@@ -905,9 +941,15 @@
       const counterEl = document.getElementById(`counter-${tourId}`);
 
       if (imgEl) {
+        const nextSrc = photos[idx];
+        const parentPicture = imgEl.closest("picture");
+        const sourceWebp = parentPicture ? parentPicture.querySelector("source[type='image/webp']") : null;
+        if (sourceWebp) {
+          sourceWebp.srcset = nextSrc.replace(/\.(jpg|jpeg|png)$/i, ".webp");
+        }
         imgEl.style.opacity = "0.35";
         setTimeout(() => {
-          imgEl.src = photos[idx];
+          imgEl.src = nextSrc;
           imgEl.style.opacity = "1";
         }, 160);
       }
@@ -919,9 +961,9 @@
       const thumbButtons = document.querySelectorAll(`[data-thumb-tour="${tourId}"]`);
       thumbButtons.forEach((btn, i) => {
         if (i === idx) {
-          btn.className = "w-12 h-8 rounded-lg overflow-hidden border-2 shrink-0 transition border-fuchsia-600 scale-105";
+          btn.className = "w-14 h-10 rounded-lg overflow-hidden border-2 shrink-0 transition border-fuchsia-600 scale-105";
         } else {
-          btn.className = "w-12 h-8 rounded-lg overflow-hidden border-2 shrink-0 transition border-transparent opacity-60 hover:opacity-100";
+          btn.className = "w-14 h-10 rounded-lg overflow-hidden border-2 shrink-0 transition border-transparent opacity-60 hover:opacity-100";
         }
       });
     }
@@ -947,25 +989,25 @@
     let heroTimer = null;
     function startHeroAutoSlide() {
       if (heroTimer) clearInterval(heroTimer);
-      if (allRepoImageUrls.length === 0) return;
-
-      const heroImg = document.getElementById("hero-showcase-img");
-      const heroPlaceholder = document.getElementById("hero-placeholder");
-      if (heroPlaceholder) heroPlaceholder.classList.add("hidden");
-      if (heroImg) {
-        heroImg.classList.remove("hidden");
-        heroImg.src = allRepoImageUrls[0];
-      }
-
-      if (allRepoImageUrls.length <= 1) return;
+      const heroPool = allRepoImageUrls.length > 0
+        ? allRepoImageUrls
+        : toursData.map(t => t.defaultImage);
+      if (heroPool.length <= 1) return;
 
       let heroIdx = 0;
+      const heroImg = document.getElementById("hero-showcase-img");
+      const heroSourceWebp = document.getElementById("hero-source-webp");
+
       heroTimer = setInterval(() => {
         if (!heroImg || document.hidden) return;
-        heroIdx = (heroIdx + 1) % allRepoImageUrls.length;
+        heroIdx = (heroIdx + 1) % heroPool.length;
+        const nextSrc = heroPool[heroIdx];
+        if (heroSourceWebp) {
+          heroSourceWebp.srcset = nextSrc.replace(/\.(jpg|jpeg|png)$/i, ".webp");
+        }
         heroImg.style.opacity = "0.35";
         setTimeout(() => {
-          heroImg.src = allRepoImageUrls[heroIdx];
+          heroImg.src = nextSrc;
           heroImg.style.opacity = "1";
         }, 180);
       }, 4500);
@@ -983,70 +1025,55 @@
 
       filtered.forEach((tour) => {
         const localized = currentLang === "id" ? tour.idData : tour.enData;
-        const photos = detectedGalleries[tour.id] || [];
+        const photos = detectedGalleries[tour.id] || [tour.defaultImage];
         if (activeSlideIndex[tour.id] === undefined) activeSlideIndex[tour.id] = 0;
+
+        const currentImg = photos[activeSlideIndex[tour.id]] || tour.defaultImage;
 
         const card = document.createElement("article");
         card.className = "bg-white rounded-3xl border border-slate-200/90 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col fade-in";
         card.addEventListener("mouseenter", () => { pausedCards[tour.id] = true; });
         card.addEventListener("mouseleave", () => { pausedCards[tour.id] = false; });
 
-        let mediaHTML = "";
-        if (photos.length > 0) {
-          const currentImg = photos[activeSlideIndex[tour.id]];
-          const thumbsHTML = photos.length > 1 ? `
-            <div class="flex gap-1.5 px-4 pt-3 overflow-x-auto">
-              ${photos.map((src, idx) => `
-                <button type="button"
-                        data-thumb-tour="${tour.id}"
-                        onclick="selectSlide('${tour.id}', ${idx})"
-                        class="w-12 h-8 rounded-lg overflow-hidden border-2 shrink-0 transition ${idx === activeSlideIndex[tour.id] ? 'border-fuchsia-600 scale-105' : 'border-transparent opacity-60 hover:opacity-100'}">
-                  <img src="${src}" alt="Thumbnail ${idx + 1}" class="w-full h-full object-cover" />
-                </button>
-              `).join("")}
-            </div>
-          ` : "";
+        const thumbsHTML = photos.length > 1 ? `
+          <div class="flex gap-2 px-4 pt-3.5 overflow-x-auto">
+            ${photos.map((src, idx) => `
+              <button type="button"
+                      data-thumb-tour="${tour.id}"
+                      onclick="selectSlide('${tour.id}', ${idx})"
+                      class="w-14 h-10 rounded-lg overflow-hidden border-2 shrink-0 transition ${idx === activeSlideIndex[tour.id] ? 'border-fuchsia-600 scale-105' : 'border-transparent opacity-60 hover:opacity-100'}">
+                <picture class="block w-full h-full">
+                  <source srcset="${src.replace(/\.(jpg|jpeg|png)$/i, '.webp')}" type="image/webp" />
+                  <img src="${src}" alt="${localized.title} ${idx + 1}" class="w-full h-full object-cover object-center" />
+                </picture>
+              </button>
+            `).join("")}
+          </div>
+        ` : "";
 
-          mediaHTML = `
-            <div class="relative aspect-[3/2] bg-slate-900 overflow-hidden group">
-              <img id="img-${tour.id}"
-                   src="${currentImg}"
-                   alt="${localized.title} - Wonderful Trip Jogja"
-                   loading="lazy"
-                   onclick="openLightbox('${tour.id}')"
-                   class="w-full h-full object-cover cursor-zoom-in group-hover:scale-105 slide-fade" />
-              <span class="absolute top-3.5 left-3.5 bg-gradient-to-r ${tour.accentGradient} text-white text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full shadow">
-                ${localized.badge}
-              </span>
-              <span id="counter-${tour.id}" class="absolute bottom-3.5 right-3.5 bg-slate-950/75 backdrop-blur-xs text-white text-xs font-bold px-3 py-1 rounded-full">
-                ${activeSlideIndex[tour.id] + 1} / ${photos.length} ${dict.photoLabel}
-              </span>
-              ${photos.length > 1 ? `
-                <button type="button" onclick="changeSlide('${tour.id}', -1)" aria-label="Previous photo"
-                        class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-slate-900 font-bold flex items-center justify-center shadow-md transition">
-                  &#8249;
-                </button>
-                <button type="button" onclick="changeSlide('${tour.id}', 1)" aria-label="Next photo"
-                        class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-slate-900 font-bold flex items-center justify-center shadow-md transition">
-                  &#8250;
-                </button>
-              ` : ""}
-            </div>
-            ${thumbsHTML}
-          `;
-        } else {
-          mediaHTML = `
-            <div class="relative aspect-[3/2] bg-gradient-to-br ${tour.accentGradient} p-7 flex flex-col justify-between text-white">
-              <span class="self-start bg-white/20 backdrop-blur-xs text-xs font-extrabold uppercase tracking-wider px-3 py-1 rounded-full">
-                ${localized.badge}
-              </span>
-              <div>
-                <span class="text-xs uppercase tracking-widest text-white/80 font-bold">Wonderful Trip Jogja</span>
-                <p class="font-display text-2xl font-extrabold leading-snug mt-1">${localized.title}</p>
-              </div>
-            </div>
-          `;
-        }
+        // Bingkai foto diperbesar (aspect-[4/3] dengan tinggi minimum nyaman di HP & desktop)
+        const mediaHTML = `
+          <div class="relative aspect-[4/3] min-h-[250px] sm:min-h-[300px] bg-slate-900 overflow-hidden group cursor-zoom-in" onclick="openLightbox('${tour.id}')">
+            ${buildPictureHTML(`img-${tour.id}`, currentImg, `${localized.title} - Wonderful Trip Jogja`, "group-hover:scale-105")}
+            <span class="absolute top-3.5 left-3.5 bg-gradient-to-r ${tour.accentGradient} text-white text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full shadow pointer-events-none">
+              ${localized.badge}
+            </span>
+            <span id="counter-${tour.id}" class="absolute bottom-3.5 right-3.5 bg-slate-950/75 backdrop-blur-xs text-white text-xs font-bold px-3 py-1 rounded-full pointer-events-none">
+              ${activeSlideIndex[tour.id] + 1} / ${photos.length} ${dict.photoLabel}
+            </span>
+            ${photos.length > 1 ? `
+              <button type="button" onclick="event.stopPropagation(); changeSlide('${tour.id}', -1)" aria-label="Previous photo"
+                      class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 hover:bg-white text-slate-900 text-lg font-bold flex items-center justify-center shadow-md transition">
+                &#8249;
+              </button>
+              <button type="button" onclick="event.stopPropagation(); changeSlide('${tour.id}', 1)" aria-label="Next photo"
+                      class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 hover:bg-white text-slate-900 text-lg font-bold flex items-center justify-center shadow-md transition">
+                &#8250;
+              </button>
+            ` : ""}
+          </div>
+          ${thumbsHTML}
+        `;
 
         const highlightsHTML = localized.highlights
           .map(item => `<li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-600"><span class="text-fuchsia-600 font-extrabold mt-0.5">&#10003;</span><span>${item}</span></li>`)
@@ -1196,13 +1223,16 @@
     async function initWebsite() {
       applyTranslations();
       renderTours("all");
-
-      const repoImages = await fetchRepoImageUrls("");
-      mapImagesToTours(repoImages);
-
-      renderTours(currentFilter);
       startAllAutoSlides();
       startHeroAutoSlide();
+
+      const repoImages = await fetchRepoImageUrls("");
+      if (repoImages.length > 0) {
+        mapImagesToTours(repoImages);
+        renderTours(currentFilter);
+        startAllAutoSlides();
+        startHeroAutoSlide();
+      }
     }
 
     initWebsite();
