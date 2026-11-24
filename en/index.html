@@ -73,7 +73,6 @@ section{padding:60px 0}h2{font-size:clamp(1.6rem,4vw,2.3rem);margin-bottom:6px}
 .inf{padding:16px 18px 8px;display:flex;flex-direction:column;gap:6px;flex:1}
 .inf em{font-style:normal;align-self:flex-start;background:#e7f0fd;color:var(--p);font-size:.7rem;font-weight:800;padding:2px 10px;border-radius:4px;letter-spacing:.04em}
 .inf h3{font-size:1.2rem}.inf p{font-size:.9rem;color:var(--mut)}.inf small{color:var(--mut);font-size:.8rem}
-.cut{display:none}
 .bot{padding:12px 18px 18px;display:flex;align-items:flex-end;justify-content:space-between;gap:10px;border-top:1px solid var(--line);margin-top:8px}
 .pr{display:flex;gap:16px;flex-wrap:wrap}.pr div{font-size:.72rem;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}
 .pr b{display:block;font-size:1.1rem;color:var(--p);text-transform:none}
@@ -101,7 +100,7 @@ footer{background:var(--pd);color:#a9bdd9;padding:48px 0 22px;font-size:.9rem}fo
 <nav><a href="#packages">Tours</a><a href="#booking">Booking</a><a href="#info">Info</a><a href="#faq">FAQ</a></nav>
 <div class="hdr-r"><a class="lang" hreflang="id" href="../" onclick="localStorage.setItem('wtj_lang','id')">🇮🇩 ID</a><a class="btn o" href="#booking">Book Now</a></div></div></header>
 
-<section class="hero" style="padding:0"><img src="../borobudur-sunrise-1.jpg" alt="Borobudur Sunrise Tour" fetchpriority="high" onerror="this.remove()"><img src="../bromo-ijen-sunrise-penanjakan.jpg" alt="Mount Bromo Sunrise Tour" loading="lazy" onerror="this.remove()"><img src="../merapi-jeep.jpg" alt="Mount Merapi Jeep Lava Tour" loading="lazy" onerror="this.remove()"><img src="../tumpak-sewu.jpg" alt="Tumpak Sewu Waterfall Tour" loading="lazy" onerror="this.remove()"><div class="w">
+<section class="hero" style="padding:0"><img src="../borobudur-sunrise-1.jpg" alt="Borobudur Sunrise Tour" fetchpriority="high"><img src="../bromo-ijen-sunrise-penanjakan.jpg" alt="Mount Bromo Sunrise Tour" loading="lazy"><img src="../merapi-jeep.jpg" alt="Mount Merapi Jeep Lava Tour" loading="lazy"><img src="../tumpak-sewu.jpg" alt="Tumpak Sewu Waterfall Tour" loading="lazy"><div class="w">
 <p class="kick">Yogyakarta • Merapi • Bromo • Ijen</p>
 <h1>Explore Jogja, Merapi, Bromo &amp; <i>Ijen</i></h1><p>Sharing and private tour packages with clear per-person rates. Direct pickup at your hotel or train station in Yogyakarta.</p>
 <a class="btn o" href="#packages">View Tour Packages</a>
@@ -158,17 +157,26 @@ footer{background:var(--pd);color:#a9bdd9;padding:48px 0 22px;font-size:.9rem}fo
 localStorage.setItem("wtj_lang","en");
 var WA="6285747180428",$=function(i){return document.getElementById(i)};
 var rp=function(n){return"IDR "+Math.round(n).toLocaleString("en-US")};
+
+var OWNER="ardhoihsanaputra-blip",REPO="wonderfuljogjatrip",BRANCH="main";
+var FALLBACK_FILES=[
+  "borobudur-sunrise-1.jpg",
+  "bromo-ijen-sunrise-penanjakan.jpg",
+  "merapi-jeep.jpg",
+  "tumpak-sewu.jpg"
+];
+
 var P=[
-{id:"tp",c:"temple",e:"🏯",n:"Temple Tour",d:"Borobudur, Prambanan, and golden sunrise viewpoints. Choose your route below.",tm:["07:00"],b:"Best Seller",g:"#7c3aed,#db2777",v:[
+{id:"tp",c:"temple",e:"🏯",n:"Temple Tour",d:"Borobudur, Prambanan, and golden sunrise viewpoints. Choose your route below.",tm:["07:00"],b:"Best Seller",g:"#7c3aed,#db2777",kw:["borobudur","prambanan","setumbu","temple","candi"],v:[
  {n:"Borobudur & Prambanan",s:[350000,350000,270000,225000],p:[750000,400000,300000,250000],tm:["07:00","08:00","09:00"],cl:1},
  {n:"Borobudur Sunrise Only",s:[350000,350000,270000,225000],p:[750000,400000,300000,250000],tm:["03:30"],cl:1},
  {n:"Borobudur Sunrise + Prambanan",s:[400000,385000,290000,240000],p:[800000,425000,320000,265000],tm:["03:30"],cl:1},
  {n:"Punthuk Setumbu Sunrise + Borobudur + Prambanan",s:[500000,405000,305000,250000],p:[850000,450000,340000,280000],tm:["03:30"],cl:1}
 ]},
-{id:"jp",c:"nature",e:"🕳️",n:"Jomblang & Pindul Cave",d:"Vertical rappel into Jomblang Cave & underground river tubing at Pindul Cave.",s:[350000,350000,270000,225000],p:[750000,400000,300000,250000],tm:["07:00"],b:"Adventure",g:"#0d9488,#0284c7"},
-{id:"mj",c:"volcano",e:"🚙",n:"Merapi 4x4 Jeep Tour",d:"Thrilling 4WD off-road adventure across the volcanic slopes of Mount Merapi.",s:[250000,235000,200000,180000],p:[550000,320000,250000,220000],tm:["07:00","13:00"],b:"Popular",g:"#ea580c,#dc2626"},
-{id:"bi",c:"jatim",e:"🔥",n:"Bromo & Ijen from Jogja",d:"All-inclusive overland expedition to Mount Bromo & Ijen Crater starting from Yogyakarta.",sh:4500000,pr:5200000,tm:["07:00"],b:"Overland",g:"#4f46e5,#06b6d4",min:2},
-{id:"bti",c:"jatim",e:"🌊",n:"Bromo, Tumpak Sewu & Ijen from Jogja",d:"Complete East Java overland journey covering Tumpak Sewu Waterfall, Bromo & Ijen Crater.",sh:6000000,pr:6800000,tm:["07:00"],b:"Complete",g:"#9333ea,#f97316",min:2}
+{id:"jp",c:"nature",e:"🕳️",n:"Jomblang & Pindul Cave",d:"Vertical rappel into Jomblang Cave & underground river tubing at Pindul Cave.",s:[350000,350000,270000,225000],p:[750000,400000,300000,250000],tm:["07:00"],b:"Adventure",g:"#0d9488,#0284c7",kw:["jomblang","pindul","cave","goa"]},
+{id:"mj",c:"volcano",e:"🚙",n:"Merapi 4x4 Jeep Tour",d:"Thrilling 4WD off-road adventure across the volcanic slopes of Mount Merapi.",s:[250000,235000,200000,180000],p:[550000,320000,250000,220000],tm:["07:00","13:00"],b:"Popular",g:"#ea580c,#dc2626",kw:["merapi","jeep","lava"]},
+{id:"bi",c:"jatim",e:"🔥",n:"Bromo & Ijen from Jogja",d:"All-inclusive overland expedition to Mount Bromo & Ijen Crater starting from Yogyakarta.",sh:4500000,pr:5200000,tm:["07:00"],b:"Overland",g:"#4f46e5,#06b6d4",min:2,kw:["bromo","ijen"]},
+{id:"bti",c:"jatim",e:"🌊",n:"Bromo, Tumpak Sewu & Ijen from Jogja",d:"Complete East Java overland journey covering Tumpak Sewu Waterfall, Bromo & Ijen Crater.",sh:6000000,pr:6800000,tm:["07:00"],b:"Complete",g:"#9333ea,#f97316",min:2,kw:["tumpak","sewu","waterfall"]}
 ];
 
 function tierRate(arr,n){if(!arr)return 0;if(n<=1)return arr[0];if(n===2)return arr[1];if(n<=5)return arr[2];return arr[3]}
@@ -186,13 +194,98 @@ P.forEach(function(p){
   var opt2=document.createElement("option");opt2.value=p.id;opt2.textContent=p.n;hqSel.appendChild(opt2);
 
   var card=document.createElement("article");
-  card.className="tk reveal";card.dataset.c=p.c;
+  card.className="tk reveal";card.dataset.c=p.c;card.dataset.id=p.id;
   var cols=p.g.split(",");
   card.style.setProperty("--a",cols[0]);card.style.setProperty("--b",cols[1]||cols[0]);
   var basePrice=p.v?p.v[0].s[3]:(p.s?p.s[3]:p.sh);
   card.innerHTML='<div class="pic"><span class="stamp">'+p.e+'</span></div><div class="inf"><em>'+p.b+'</em><h3>'+p.n+'</h3><p>'+p.d+'</p><small>Pickup times: '+p.tm.join(", ")+'</small></div><div class="bot"><div class="pr"><div>Starting from<b>'+rp(basePrice)+'</b><small>/pax</small></div></div><a class="btn" href="#booking" data-pick="'+p.id+'">Select</a></div>';
   grid.appendChild(card);
 });
+
+function toEnRelSrc(path){
+  var clean=String(path||"").replace(/^\/+/,"");
+  if(!clean)return "";
+  if(/^https?:\/\//i.test(clean)||clean.indexOf("../")===0)return clean;
+  return "../"+clean;
+}
+
+function mountCardPhotos(pkgId, relPaths){
+  var card=grid.querySelector('.tk[data-id="'+pkgId+'"]');
+  if(!card||!relPaths||!relPaths.length)return;
+  var pic=card.querySelector(".pic");
+  pic.querySelectorAll("img").forEach(function(im){im.remove()});
+
+  var imgs=relPaths.map(function(rel,idx){
+    var img=document.createElement("img");
+    img.src=toEnRelSrc(rel);
+    img.alt=pkgId+" tour photo "+(idx+1);
+    img.loading=idx===0?"eager":"lazy";
+    if(idx===0)img.classList.add("on");
+    img.addEventListener("load",function(){pic.classList.add("has")});
+    img.addEventListener("error",function(){img.remove()});
+    pic.appendChild(img);
+    return img;
+  });
+
+  if(imgs.length>1){
+    var cur=0;
+    setInterval(function(){
+      var valid=pic.querySelectorAll("img");
+      if(valid.length<2||document.hidden)return;
+      valid[cur%valid.length].classList.remove("on");
+      cur=(cur+1)%valid.length;
+      valid[cur].classList.add("on");
+    },3500);
+  }
+}
+
+async function fetchRepoImages(folder){
+  var url=folder
+    ? "https://api.github.com/repos/"+OWNER+"/"+REPO+"/contents/"+encodeURIComponent(folder)+"?ref="+BRANCH
+    : "https://api.github.com/repos/"+OWNER+"/"+REPO+"/contents?ref="+BRANCH;
+  var res=await fetch(url);
+  if(!res.ok)return[];
+  var entries=await res.json();
+  if(!Array.isArray(entries))return[];
+  var out=[];
+  for(var i=0;i<entries.length;i++){
+    var item=entries[i];
+    if(item.type==="file"&&/\.(jpe?g|png|webp)$/i.test(item.name)){
+      out.push(item.path);
+    }else if(item.type==="dir"&&item.name!=="en"&&item.name!=="css"&&item.name[0]!=="."){
+      var sub=await fetchRepoImages(item.path);
+      out=out.concat(sub);
+    }
+  }
+  return out;
+}
+
+async function loadRepoPhotos(){
+  var files=[];
+  try{
+    files=await fetchRepoImages("");
+  }catch(e){}
+
+  if(!files.length){
+    files=FALLBACK_FILES.slice();
+  }
+
+  var heroEls=document.querySelectorAll(".hero > img");
+  if(heroEls.length&&files.length){
+    files.slice(0,heroEls.length).forEach(function(fn,i){
+      heroEls[i].src=toEnRelSrc(fn);
+    });
+  }
+
+  P.forEach(function(pkg){
+    var matched=files.filter(function(fn){
+      var low=fn.toLowerCase();
+      return (pkg.kw||[]).some(function(k){return low.indexOf(k)!==-1});
+    });
+    if(!matched.length)matched=files.slice(0,2);
+    mountCardPhotos(pkg.id,matched);
+  });
+}
 
 function syncVariants(){
   var pkg=P.find(function(x){return x.id===pkSel.value})||P[0];
@@ -286,6 +379,7 @@ var tmr=new Date();tmr.setDate(tmr.getDate()+1);
 var defDate=tmr.toISOString().slice(0,10);
 dIn.value=defDate;hdIn.value=defDate;
 syncVariants();
+loadRepoPhotos();
 })();
 </script>
 </body>
