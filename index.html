@@ -20,7 +20,7 @@
 {"@type":"TouristTrip","name":"Borobudur Sunrise Tour","offers":{"@type":"Offer","priceCurrency":"IDR","price":"500000"}},
 {"@type":"TouristTrip","name":"Borobudur Sunrise & Prambanan Tour","offers":{"@type":"Offer","priceCurrency":"IDR","price":"550000"}},
 {"@type":"TouristTrip","name":"Punthuk Setumbu Sunrise, Borobudur & Prambanan Tour","offers":{"@type":"Offer","priceCurrency":"IDR","price":"550000"}},
-{"@type":"TouristTrip","name":"Jomblang & Pindul Cave Adventure","offers":{"@type":"Offer","priceCurrency":"IDR","price":"225000"}},
+{"@type":"TouristTrip","name":"Jomblang & Pindul Cave Adventure","offers":{"@type":"Offer","priceCurrency":"IDR","price":"350000"}},
 {"@type":"TouristTrip","name":"Mount Merapi 4x4 Jeep Lava Tour","offers":{"@type":"Offer","priceCurrency":"IDR","price":"400000"}},
 {"@type":"TouristTrip","name":"Mount Bromo & Ijen Crater Tour from Jogja","offers":{"@type":"Offer","priceCurrency":"IDR","price":"4500000"}},
 {"@type":"TouristTrip","name":"Mount Bromo, Tumpak Sewu Waterfall & Ijen Crater from Jogja","offers":{"@type":"Offer","priceCurrency":"IDR","price":"6000000"}}]}]}
@@ -60,11 +60,8 @@ section{padding:60px 0}h2{font-size:clamp(1.6rem,4vw,2.3rem);margin-bottom:6px}
 .feat div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:22px;transition:transform .3s,box-shadow .3s}.feat div:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(23,105,224,.15)}
 .feat div.promo-card{background:linear-gradient(135deg,#fffbeb,#fef3c7);border-color:#f59e0b}
 .feat i{font-style:normal;font-size:2rem;display:block;margin-bottom:6px}.feat h3{font-size:1.05rem;margin-bottom:4px}.feat p{color:var(--mut);font-size:.9rem}
-.notice-banner{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-bottom:24px}
 .notice-box{border-radius:10px;padding:15px 18px;display:flex;align-items:flex-start;gap:12px;font-size:.9rem;line-height:1.5}
 .notice-box.warn{background:#fff7ed;border:1.5px solid #fb923c;color:#7c2d12}
-.notice-box.beer{background:#fefce8;border:1.5px solid #eab308;color:#713f12}
-.notice-box.hotel{background:#eff6ff;border:1.5px solid #60a5fa;color:#1e3a8a}
 .notice-box span{font-size:1.45rem;line-height:1.2}
 .notice-box strong{display:block;font-size:.95rem;margin-bottom:2px}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
@@ -117,22 +114,21 @@ footer{background:var(--pd);color:#a9bdd9;padding:48px 0 22px;font-size:.9rem}fo
 <section class="hero" style="padding:0"><img src="borobudur-sunrise-1.jpg" alt="Borobudur Sunrise Tour" fetchpriority="high"><img src="bromo-ijen-sunrise-penanjakan.jpg" alt="Mount Bromo Sunrise Tour" loading="lazy"><img src="merapi-jeep.jpg" alt="Mount Merapi Jeep Lava Tour" loading="lazy"><img src="tumpak-sewu.jpg" alt="Tumpak Sewu Waterfall Tour" loading="lazy"><div class="w">
 <p class="kick">Yogyakarta • Merapi • Bromo • Ijen</p>
 <h1 id="heroTitle">Explore Jogja, Merapi, Bromo &amp; <i>Ijen</i></h1>
-<p id="heroSub">Sharing and private tour packages with clear per-person rates. Complimentary cold beer for every participant &amp; direct pickup in Yogyakarta.</p>
+<p id="heroSub">Sharing and private tour packages with clear per-person rates. Free beer for every participant &amp; direct pickup in Yogyakarta.</p>
 <a class="btn o" href="#packages" data-i18n="heroBtn">View Tour Packages</a>
 </div></section>
 <div class="w"><div class="qb"><label><span data-i18n="qbTour">Select tour</span><select id="hq"></select></label><label><span data-i18n="qbDate">Date</span><input type="date" id="hd"></label><button type="button" class="btn" id="hgo" data-i18n="qbBtn">Check Price</button></div></div>
 
 <section><div class="w"><p class="eye" data-i18n="whyEye">Why Travel With Us</p><h2 data-i18n="whyTitle">Seamless Journeys From Start to Finish</h2><p class="sub">&nbsp;</p>
 <div class="feat">
-<div class="reveal promo-card"><i>🍺</i><h3 data-i18n="fBeerTitle">Free Cold Beer</h3><p data-i18n="fBeerDesc">Special treat! Every participant gets a complimentary cold beer after the tour.</p></div>
-<div class="reveal"><i>💰</i><h3 data-i18n="f1Title">Transparent Pricing</h3><p data-i18n="f1Desc">Clear per-person rates that get lower for larger groups.</p></div>
+<div class="reveal promo-card"><i>🍺</i><h3 data-i18n="fBeerTitle">Free Beer</h3><p data-i18n="fBeerDesc">Special treat! Every participant gets a free beer after the tour.</p></div>
+<div class="reveal"><i>💰</i><h3 data-i18n="f1Title">Transparent Pricing</h3><p data-i18n="f1Desc">Clear tiered rates with small increments for larger groups.</p></div>
 <div class="reveal"><i>🚐</i><h3 data-i18n="f2Title">Yogyakarta Pickup</h3><p data-i18n="f2Desc">Direct pickup at your hotel, homestay, or train station.</p></div>
 <div class="reveal"><i>🏨</i><h3 data-i18n="f3Title">2–3 Star Hotel Included</h3><p data-i18n="f3Desc">Overland packages include 2 or 3-star hotels (sharing room, 2 guests per room).</p></div>
 <div class="reveal"><i>💬</i><h3 data-i18n="f4Title">Instant WhatsApp Booking</h3><p data-i18n="f4Desc">Your trip details and fare estimate are sent automatically.</p></div>
 </div></div></section>
 
 <section id="packages"><div class="w"><h2 data-i18n="pkgTitle">Adventure Tickets</h2><p class="sub" data-i18n="pkgSub">Rates are per person unless stated otherwise. Calculate your exact total below.</p>
-<div class="notice-banner" id="pkgNotices"></div>
 <div class="chips" id="chips">
 <button class="on" data-f="all" data-i18n="chAll">All Tours</button>
 <button data-f="temple" data-i18n="chTemple">🏯 Temples</button>
@@ -190,17 +186,16 @@ var I18N={
     switchBtn:"🇮🇩 ID",
     navTours:"Tours",navBooking:"Booking",navInfo:"Info",navFaq:"FAQ",hdrBook:"Book Now",
     heroTitle:'Explore Jogja, Merapi, Bromo &amp; <i>Ijen</i>',
-    heroSub:"Sharing and private tour packages with clear per-person rates. Complimentary cold beer for every participant & direct pickup in Yogyakarta.",
+    heroSub:"Sharing and private tour packages with clear per-person rates. Free beer for every participant & direct pickup in Yogyakarta.",
     heroBtn:"View Tour Packages",
     qbTour:"Select tour",qbDate:"Date",qbBtn:"Check Price",
     whyEye:"Why Travel With Us",whyTitle:"Seamless Journeys From Start to Finish",
-    fBeerTitle:"Free Cold Beer",fBeerDesc:"Special treat! Every participant gets a complimentary cold beer after the tour.",
-    f1Title:"Transparent Pricing",f1Desc:"Clear per-person rates that get lower for larger groups.",
+    fBeerTitle:"Free Beer",fBeerDesc:"Special treat! Every participant gets a free beer after the tour.",
+    f1Title:"Transparent Pricing",f1Desc:"Clear tiered rates with small increments for larger groups.",
     f2Title:"Yogyakarta Pickup",f2Desc:"Direct pickup at your hotel, homestay, or train station.",
     f3Title:"2–3 Star Hotel Included",f3Desc:"Overland packages include 2 or 3-star hotels (sharing room, 2 guests per room).",
     f4Title:"Instant WhatsApp Booking",f4Desc:"Your trip details and fare estimate are sent automatically.",
     pkgTitle:"Adventure Tickets",pkgSub:"Rates are per person unless stated otherwise. Calculate your exact total below.",
-    pkgNoticesHtml:'<div class="notice-box beer"><span>🍺</span><div><strong>Special Offer: Free Cold Beer for Every Participant!</strong>Complimentary cold beer included for every guest joining our tours.</div></div><div class="notice-box warn"><span>⚠️</span><div><strong>Notice: Attraction Tickets Not Included (Yogyakarta Trips)</strong>For all Yogyakarta day tours (Temples, Caves, Merapi Jeep), attraction entrance tickets &amp; Jeep rental are excluded and paid separately on-site.</div></div><div class="notice-box hotel"><span>🏨</span><div><strong>Overland Accommodation Included (Bromo &amp; Ijen)</strong>Overland packages include 2-star or 3-star hotel accommodation on a sharing room basis (2 guests per room).</div></div>',
     tagBeer:"🍺 Free Beer / pax",
     tagExcl:"⚠️ Entrance Tickets Excluded",
     tagHotel:"🏨 2–3★ Hotel (2 pax/room)",
@@ -216,30 +211,29 @@ var I18N={
     exclNote:"Notice: Attraction entrance tickets are NOT included for Yogyakarta trips (paid separately).",
     jeepNote:"Jeep fare: 1 pax = IDR 400,000; 2 pax = IDR 500,000; +IDR 250,000 per extra group step (4x4 Jeep rental excluded).",
     hotelNote:"Overland accommodation included: 2-star or 3-star hotel (sharing room, 2 guests per room).",
-    beerNote:"Bonus: Free cold beer for every participant!",
-    estTotal:function(n,name,ty,tot,unit){return'Estimated total ('+n+' pax · '+name+' · '+ty+'):<b>'+tot+'</b><small>Rate: '+unit+' / person · Includes 🍺 Free Beer for each guest</small>'},
-    waMsg:function(d){return"Hello Wonderful Trip Jogja, I would like to book:\n• Package: "+d.pkg+"\n• Type: "+d.ty+"\n• Date: "+d.date+"\n• Pickup time: "+d.time+"\n• Participants: "+d.pax+" pax\n• Bonus: Free cold beer for every participant\n"+(d.isOverland?"• Hotel: Included (2-3 star hotel, sharing room 2 guests/room)\n":"• Note: Jogja attraction entrance tickets excluded\n")+"• Estimated total: "+d.tot},
+    beerNote:"Bonus: Free beer for every participant!",
+    estTotal:function(n,name,ty,tot,unit){return'Estimated total ('+n+' pax · '+name+' · '+ty+'):<b>'+tot+'</b><small>Average: '+unit+' / person · Includes 🍺 Free Beer for each guest</small>'},
+    waMsg:function(d){return"Hello Wonderful Trip Jogja, I would like to book:\n• Package: "+d.pkg+"\n• Type: "+d.ty+"\n• Date: "+d.date+"\n• Pickup time: "+d.time+"\n• Participants: "+d.pax+" pax\n• Bonus: Free beer for every participant\n"+(d.isOverland?"• Hotel: Included (2-3 star hotel, sharing room 2 guests/room)\n":"• Note: Jogja attraction entrance tickets excluded\n")+"• Estimated total: "+d.tot},
     ftTag:"Yogyakarta, Merapi, Bromo, Tumpak Sewu & Ijen Tours.",
     ftContact:"Contact",ftFollow:"Follow Us",ftTours:"Tours",ftCave:"Jomblang & Pindul Cave",
     fabWa:"Chat on WhatsApp",
-    infoHtml:'<h2>Included &amp; Excluded</h2><div class="notice-box warn" style="margin-bottom:20px"><span>⚠️</span><div><strong>Important Notice for Yogyakarta Day Trips</strong>All Yogyakarta trip prices <b>do NOT include attraction entrance tickets</b> (Borobudur, Prambanan, Punthuk Setumbu, Jomblang, Pindul, or Merapi 4x4 Jeep rental). Tickets are paid separately on location. Every participant receives a <b>complimentary cold beer</b>!</div></div><div class="two"><div><h3>✔ Included · Yogyakarta Day Tours</h3><ul><li><b>Free cold beer</b> for every participant</li><li>Air-conditioned private/shared car &amp; English-speaking driver</li><li>Fuel, parking fees, and highway tolls</li><li>Pickup &amp; drop-off at hotels, homestays, or train stations in Yogyakarta</li><li>Bottled mineral water</li></ul></div><div><h3>✖ Excluded · Yogyakarta Day Tours</h3><ul><li><b>Attraction entrance tickets</b> (Borobudur, Prambanan, Punthuk Setumbu, Jomblang Cave, Pindul Cave, etc.)</li><li><b>Merapi Jeep Tour:</b> 4x4 Jeep rental and volcano area entry fee</li><li>Meals &amp; drinks</li><li>Personal expenses &amp; tips</li><li>Accommodation &amp; personal travel insurance</li></ul></div><div><h3>✔ Included · East Java Overland (All-Inclusive)</h3><ul><li><b>2-star or 3-star hotel accommodation</b> (sharing room, 2 guests per room)</li><li><b>Free cold beer</b> for every participant</li><li>Vehicle &amp; driver from Yogyakarta, fuel, tolls, and parking</li><li>All entrance tickets (Mount Bromo, Ijen Crater, Tumpak Sewu Waterfall)</li><li>4x4 Jeep at Mount Bromo &amp; meals as per itinerary</li><li>Local trekking guide &amp; safety gear (including Ijen gas mask)</li><li>Direct pickup in Yogyakarta &amp; drop-off in Yogyakarta or Ketapang Ferry Port (to Bali)</li></ul></div><div><h3>✖ Excluded · East Java Overland</h3><ul><li>Single room supplement (if requesting 1 guest per room instead of 2-person sharing)</li><li>Personal expenses (souvenirs, snacks)</li><li>Meals &amp; beverages outside the itinerary</li><li>Voluntary tips for driver &amp; local guides</li><li>Personal travel insurance</li></ul></div></div><p class="sub" style="margin-top:16px;font-size:.85rem">Yogyakarta tour rates are priced per person and decrease for larger groups. Climbing up Borobudur Temple structure is closed every Monday. Merapi 4x4 Jeep routes may adjust depending on weather and volcanic activity.</p>',
-    faqHtml:'<h2>Frequently Asked Questions</h2><p class="sub">&nbsp;</p><details open><summary>Are attraction entrance tickets included in Yogyakarta day tours?</summary><p>No. For all Yogyakarta day tours (Temples, Caves, and Merapi Jeep), attraction entrance tickets and 4x4 Jeep rental are excluded and paid separately on-site. However, every participant gets a complimentary cold beer!</p></details><details><summary>What type of hotel is included in the East Java Overland packages?</summary><p>All East Java Overland tours (Bromo, Tumpak Sewu &amp; Ijen) include 2-star or 3-star hotel accommodation with a sharing room arrangement of 2 guests per room, plus a free cold beer for every participant.</p></details><details><summary>What is the difference between Sharing and Private tours?</summary><p>Sharing tours group you with fellow travelers on a fixed schedule for budget-friendly rates. Private tours reserve the vehicle exclusively for your party with flexible pacing. Per-person rates decrease as your group size increases. East Java overland packages require a minimum of 2 participants.</p></details><details><summary>What are the pickup times?</summary><p>Sunrise tours start at 03:30 AM, regular temple tours at 07:00–09:00 AM, Jomblang &amp; Pindul Cave at 07:00 AM, and Merapi Jeep at 07:00 AM or 01:00 PM. East Java overland trips depart according to the multi-day schedule.</p></details>'
+    infoHtml:'<h2>Included &amp; Excluded</h2><div class="notice-box warn" style="margin-bottom:20px"><span>⚠️</span><div><strong>Important Notice for Yogyakarta Day Trips</strong>All Yogyakarta trip prices <b>do NOT include attraction entrance tickets</b> (Borobudur, Prambanan, Punthuk Setumbu, Jomblang, Pindul, or Merapi 4x4 Jeep rental). Tickets are paid separately on location. Every participant receives a <b>free beer</b>!</div></div><div class="two"><div><h3>✔ Included · Yogyakarta Day Tours</h3><ul><li><b>Free beer</b> for every participant</li><li>Air-conditioned private/shared car &amp; English-speaking driver</li><li>Fuel, parking fees, and highway tolls</li><li>Pickup &amp; drop-off at hotels, homestays, or train stations in Yogyakarta</li><li>Bottled mineral water</li></ul></div><div><h3>✖ Excluded · Yogyakarta Day Tours</h3><ul><li><b>Attraction entrance tickets</b> (Borobudur, Prambanan, Punthuk Setumbu, Jomblang Cave, Pindul Cave, etc.)</li><li><b>Merapi Jeep Tour:</b> 4x4 Jeep rental and volcano area entry fee</li><li>Meals &amp; drinks</li><li>Personal expenses &amp; tips</li><li>Accommodation &amp; personal travel insurance</li></ul></div><div><h3>✔ Included · East Java Overland (All-Inclusive)</h3><ul><li><b>2-star or 3-star hotel accommodation</b> (sharing room, 2 guests per room)</li><li><b>Free beer</b> for every participant</li><li>Vehicle &amp; driver from Yogyakarta, fuel, tolls, and parking</li><li>All entrance tickets (Mount Bromo, Ijen Crater, Tumpak Sewu Waterfall)</li><li>4x4 Jeep at Mount Bromo &amp; meals as per itinerary</li><li>Local trekking guide &amp; safety gear (including Ijen gas mask)</li><li>Direct pickup in Yogyakarta &amp; drop-off in Yogyakarta or Ketapang Ferry Port (to Bali)</li></ul></div><div><h3>✖ Excluded · East Java Overland</h3><ul><li>Single room supplement (if requesting 1 guest per room instead of 2-person sharing)</li><li>Personal expenses (souvenirs, snacks)</li><li>Meals &amp; beverages outside the itinerary</li><li>Voluntary tips for driver &amp; local guides</li><li>Personal travel insurance</li></ul></div></div><p class="sub" style="margin-top:16px;font-size:.85rem">Yogyakarta tour rates use progressive group increments (+IDR 200k sharing / +IDR 250k private per pax above 3 pax) so larger groups stay affordable. Climbing up Borobudur Temple structure is closed every Monday. Merapi 4x4 Jeep routes may adjust depending on weather and volcanic activity.</p>',
+    faqHtml:'<h2>Frequently Asked Questions</h2><p class="sub">&nbsp;</p><details open><summary>Are attraction entrance tickets included in Yogyakarta day tours?</summary><p>No. For all Yogyakarta day tours (Temples, Caves, and Merapi Jeep), attraction entrance tickets and 4x4 Jeep rental are excluded and paid separately on-site. However, every participant gets a free beer!</p></details><details><summary>What type of hotel is included in the East Java Overland packages?</summary><p>All East Java Overland tours (Bromo, Tumpak Sewu &amp; Ijen) include 2-star or 3-star hotel accommodation with a sharing room arrangement of 2 guests per room, plus a free beer for every participant.</p></details><details><summary>What is the difference between Sharing and Private tours?</summary><p>Sharing tours group you with fellow travelers on a fixed schedule for budget-friendly rates. Private tours reserve the vehicle exclusively for your party with flexible pacing. Group increments (+IDR 200k sharing / +IDR 250k private per extra pax above 3 pax) keep larger groups affordable. East Java overland packages require a minimum of 2 participants.</p></details><details><summary>What are the pickup times?</summary><p>Sunrise tours start at 03:30 AM, regular temple tours at 07:00–09:00 AM, Jomblang &amp; Pindul Cave at 07:00 AM, and Merapi Jeep at 07:00 AM or 01:00 PM. East Java overland trips depart according to the multi-day schedule.</p></details>'
   },
   id:{
     switchBtn:"🇬🇧 EN",
     navTours:"Tour",navBooking:"Booking",navInfo:"Info",navFaq:"FAQ",hdrBook:"Booking",
     heroTitle:'Jelajahi Jogja, Merapi, Bromo &amp; <i>Ijen</i>',
-    heroSub:"Paket tour sharing dan private dengan harga jelas. Gratis bir dingin untuk setiap peserta & jemput langsung di Yogyakarta.",
+    heroSub:"Paket tour sharing dan private dengan harga jelas. Gratis bir untuk setiap peserta & jemput langsung di Yogyakarta.",
     heroBtn:"Lihat Paket Tour",
     qbTour:"Pilih tour",qbDate:"Tanggal",qbBtn:"Cek Harga",
     whyEye:"Kenapa Kami",whyTitle:"Perjalanan Nyaman dari Awal sampai Akhir",
-    fBeerTitle:"Gratis Bir Dingin",fBeerDesc:"Penawaran spesial! Setiap peserta mendapatkan gratis bir dingin setelah perjalanan.",
-    f1Title:"Harga Transparan",f1Desc:"Harga per orang yang jelas, makin murah untuk rombongan besar.",
+    fBeerTitle:"Gratis Bir",fBeerDesc:"Penawaran spesial! Setiap peserta mendapatkan gratis bir setelah perjalanan.",
+    f1Title:"Harga Tier Kelipatan",f1Desc:"Tarif bertingkat hemat (+200rb sharing / +250rb private per pax di atas 3 pax).",
     f2Title:"Jemput di Jogja",f2Desc:"Dijemput di hotel, homestay, atau stasiun.",
     f3Title:"Termasuk Hotel Bintang 2–3",f3Desc:"Paket overland sudah termasuk hotel bintang 2 atau 3 (sharing room 2 orang per kamar).",
     f4Title:"Booking via WhatsApp",f4Desc:"Detail dan estimasi harga terkirim otomatis.",
     pkgTitle:"Tiket Petualangan",pkgSub:"Harga per orang kecuali disebut lain. Total akhir dihitung di loket.",
-    pkgNoticesHtml:'<div class="notice-box beer"><span>🍺</span><div><strong>Penawaran Spesial: Gratis Bir untuk Setiap Peserta!</strong>Setiap peserta yang bergabung dalam paket tour mendapatkan gratis bir dingin.</div></div><div class="notice-box warn"><span>⚠️</span><div><strong>Notice Penting: Tiket Masuk Tidak Termasuk (Trip di Jogja)</strong>Untuk seluruh paket trip area Yogyakarta (Candi, Goa, Merapi Jeep), harga <b>belum termasuk tiket masuk objek wisata</b> maupun sewa Jeep (dibayar terpisah di lokasi).</div></div><div class="notice-box hotel"><span>🏨</span><div><strong>Akomodasi Hotel Overland Sudah Termasuk (Bromo &amp; Ijen)</strong>Pemesanan paket overland sudah termasuk menginap di hotel bintang 2 atau bintang 3 dengan sistem sharing room (2 orang per kamar).</div></div>',
     tagBeer:"🍺 Gratis Bir / org",
     tagExcl:"⚠️ Tiket Wisata Belum Termasuk",
     tagHotel:"🏨 Hotel Bintang 2–3 (2 org/kamar)",
@@ -255,44 +249,43 @@ var I18N={
     exclNote:"Notice: Tiket masuk objek wisata TIDAK termasuk untuk trip di Jogja (dibayar terpisah).",
     jeepNote:"Tarif Jeep: 1 pax = Rp 400.000; 2 pax = Rp 500.000; kelipatan berikutnya +Rp 250.000 per langkah grup (biaya sewa Jeep belum termasuk).",
     hotelNote:"Sudah termasuk hotel bintang 2 atau 3 selama overland (sharing room 2 orang per kamar).",
-    beerNote:"Bonus: Gratis bir dingin untuk setiap peserta!",
-    estTotal:function(n,name,ty,tot,unit){return'Estimasi total ('+n+' pax · '+name+' · '+ty+'):<b>'+tot+'</b><small>Tarif: '+unit+' / pax · Sudah termasuk 🍺 Gratis Bir tiap peserta</small>'},
-    waMsg:function(d){return"Halo Wonderful Trip Jogja, saya ingin booking:\n• Paket: "+d.pkg+"\n• Tipe: "+d.ty+"\n• Tanggal: "+d.date+"\n• Jam jemput: "+d.time+"\n• Peserta: "+d.pax+" pax\n• Bonus: Gratis bir dingin untuk setiap peserta\n"+(d.isOverland?"• Hotel: Termasuk hotel bintang 2 atau 3 (sharing room 2 orang/kamar)\n":"• Catatan: Tiket masuk wisata trip Jogja belum termasuk\n")+"• Estimasi: "+d.tot},
+    beerNote:"Bonus: Gratis bir untuk setiap peserta!",
+    estTotal:function(n,name,ty,tot,unit){return'Estimasi total ('+n+' pax · '+name+' · '+ty+'):<b>'+tot+'</b><small>Rata-rata: '+unit+' / pax · Termasuk 🍺 Gratis Bir tiap peserta</small>'},
+    waMsg:function(d){return"Halo Wonderful Trip Jogja, saya ingin booking:\n• Paket: "+d.pkg+"\n• Tipe: "+d.ty+"\n• Tanggal: "+d.date+"\n• Jam jemput: "+d.time+"\n• Peserta: "+d.pax+" pax\n• Bonus: Gratis bir untuk setiap peserta\n"+(d.isOverland?"• Hotel: Termasuk hotel bintang 2 atau 3 (sharing room 2 orang/kamar)\n":"• Catatan: Tiket masuk wisata trip Jogja belum termasuk\n")+"• Estimasi: "+d.tot},
     ftTag:"Tour Yogyakarta, Merapi, Bromo, Tumpak Sewu & Ijen.",
     ftContact:"Kontak",ftFollow:"Ikuti Kami",ftTours:"Tour",ftCave:"Jomblang & Pindul",
     fabWa:"Chat WhatsApp",
-    infoHtml:'<h2>Included &amp; Non-Included</h2><div class="notice-box warn" style="margin-bottom:20px"><span>⚠️</span><div><strong>Notice Penting untuk Trip Area Jogja</strong>Seluruh harga paket trip di Yogyakarta <b>tidak termasuk tiket masuk objek wisata</b> (Borobudur, Prambanan, Punthuk Setumbu, Jomblang, Pindul, maupun sewa Jeep Merapi). Tiket dibayar terpisah di lokasi. Setiap peserta mendapatkan <b>gratis bir dingin</b>!</div></div><div class="two"><div><h3>✔ Included · Tur Jogja</h3><ul><li><b>Gratis bir dingin</b> untuk setiap peserta</li><li>Mobil ber-AC &amp; driver berpengalaman</li><li>BBM, parkir, dan tol</li><li>Jemput &amp; antar di hotel, homestay, atau stasiun Jogja</li><li>Air mineral</li></ul></div><div><h3>✖ Non-Included · Tur Jogja</h3><ul><li><b>Tiket masuk objek wisata</b> (Borobudur, Prambanan, Punthuk Setumbu, Jomblang, Pindul, dan lainnya)</li><li><b>Merapi Jeep:</b> sewa jeep 4x4 dan tiket kawasan</li><li>Makan &amp; minum</li><li>Pengeluaran pribadi &amp; tip</li><li>Penginapan &amp; asuransi pribadi</li></ul></div><div><h3>✔ Included · Overland Jatim (All Inclusive)</h3><ul><li><b>Hotel bintang 2 atau bintang 3</b> selama overland (sharing room 2 orang per kamar)</li><li><b>Gratis bir dingin</b> untuk setiap peserta</li><li>Kendaraan &amp; driver dari Jogja, BBM, tol, dan parkir</li><li>Semua tiket masuk (Bromo, Kawah Ijen, Tumpak Sewu)</li><li>Jeep Bromo &amp; makan sesuai itinerary</li><li>Guide dan perlengkapan (termasuk masker Ijen)</li><li>Jemput di Yogyakarta &amp; drop off di Yogyakarta atau Pelabuhan Ketapang, Banyuwangi</li></ul></div><div><h3>✖ Non-Included · Overland Jatim</h3><ul><li>Biaya tambahan single room (jika meminta 1 kamar sendiri, bukan sharing 2 orang)</li><li>Pengeluaran pribadi (oleh-oleh, jajan)</li><li>Makan &amp; minum di luar itinerary</li><li>Tip untuk driver &amp; guide (sukarela)</li><li>Asuransi perjalanan pribadi</li></ul></div></div><p class="sub" style="margin-top:16px;font-size:.85rem">Harga tur Jogja per pax dan makin menurun untuk rombongan lebih besar. Naik candi Borobudur ditutup setiap hari Senin. Rute jeep Merapi dapat berubah mengikuti cuaca dan status gunung.</p>',
-    faqHtml:'<h2>Pertanyaan Umum</h2><p class="sub">&nbsp;</p><details open><summary>Apakah tiket masuk wisata sudah termasuk untuk trip di Jogja?</summary><p>Belum termasuk. Untuk semua paket trip di Yogyakarta (Candi, Goa, dan Merapi Jeep), tiket masuk objek wisata dan sewa Jeep tidak termasuk dan dibayar terpisah di lokasi. Namun setiap peserta mendapatkan gratis bir dingin!</p></details><details><summary>Bagaimana fasilitas hotel untuk paket Overland Bromo &amp; Ijen?</summary><p>Pemesanan paket overland Jawa Timur sudah termasuk akomodasi hotel bintang 2 atau bintang 3 dengan sistem sharing room (2 orang per kamar), ditambah gratis bir dingin untuk setiap peserta.</p></details><details><summary>Apa beda Sharing dan Private?</summary><p>Sharing digabung dengan peserta lain, Private khusus rombongan Anda. Tarif per pax menurun seiring bertambahnya jumlah peserta. Paket overland Jawa Timur minimal 2 peserta.</p></details><details><summary>Kapan jam jemput?</summary><p>Sunrise 03:30, tur candi reguler 07:00–09:00, Jomblang &amp; Pindul 07:00, Merapi Jeep 07:00 atau 13:00. Bromo &amp; Ijen sesuai jadwal paket.</p></details>'
+    infoHtml:'<h2>Included &amp; Non-Included</h2><div class="notice-box warn" style="margin-bottom:20px"><span>⚠️</span><div><strong>Notice Penting untuk Trip Area Jogja</strong>Seluruh harga paket trip di Yogyakarta <b>tidak termasuk tiket masuk objek wisata</b> (Borobudur, Prambanan, Punthuk Setumbu, Jomblang, Pindul, maupun sewa Jeep Merapi). Tiket dibayar terpisah di lokasi. Setiap peserta mendapatkan <b>gratis bir</b>!</div></div><div class="two"><div><h3>✔ Included · Tur Jogja</h3><ul><li><b>Gratis bir</b> untuk setiap peserta</li><li>Mobil ber-AC &amp; driver berpengalaman</li><li>BBM, parkir, dan tol</li><li>Jemput &amp; antar di hotel, homestay, atau stasiun Jogja</li><li>Air mineral</li></ul></div><div><h3>✖ Non-Included · Tur Jogja</h3><ul><li><b>Tiket masuk objek wisata</b> (Borobudur, Prambanan, Punthuk Setumbu, Jomblang, Pindul, dan lainnya)</li><li><b>Merapi Jeep:</b> sewa jeep 4x4 dan tiket kawasan</li><li>Makan &amp; minum</li><li>Pengeluaran pribadi &amp; tip</li><li>Penginapan &amp; asuransi pribadi</li></ul></div><div><h3>✔ Included · Overland Jatim (All Inclusive)</h3><ul><li><b>Hotel bintang 2 atau bintang 3</b> selama overland (sharing room 2 orang per kamar)</li><li><b>Gratis bir</b> untuk setiap peserta</li><li>Kendaraan &amp; driver dari Jogja, BBM, tol, dan parkir</li><li>Semua tiket masuk (Bromo, Kawah Ijen, Tumpak Sewu)</li><li>Jeep Bromo &amp; makan sesuai itinerary</li><li>Guide dan perlengkapan (termasuk masker Ijen)</li><li>Jemput di Yogyakarta &amp; drop off di Yogyakarta atau Pelabuhan Ketapang, Banyuwangi</li></ul></div><div><h3>✖ Non-Included · Overland Jatim</h3><ul><li>Biaya tambahan single room (jika meminta 1 kamar sendiri, bukan sharing 2 orang)</li><li>Pengeluaran pribadi (oleh-oleh, jajan)</li><li>Makan &amp; minum di luar itinerary</li><li>Tip untuk driver &amp; guide (sukarela)</li><li>Asuransi perjalanan pribadi</li></ul></div></div><p class="sub" style="margin-top:16px;font-size:.85rem">Harga tur Jogja menggunakan tier kelipatan (+Rp 200.000 sharing / +Rp 250.000 private per pax saat pemesanan di atas 3 pax) agar tetap hemat. Naik candi Borobudur ditutup setiap hari Senin. Rute jeep Merapi dapat berubah mengikuti cuaca dan status gunung.</p>',
+    faqHtml:'<h2>Pertanyaan Umum</h2><p class="sub">&nbsp;</p><details open><summary>Apakah tiket masuk wisata sudah termasuk untuk trip di Jogja?</summary><p>Belum termasuk. Untuk semua paket trip di Yogyakarta (Candi, Goa, dan Merapi Jeep), tiket masuk objek wisata dan sewa Jeep tidak termasuk dan dibayar terpisah di lokasi. Namun setiap peserta mendapatkan gratis bir!</p></details><details><summary>Bagaimana fasilitas hotel untuk paket Overland Bromo &amp; Ijen?</summary><p>Pemesanan paket overland Jawa Timur sudah termasuk akomodasi hotel bintang 2 atau bintang 3 dengan sistem sharing room (2 orang per kamar), ditambah gratis bir untuk setiap peserta.</p></details><details><summary>Apa beda Sharing dan Private?</summary><p>Sharing digabung dengan peserta lain, Private khusus rombongan Anda. Untuk tur Jogja di atas 3 pax, kelipatan berikutnya hanya +Rp 200.000/pax (Sharing) atau +Rp 250.000/pax (Private). Paket overland Jawa Timur minimal 2 peserta.</p></details><details><summary>Kapan jam jemput?</summary><p>Sunrise 03:30, tur candi reguler 07:00–09:00, Jomblang &amp; Pindul 07:00, Merapi Jeep 07:00 atau 13:00. Bromo &amp; Ijen sesuai jadwal paket.</p></details>'
   }
 };
 
-function makeTierSeries(base, minFloor){
-  var steps=[0, 25000, 50000, 75000, 100000];
-  return steps.map(function(d){ return Math.max(minFloor, base - d); });
+/* Tier kelipatan tur Jogja:
+   - 1 s/d 3 pax: naik per pax sesuai step awal (Sharing +100rb/pax, Private +150rb/pax)
+   - Di atas 3 pax (n > 3): kelipatan seterusnya Sharing +200rb/pax, Private +250rb/pax */
+function calcStepTierTotal(base, initialStep, extraAbove3Step, n){
+  var pax=Math.max(1, Math.floor(n||1));
+  if(pax<=3){
+    return base + (pax - 1) * initialStep;
+  }
+  var totalAt3 = base + 2 * initialStep;
+  return totalAt3 + (pax - 3) * extraAbove3Step;
 }
 
 var P=[
 {id:"tp",c:"temple",e:"🏯",n:{en:"Temple Tour",id:"Temple Tour"},d:{en:"Borobudur, Prambanan, and golden sunrise viewpoints. Choose your route below.",id:"Borobudur, Prambanan, dan sunrise. Pilih rutenya di loket."},tm:["07:00"],b:{en:"Best Seller",id:"Terlaris"},g:"#7c3aed,#db2777",kw:["borobudur","prambanan","setumbu","temple","candi"],v:[
- {n:{en:"Borobudur Sunrise Only",id:"Borobudur Sunrise only"},s:makeTierSeries(500000,380000),p:makeTierSeries(650000,500000),tm:["03:30"],cl:1},
- {n:{en:"Borobudur & Prambanan",id:"Borobudur & Prambanan"},s:makeTierSeries(450000,350000),p:makeTierSeries(600000,480000),tm:["07:00","08:00","09:00"],cl:1},
- {n:{en:"Punthuk Setumbu Sunrise + Borobudur + Prambanan",id:"Punthuk Setumbu Sunrise + Borobudur + Prambanan"},s:makeTierSeries(550000,420000),p:makeTierSeries(700000,550000),tm:["03:30"],cl:1},
- {n:{en:"Borobudur Sunrise + Prambanan",id:"Borobudur Sunrise + Prambanan"},s:makeTierSeries(550000,420000),p:makeTierSeries(700000,550000),tm:["03:30"],cl:1}
+ {n:{en:"Borobudur Sunrise Only",id:"Borobudur Sunrise only"},sBase:500000,sStep:100000,pBase:650000,pStep:150000,tm:["03:30"],cl:1},
+ {n:{en:"Borobudur & Prambanan",id:"Borobudur & Prambanan"},sBase:450000,sStep:100000,pBase:600000,pStep:150000,tm:["07:00","08:00","09:00"],cl:1},
+ {n:{en:"Punthuk Setumbu Sunrise + Borobudur + Prambanan",id:"Punthuk Setumbu Sunrise + Borobudur + Prambanan"},sBase:550000,sStep:100000,pBase:700000,pStep:150000,tm:["03:30"],cl:1},
+ {n:{en:"Borobudur Sunrise + Prambanan",id:"Borobudur Sunrise + Prambanan"},sBase:550000,sStep:100000,pBase:700000,pStep:150000,tm:["03:30"],cl:1}
 ]},
 {id:"mj",c:"volcano",e:"🚙",n:{en:"Merapi 4x4 Jeep Tour",id:"Merapi Jeep"},d:{en:"Explore Indonesia's most active volcano on rugged 4x4 trails. *(4x4 Jeep rental not included)*",id:"Jelajahi gunung berapi teraktif di Indonesia dengan jalur 4x4 menantang. *(Sewa Jeep belum termasuk)*"},tm:["07:00","13:00"],b:{en:"Popular",id:"Seru"},g:"#ea580c,#dc2626",kw:["merapi","jeep","lava"],jeep:true},
-{id:"jp",c:"nature",e:"🕳️",n:{en:"Jomblang & Pindul Cave",id:"Jomblang & Pindul Cave"},d:{en:"Vertical rappel into Jomblang Cave & underground river tubing at Pindul Cave.",id:"Goa Jomblang & river tubing Goa Pindul di Gunungkidul."},s:makeTierSeries(350000,225000),p:makeTierSeries(480000,320000),tm:["07:00"],b:{en:"Adventure",id:"Petualangan"},g:"#0d9488,#0284c7",kw:["jomblang","pindul","cave","goa"]},
+{id:"jp",c:"nature",e:"🕳️",n:{en:"Jomblang & Pindul Cave",id:"Jomblang & Pindul Cave"},d:{en:"Vertical rappel into Jomblang Cave & underground river tubing at Pindul Cave.",id:"Goa Jomblang & river tubing Goa Pindul di Gunungkidul."},sBase:350000,sStep:100000,pBase:480000,pStep:150000,tm:["07:00"],b:{en:"Adventure",id:"Petualangan"},g:"#0d9488,#0284c7",kw:["jomblang","pindul","cave","goa"]},
 {id:"bi",c:"jatim",e:"🔥",n:{en:"Bromo & Ijen from Jogja",id:"Bromo & Ijen Start Jogja"},d:{en:"All-inclusive overland expedition to Mount Bromo & Ijen Crater starting from Yogyakarta (min. 2 pax). Includes 2–3 star hotel (sharing room, 2 guests/room).",id:"Overland Bromo & Kawah Ijen berangkat dari Yogyakarta (minimal 2 pax). Sudah termasuk hotel bintang 2 atau 3 (sharing room 2 orang/kamar)."},sh:4500000,pr:5200000,tm:["07:00"],b:{en:"Overland",id:"Overland"},g:"#4f46e5,#06b6d4",min:2,kw:["bromo","ijen"]},
 {id:"bti",c:"jatim",e:"🌊",n:{en:"Bromo, Tumpak Sewu & Ijen from Jogja",id:"Bromo, Tumpak Sewu & Ijen Start Jogja"},d:{en:"Complete East Java overland journey covering Tumpak Sewu Waterfall, Bromo & Ijen Crater (min. 2 pax). Includes 2–3 star hotel (sharing room, 2 guests/room).",id:"Overland Tumpak Sewu, Bromo & Kawah Ijen berangkat dari Jogja (minimal 2 pax). Sudah termasuk hotel bintang 2 atau 3 (sharing room 2 orang/kamar)."},sh:6000000,pr:6800000,tm:["07:00"],b:{en:"Complete",id:"Komplit"},g:"#9333ea,#f97316",min:2,kw:["tumpak","sewu","waterfall"]}
 ];
 
 var rp=function(n){return(lang==="en"?"IDR ":"Rp ")+Math.round(n).toLocaleString(lang==="en"?"en-US":"id-ID")};
-
-function tierIndex(n){
-  if(n<=1)return 0;
-  if(n===2)return 1;
-  if(n===3)return 2;
-  if(n<=5)return 3;
-  return 4;
-}
 
 function calcJeepTotal(n, ty){
   var base;
@@ -314,10 +307,13 @@ function getPricing(pkg, variant, ty, n){
     return { total:tot, unit:tot/Math.max(1,n) };
   }
   var src=variant||pkg;
-  if(src.s&&src.p){
-    var arr=(ty==="private")?src.p:src.s;
-    var unit=arr[tierIndex(n)];
-    return { unit:unit, total:unit*n };
+  if(typeof src.sBase==="number"&&typeof src.pBase==="number"){
+    var isPriv=(ty==="private");
+    var base=isPriv?src.pBase:src.sBase;
+    var initStep=isPriv?(src.pStep||150000):(src.sStep||100000);
+    var above3Step=isPriv?250000:200000;
+    var tierTot=calcStepTierTotal(base, initStep, above3Step, n);
+    return { total:tierTot, unit:tierTot/Math.max(1,n) };
   }
   if(typeof src.sh==="number"&&typeof src.pr==="number"){
     var overlandUnit=(ty==="private")?src.pr:src.sh;
@@ -331,11 +327,11 @@ function getStartingDisplay(pkg){
   if(pkg.v&&pkg.v.length){
     var minVal=Infinity;
     pkg.v.forEach(function(vr){
-      if(vr.s&&vr.s[0]<minVal)minVal=vr.s[0];
+      if(typeof vr.sBase==="number"&&vr.sBase<minVal)minVal=vr.sBase;
     });
     return minVal===Infinity?0:minVal;
   }
-  if(pkg.s&&pkg.s.length)return pkg.s[0];
+  if(typeof pkg.sBase==="number")return pkg.sBase;
   if(typeof pkg.sh==="number")return pkg.sh;
   return 0;
 }
@@ -550,7 +546,6 @@ function applyLang(){
   $("langBtn").textContent=t.switchBtn;
   $("heroTitle").innerHTML=t.heroTitle;
   $("heroSub").textContent=t.heroSub;
-  $("pkgNotices").innerHTML=t.pkgNoticesHtml;
   $("infoWrap").innerHTML=t.infoHtml;
   $("faqWrap").innerHTML=t.faqHtml;
 
