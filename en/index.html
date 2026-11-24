@@ -90,6 +90,13 @@ footer{background:#120f2b;color:#c9c5e6;padding:34px 0;font-size:.9rem}footer b{
 .top.ph::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,30,.8),rgba(10,10,30,.1) 65%);z-index:1}
 .top>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
 .top>em,.top>h3,.top>p,.top>small{position:relative;z-index:2}.stamp{z-index:2}
+.pic{position:relative;aspect-ratio:3/2;background:linear-gradient(135deg,var(--a),var(--b));overflow:hidden}
+.pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s}.pic img.on{opacity:1}
+.pic .stamp{right:auto;top:auto;inset:0;display:grid;place-items:center;font-size:4.5rem}
+.pic.has .stamp{display:none}
+.inf{padding:14px 18px 8px;display:flex;flex-direction:column;gap:6px;flex:1}
+.inf em{font-style:normal;align-self:flex-start;background:#fde8d9;color:var(--terra);font-size:.7rem;font-weight:800;padding:2px 10px;border-radius:99px;letter-spacing:.04em}
+.inf h3{font-size:1.2rem;line-height:1.25}.inf p{font-size:.9rem;color:var(--mut)}.inf small{color:var(--mut);font-size:.8rem}
 </style>
 </head>
 <body>
@@ -164,14 +171,16 @@ var P=[
 var T=function(a,n){return Array.isArray(a)?a[n>=6?3:n>=3?2:n-1]:a};
 var low=function(a){return Array.isArray(a)?Math.min.apply(null,a):a};
 var mn=function(p,k){return Math.min.apply(null,(p.v||[p]).map(function(x){return low(x[k])}))};
-var IB="../",IMG={tp:"borobudur-sunrise-1.jpg",cv:"jomblang-pindul.jpg",jp:"merapi-jeep.jpg",bi:"bromo-ijen.jpg",bti:"tumpak-sewu.jpg"};
+var IB="../",IMG={tp:["borobudur-sunrise-1.jpg","borobudur-prambanan-2.jpg","borobudur-sunrise-2.jpg","puthuk-situmbu.jpg","borobudur-sunrise-3.jpg"],cv:["jomblang-cave.jpg","jomblang-cave-1.jpg"],jp:["merapi-jeep.jpg","merapi.jpg"],bi:["bromo-ijen-sunrise-penanjakan.jpg","bromo-ijen-2.jpg","bromo-ijen-3.jpg"],bti:["bromo-tumpak-sewu-ijen-1.jpg","tumpak-sewu.jpg","tumpaksewu.jpg"]};
+window.fe=function(i){var q=i.parentNode;i.remove();var f=q.querySelector("img");if(!f)q.classList.remove("has");else if(!q.querySelector("img.on"))f.classList.add("on")};
 var G=$("grid");
 P.forEach(function(p,i){
   var a=document.createElement("article");a.className="tk reveal";a.dataset.c=p.c;
-  a.innerHTML='<div class="top'+(IMG[p.id]?' ph':'')+'" style="--a:'+p.g.split(",")[0]+';--b:'+p.g.split(",")[1]+'">'+(IMG[p.id]?'<img src="'+IB+IMG[p.id]+'" alt="'+p.n+'" width="600" height="400" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove(\'ph\');this.remove()">':'')+'<span class="stamp">'+p.e+'</span><em>'+p.b+'</em><h3>'+p.n+'</h3><p>'+p.d+'</p><small>⏰ Pick-up '+p.tm.join(" / ")+' • '+(p.c==="jatim"?"All inclusive":"Tickets not included")+'</small></div><div class="cut"></div><div class="bot"><div class="pr"><div>Sharing from<b>'+rp(mn(p,"s"))+'</b>/person</div><div>Private from<b>'+rp(mn(p,"p"))+'</b>/person</div></div><button class="btn o" data-i="'+p.id+'">Select</button></div>';
+  a.innerHTML='<div class="pic'+(IMG[p.id]?' has':'')+'" style="--a:'+p.g.split(",")[0]+';--b:'+p.g.split(",")[1]+'">'+(IMG[p.id]?IMG[p.id].map(function(f,k){return'<img src="'+IB+f+'" alt="'+p.n+'" width="600" height="400" loading="lazy" decoding="async" class="'+(k?'':'on')+'" onerror="fe(this)">'}).join(''):'')+'<span class="stamp">'+p.e+'</span></div><div class="inf"><em>'+p.b+'</em><h3>'+p.n+'</h3><p>'+p.d+'</p><small>⏰ Pick-up '+p.tm.join(" / ")+' • '+(p.c==="jatim"?"All inclusive":"Tickets not included")+'</small></div><div class="cut"></div><div class="bot"><div class="pr"><div>Sharing from<b>'+rp(mn(p,"s"))+'</b>/person</div><div>Private from<b>'+rp(mn(p,"p"))+'</b>/person</div></div><button class="btn o" data-i="'+p.id+'">Select</button></div>';
   G.appendChild(a);
   $("pk").add(new Option(p.n,p.id));
 });
+if(!window.matchMedia("(prefers-reduced-motion:reduce)").matches)setInterval(function(){document.querySelectorAll(".pic").forEach(function(q){var m=q.querySelectorAll("img");if(m.length<2)return;var c=q.querySelector("img.on"),i=[].indexOf.call(m,c);if(c)c.classList.remove("on");m[(i+1)%m.length].classList.add("on")})},4500);
 G.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;$("pk").value=b.dataset.i;up();location.hash="loket"});
 document.querySelector(".chips").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;
   document.querySelectorAll(".chips button").forEach(function(x){x.classList.toggle("on",x===b)});
