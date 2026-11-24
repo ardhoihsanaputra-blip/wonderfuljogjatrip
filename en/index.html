@@ -87,6 +87,9 @@ footer{background:#120f2b;color:#c9c5e6;padding:34px 0;font-size:.9rem}footer b{
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
 .lang{font-weight:700;font-size:.8rem;border:1px solid var(--line);border-radius:99px;padding:4px 10px;background:var(--paper)}
 #lb{position:fixed;left:16px;bottom:16px;z-index:9;background:var(--ink);color:#fff;padding:8px 14px;border-radius:99px;font-size:.85rem;display:none;gap:10px;align-items:center;box-shadow:0 6px 18px rgba(0,0,0,.3)}#lb a{text-decoration:underline;font-weight:700}#lb button{background:none;border:0;color:#fff;cursor:pointer;font-size:1rem}
+.top.ph::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,30,.8),rgba(10,10,30,.1) 65%);z-index:1}
+.top>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.top>em,.top>h3,.top>p,.top>small{position:relative;z-index:2}.stamp{z-index:2}
 </style>
 </head>
 <body>
@@ -161,10 +164,11 @@ var P=[
 var T=function(a,n){return Array.isArray(a)?a[n>=6?3:n>=3?2:n-1]:a};
 var low=function(a){return Array.isArray(a)?Math.min.apply(null,a):a};
 var mn=function(p,k){return Math.min.apply(null,(p.v||[p]).map(function(x){return low(x[k])}))};
+var IB="../",IMG={tp:"borobudur-sunrise-1.jpg",cv:"jomblang-pindul.jpg",jp:"merapi-jeep.jpg",bi:"bromo-ijen.jpg",bti:"tumpak-sewu.jpg"};
 var G=$("grid");
 P.forEach(function(p,i){
   var a=document.createElement("article");a.className="tk reveal";a.dataset.c=p.c;
-  a.innerHTML='<div class="top" style="--a:'+p.g.split(",")[0]+';--b:'+p.g.split(",")[1]+'"><span class="stamp">'+p.e+'</span><em>'+p.b+'</em><h3>'+p.n+'</h3><p>'+p.d+'</p><small>⏰ Pick-up '+p.tm.join(" / ")+' • '+(p.c==="jatim"?"All inclusive":"Tickets not included")+'</small></div><div class="cut"></div><div class="bot"><div class="pr"><div>Sharing from<b>'+rp(mn(p,"s"))+'</b>/person</div><div>Private from<b>'+rp(mn(p,"p"))+'</b>/person</div></div><button class="btn o" data-i="'+p.id+'">Select</button></div>';
+  a.innerHTML='<div class="top'+(IMG[p.id]?' ph':'')+'" style="--a:'+p.g.split(",")[0]+';--b:'+p.g.split(",")[1]+'">'+(IMG[p.id]?'<img src="'+IB+IMG[p.id]+'" alt="'+p.n+'" width="600" height="400" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove(\'ph\');this.remove()">':'')+'<span class="stamp">'+p.e+'</span><em>'+p.b+'</em><h3>'+p.n+'</h3><p>'+p.d+'</p><small>⏰ Pick-up '+p.tm.join(" / ")+' • '+(p.c==="jatim"?"All inclusive":"Tickets not included")+'</small></div><div class="cut"></div><div class="bot"><div class="pr"><div>Sharing from<b>'+rp(mn(p,"s"))+'</b>/person</div><div>Private from<b>'+rp(mn(p,"p"))+'</b>/person</div></div><button class="btn o" data-i="'+p.id+'">Select</button></div>';
   G.appendChild(a);
   $("pk").add(new Option(p.n,p.id));
 });
