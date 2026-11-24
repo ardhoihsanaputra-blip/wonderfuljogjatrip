@@ -209,10 +209,10 @@ var I18N={
     emptyPaxErr:"Please enter the number of participants (minimum 2 for overland tours).",
     monNote:"Climbing up Borobudur Temple structure is closed every Monday.",
     exclNote:"Notice: Attraction entrance tickets are NOT included for Yogyakarta trips (paid separately).",
-    jeepNote:"Jeep fare: 1 pax = IDR 400,000; 2 pax = IDR 500,000; +IDR 250,000 per extra group step (4x4 Jeep rental excluded).",
+    jeepNote:"Notice: 4x4 Jeep rental and attraction entrance tickets are NOT included (paid separately on-site).",
     hotelNote:"Overland accommodation included: 2-star or 3-star hotel (sharing room, 2 guests per room).",
     beerNote:"Bonus: Free beer for every participant!",
-    estTotal:function(n,name,ty,tot,unit){return'Estimated total ('+n+' pax · '+name+' · '+ty+'):<b>'+tot+'</b><small>Average: '+unit+' / person · Includes 🍺 Free Beer for each guest</small>'},
+    estTotal:function(n,name,ty,tot){return'Estimated total ('+n+' pax · '+name+' · '+ty+'):<b>'+tot+'</b><small>Includes 🍺 Free Beer for each guest</small>'},
     waMsg:function(d){return"Hello Wonderful Trip Jogja, I would like to book:\n• Package: "+d.pkg+"\n• Type: "+d.ty+"\n• Date: "+d.date+"\n• Pickup time: "+d.time+"\n• Participants: "+d.pax+" pax\n• Bonus: Free beer for every participant\n"+(d.isOverland?"• Hotel: Included (2-3 star hotel, sharing room 2 guests/room)\n":"• Note: Jogja attraction entrance tickets excluded\n")+"• Estimated total: "+d.tot},
     ftTag:"Yogyakarta, Merapi, Bromo, Tumpak Sewu & Ijen Tours.",
     ftContact:"Contact",ftFollow:"Follow Us",ftTours:"Tours",ftCave:"Jomblang & Pindul Cave",
@@ -247,10 +247,10 @@ var I18N={
     emptyPaxErr:"Masukkan jumlah peserta terlebih dahulu (minimal 2 pax untuk paket overland).",
     monNote:"Tiket naik candi Borobudur ditutup setiap hari Senin.",
     exclNote:"Notice: Tiket masuk objek wisata TIDAK termasuk untuk trip di Jogja (dibayar terpisah).",
-    jeepNote:"Tarif Jeep: 1 pax = Rp 400.000; 2 pax = Rp 500.000; kelipatan berikutnya +Rp 250.000 per langkah grup (biaya sewa Jeep belum termasuk).",
+    jeepNote:"Notice: Sewa Jeep 4x4 dan tiket masuk kawasan wisata TIDAK termasuk (dibayar terpisah di lokasi).",
     hotelNote:"Sudah termasuk hotel bintang 2 atau 3 selama overland (sharing room 2 orang per kamar).",
     beerNote:"Bonus: Gratis bir untuk setiap peserta!",
-    estTotal:function(n,name,ty,tot,unit){return'Estimasi total ('+n+' pax · '+name+' · '+ty+'):<b>'+tot+'</b><small>Rata-rata: '+unit+' / pax · Termasuk 🍺 Gratis Bir tiap peserta</small>'},
+    estTotal:function(n,name,ty,tot){return'Estimasi total ('+n+' pax · '+name+' · '+ty+'):<b>'+tot+'</b><small>Termasuk 🍺 Gratis Bir tiap peserta</small>'},
     waMsg:function(d){return"Halo Wonderful Trip Jogja, saya ingin booking:\n• Paket: "+d.pkg+"\n• Tipe: "+d.ty+"\n• Tanggal: "+d.date+"\n• Jam jemput: "+d.time+"\n• Peserta: "+d.pax+" pax\n• Bonus: Gratis bir untuk setiap peserta\n"+(d.isOverland?"• Hotel: Termasuk hotel bintang 2 atau 3 (sharing room 2 orang/kamar)\n":"• Catatan: Tiket masuk wisata trip Jogja belum termasuk\n")+"• Estimasi: "+d.tot},
     ftTag:"Tour Yogyakarta, Merapi, Bromo, Tumpak Sewu & Ijen.",
     ftContact:"Kontak",ftFollow:"Ikuti Kami",ftTours:"Tour",ftCave:"Jomblang & Pindul",
@@ -260,9 +260,6 @@ var I18N={
   }
 };
 
-/* Tier kelipatan tur Jogja:
-   - 1 s/d 3 pax: naik per pax sesuai step awal (Sharing +100rb/pax, Private +150rb/pax)
-   - Di atas 3 pax (n > 3): kelipatan seterusnya Sharing +200rb/pax, Private +250rb/pax */
 function calcStepTierTotal(base, initialStep, extraAbove3Step, n){
   var pax=Math.max(1, Math.floor(n||1));
   if(pax<=3){
@@ -304,7 +301,7 @@ function calcJeepTotal(n, ty){
 function getPricing(pkg, variant, ty, n){
   if(pkg.jeep){
     var tot=calcJeepTotal(n, ty);
-    return { total:tot, unit:tot/Math.max(1,n) };
+    return { total:tot };
   }
   var src=variant||pkg;
   if(typeof src.sBase==="number"&&typeof src.pBase==="number"){
@@ -313,13 +310,13 @@ function getPricing(pkg, variant, ty, n){
     var initStep=isPriv?(src.pStep||150000):(src.sStep||100000);
     var above3Step=isPriv?250000:200000;
     var tierTot=calcStepTierTotal(base, initStep, above3Step, n);
-    return { total:tierTot, unit:tierTot/Math.max(1,n) };
+    return { total:tierTot };
   }
   if(typeof src.sh==="number"&&typeof src.pr==="number"){
     var overlandUnit=(ty==="private")?src.pr:src.sh;
-    return { unit:overlandUnit, total:overlandUnit*n };
+    return { total:overlandUnit*n };
   }
-  return { unit:0, total:0 };
+  return { total:0 };
 }
 
 function getStartingDisplay(pkg){
@@ -500,7 +497,7 @@ function calc(){
     goBtn.setAttribute("aria-disabled","true");
     goBtn.removeAttribute("href");
     ntEl.textContent=rawVal===""?t.emptyPaxErr:t.minErr(pkg.min);
-    ttEl.innerHTML=t.estTotal(isNaN(parsedN)?0:parsedN,labelName,tyLabel,rp(0),rp(0));
+    ttEl.innerHTML=t.estTotal(isNaN(parsedN)?0:parsedN,labelName,tyLabel,rp(0));
     return;
   }
 
@@ -511,7 +508,7 @@ function calc(){
     goBtn.setAttribute("aria-disabled","true");
     goBtn.removeAttribute("href");
     ntEl.textContent=t.emptyPaxErr;
-    ttEl.innerHTML=t.estTotal(0,labelName,tyLabel,rp(0),rp(0));
+    ttEl.innerHTML=t.estTotal(0,labelName,tyLabel,rp(0));
     return;
   }
 
@@ -520,13 +517,14 @@ function calc(){
   var notes=[t.beerNote];
   if(pkg.c==="jatim"){
     notes.push(t.hotelNote);
+  }else if(pkg.jeep){
+    notes.push(t.jeepNote);
   }else{
-    if(pkg.jeep)notes.push(t.jeepNote);
     if(v&&v.cl)notes.push(t.monNote);
     notes.push(t.exclNote);
   }
   ntEl.textContent=notes.join(" ");
-  ttEl.innerHTML=t.estTotal(n,labelName,tyLabel,rp(prc.total),rp(prc.unit));
+  ttEl.innerHTML=t.estTotal(n,labelName,tyLabel,rp(prc.total));
 
   var txt=t.waMsg({
     pkg:labelName,
