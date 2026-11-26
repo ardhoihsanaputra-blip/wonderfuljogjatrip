@@ -8,13 +8,12 @@
 <meta name="keywords" content="Yogyakarta private tour, Jogja tour package, Borobudur sunrise tour, Prambanan temple tour, Jomblang cave tour from Yogyakarta, Merapi Jeep lava tour, Bromo Ijen tour from Jogja, Tumpak Sewu tour from Yogyakarta">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://wonderfultripjogja.com/">
-<link rel="icon" href="logo.png">
+<link rel="icon" href="logo.png" width="64" height="64">
 <meta name="theme-color" content="#0c1b33">
 <meta property="og:type" content="website"><meta property="og:locale" content="en_US">
 <meta property="og:title" content="Wonderful Trip Jogja | Yogyakarta, Borobudur, Merapi, Caves &amp; Bromo Ijen Tours">
 <meta property="og:description" content="Sharing &amp; private tours in Yogyakarta, Bromo, Tumpak Sewu &amp; Ijen with free beer for every guest, private AC car, and 2-3 star sharing hotel on overland trips.">
 <meta property="og:image" content="https://wonderfultripjogja.com/borobudur-sunrise-1.webp">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
 {"@type":"TravelAgency","name":"Wonderful Trip Jogja","url":"https://wonderfultripjogja.com/","telephone":"+6285747180428","availableLanguage":["English","Indonesian"],"image":"https://wonderfultripjogja.com/borobudur-sunrise-1.webp","address":{"@type":"PostalAddress","streetAddress":"Dukuh II, Margoagung, Seyegan","addressLocality":"Sleman","addressRegion":"DI Yogyakarta","addressCountry":"ID"},"sameAs":["https://www.instagram.com/wonderful.trip.jogja/","https://www.facebook.com/wonderful.jogja.trip","https://www.tiktok.com/@wonderful_trip_jogja"]},
@@ -106,7 +105,7 @@ section{padding:60px 0}h2{font-size:clamp(1.6rem,4vw,2.3rem);margin-bottom:6px}
 .sg li small{display:block;font-size:.75rem;color:var(--mut);font-weight:400;margin-top:2px}
 .sg li:last-child{border-bottom:none}.sg li:hover{background:var(--bg)}
 .map-box{margin-top:10px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--bg)}
-.map-canvas{width:100%;height:240px;z-index:1}
+.map-canvas{width:100%;height:240px;z-index:1;display:grid;place-items:center;color:var(--mut);font-size:.86rem}
 .map-meta{padding:8px 12px;font-size:.78rem;color:var(--mut);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;background:#f8fafc;border-top:1px solid var(--line)}
 .map-meta a{color:var(--p);font-weight:700}
 .bk input[type=number].err{border-color:#dc2626;background:#fef2f2;color:#b91c1c}
@@ -127,11 +126,11 @@ footer{background:var(--pd);color:#a9bdd9;padding:48px 0 22px;font-size:.9rem}fo
 </style>
 </head>
 <body>
-<header><div class="w"><a href="#" class="logo"><img src="logo.png" alt="" onerror="this.remove()">Wonderful Trip <b>Jogja</b></a>
+<header><div class="w"><a href="#" class="logo"><img src="logo.png" alt="Wonderful Trip Jogja logo" width="36" height="36" onerror="this.remove()">Wonderful Trip <b>Jogja</b></a>
 <nav><a href="#packages" data-i18n="navTours">Tours</a><a href="#booking" data-i18n="navBooking">Booking</a><a href="#info" data-i18n="navInfo">Info</a><a href="#faq" data-i18n="navFaq">FAQ</a></nav>
 <div class="hdr-r"><button type="button" class="lang" id="langBtn" aria-label="Switch language">🇮🇩 ID</button><a class="btn o" href="#booking" data-i18n="hdrBook">Book Now</a></div></div></header>
 
-<section class="hero" style="padding:0"><img src="borobudur-sunrise-1.webp" alt="Borobudur Sunrise Tour" fetchpriority="high"><img src="bromo-ijen-sunrise-penanjakan.webp" alt="Mount Bromo Sunrise Tour" loading="lazy"><img src="merapi-jeep.webp" alt="Mount Merapi Jeep Lava Tour" loading="lazy"><img src="tumpak-sewu.webp" alt="Tumpak Sewu Waterfall Tour" loading="lazy"><div class="w">
+<section class="hero" style="padding:0"><img src="borobudur-sunrise-1.webp" alt="Borobudur Sunrise Tour" width="1200" height="800" fetchpriority="high"><img src="bromo-ijen-sunrise-penanjakan.webp" alt="Mount Bromo Sunrise Tour" width="1200" height="800" loading="lazy"><img src="merapi-jeep.webp" alt="Mount Merapi Jeep Lava Tour" width="1200" height="800" loading="lazy"><img src="tumpak-sewu.webp" alt="Tumpak Sewu Waterfall Tour" width="1200" height="800" loading="lazy"><div class="w">
 <p class="kick">Yogyakarta • Merapi • Bromo • Ijen</p>
 <h1 id="heroTitle">Explore Jogja, Merapi, Bromo &amp; <i>Ijen</i></h1>
 <p id="heroSub">Sharing and private tour packages with clear per-person rates. Free beer for every participant &amp; direct pickup in Yogyakarta.</p>
@@ -174,7 +173,7 @@ footer{background:var(--pd);color:#a9bdd9;padding:48px 0 22px;font-size:.9rem}fo
   </div>
   <ul id="sg" class="sg" hidden></ul>
   <div class="map-box" id="puMapWrap">
-    <div id="puMap" class="map-canvas"></div>
+    <div id="puMap" class="map-canvas">Map loads when scrolling here or selecting pickup</div>
     <div class="map-meta">
       <span id="puCoords"></span>
       <a id="puMapLink" href="https://www.google.com/maps?q=-7.797000,110.370000" target="_blank" rel="noopener">Google Maps</a>
@@ -198,14 +197,14 @@ footer{background:var(--pd);color:#a9bdd9;padding:48px 0 22px;font-size:.9rem}fo
 </div><p class="cp">© Wonderful Trip Jogja</p></div></footer>
 <a class="btn wa fab" href="https://wa.me/6285747180428" rel="noopener" data-i18n="fabWa">Chat on WhatsApp</a>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script>
 (function(){
 var GEOAPIFY_KEY="ef0a1bd2d2254e56b8b2469a4b93bc90";
+var LEAFLET_CSS="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+var LEAFLET_JS="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
 
 var WA="6285747180428",$=function(i){return document.getElementById(i)};
-var OWNER="ardhoihsanaputra-blip",REPO="wonderfuljogjatrip",BRANCH="main";
-var FALLBACK_FILES=[
+var HERO_PHOTOS=[
   "borobudur-sunrise-1.webp",
   "bromo-ijen-sunrise-penanjakan.webp",
   "merapi-jeep.webp",
@@ -313,16 +312,16 @@ function calcTierTableTotal(tiers, extraStep, n){
 }
 
 var P=[
-{id:"tp",c:"temple",e:"🏯",n:{en:"Temple Tour",id:"Temple Tour"},d:{en:"Borobudur, Prambanan, and golden sunrise viewpoints. Choose your route below.",id:"Borobudur, Prambanan, dan sunrise. Pilih rutenya di loket."},tm:["07:00"],b:{en:"Best Seller",id:"Terlaris"},g:"#7c3aed,#db2777",kw:["borobudur","prambanan","setumbu","temple","candi"],v:[
+{id:"tp",c:"temple",e:"🏯",n:{en:"Temple Tour",id:"Temple Tour"},d:{en:"Borobudur, Prambanan, and golden sunrise viewpoints. Choose your route below.",id:"Borobudur, Prambanan, dan sunrise. Pilih rutenya di loket."},tm:["07:00"],b:{en:"Best Seller",id:"Terlaris"},g:"#7c3aed,#db2777",photos:["borobudur-sunrise-1.webp"],v:[
  {n:{en:"Borobudur Sunrise Only",id:"Borobudur Sunrise only"},sTiers:[500000,650000,750000,900000,1000000],sExtra:200000,pTiers:[650000,750000,950000,1200000,1300000],pExtra:250000,tm:["03:30"],cl:0},
  {n:{en:"Borobudur & Prambanan",id:"Borobudur & Prambanan"},sTiers:[450000,600000,750000,850000,1000000],sExtra:200000,pTiers:[600000,750000,900000,1150000,1400000],pExtra:250000,tm:["07:00","08:00","09:00"],cl:1},
  {n:{en:"Punthuk Setumbu Sunrise + Borobudur + Prambanan",id:"Punthuk Setumbu Sunrise + Borobudur + Prambanan"},sTiers:[550000,650000,750000,950000,1150000],sExtra:200000,pTiers:[700000,850000,1000000,1250000,1500000],pExtra:250000,tm:["04:00"],cl:1},
  {n:{en:"Borobudur Sunrise + Prambanan",id:"Borobudur Sunrise + Prambanan"},sTiers:[550000,650000,750000,950000,1150000],sExtra:200000,pTiers:[700000,850000,1000000,1250000,1500000],pExtra:250000,tm:["03:30"],cl:1}
 ]},
-{id:"mj",c:"volcano",e:"🚙",n:{en:"Merapi 4x4 Jeep Tour",id:"Merapi Jeep"},d:{en:"Explore Indonesia's most active volcano on rugged 4x4 trails. *(4x4 Jeep rental not included)*",id:"Jelajahi gunung berapi teraktif di Indonesia dengan jalur 4x4 menantang. *(Sewa Jeep belum termasuk)*"},sTiers:[400000,500000,700000,800000,1000000],sExtra:200000,pTiers:[500000,600000,850000,900000,1100000],pExtra:250000,tm:["07:00","13:00"],b:{en:"Popular",id:"Seru"},g:"#ea580c,#dc2626",kw:["merapi","jeep","lava"],jeep:true},
-{id:"jp",c:"nature",e:"🕳️",n:{en:"Jomblang & Pindul Cave",id:"Jomblang & Pindul Cave"},d:{en:"Vertical rappel into Jomblang Cave & underground river tubing at Pindul Cave.",id:"Goa Jomblang & river tubing Goa Pindul di Gunungkidul."},sTiers:[450000,600000,700000,800000,1000000],sExtra:200000,pTiers:[600000,800000,800000,1000000,1250000],pExtra:250000,tm:["07:00"],b:{en:"Adventure",id:"Petualangan"},g:"#0d9488,#0284c7",kw:["jomblang","pindul","cave","goa"]},
-{id:"bi",c:"jatim",e:"🔥",n:{en:"Bromo & Ijen from Jogja",id:"Bromo & Ijen Start Jogja"},d:{en:"All-inclusive overland expedition to Mount Bromo & Ijen Crater starting from Yogyakarta (min. 2 pax). Includes 2–3 star hotel (sharing room, 2 guests/room).",id:"Overland Bromo & Kawah Ijen berangkat dari Yogyakarta (minimal 2 pax). Sudah termasuk hotel bintang 2 atau 3 (sharing room 2 orang/kamar)."},sh:4500000,pr:5200000,tm:["07:00"],b:{en:"Overland",id:"Overland"},g:"#4f46e5,#06b6d4",min:2,kw:["bromo","ijen"]},
-{id:"bti",c:"jatim",e:"🌊",n:{en:"Bromo, Tumpak Sewu & Ijen from Jogja",id:"Bromo, Tumpak Sewu & Ijen Start Jogja"},d:{en:"Complete East Java overland journey covering Tumpak Sewu Waterfall, Bromo & Ijen Crater (min. 2 pax). Includes 2–3 star hotel (sharing room, 2 guests/room).",id:"Overland Tumpak Sewu, Bromo & Kawah Ijen berangkat dari Jogja (minimal 2 pax). Sudah termasuk hotel bintang 2 atau 3 (sharing room 2 orang/kamar)."},sh:6000000,pr:6800000,tm:["07:00"],b:{en:"Complete",id:"Komplit"},g:"#9333ea,#f97316",min:2,kw:["tumpak","sewu","waterfall"]}
+{id:"mj",c:"volcano",e:"🚙",n:{en:"Merapi 4x4 Jeep Tour",id:"Merapi Jeep"},d:{en:"Explore Indonesia's most active volcano on rugged 4x4 trails. *(4x4 Jeep rental not included)*",id:"Jelajahi gunung berapi teraktif di Indonesia dengan jalur 4x4 menantang. *(Sewa Jeep belum termasuk)*"},sTiers:[400000,500000,700000,800000,1000000],sExtra:200000,pTiers:[500000,600000,850000,900000,1100000],pExtra:250000,tm:["07:00","13:00"],b:{en:"Popular",id:"Seru"},g:"#ea580c,#dc2626",photos:["merapi-jeep.webp"],jeep:true},
+{id:"jp",c:"nature",e:"🕳️",n:{en:"Jomblang & Pindul Cave",id:"Jomblang & Pindul Cave"},d:{en:"Vertical rappel into Jomblang Cave & underground river tubing at Pindul Cave.",id:"Goa Jomblang & river tubing Goa Pindul di Gunungkidul."},sTiers:[450000,600000,700000,800000,1000000],sExtra:200000,pTiers:[600000,800000,800000,1000000,1250000],pExtra:250000,tm:["07:00"],b:{en:"Adventure",id:"Petualangan"},g:"#0d9488,#0284c7",photos:["borobudur-sunrise-1.webp"]},
+{id:"bi",c:"jatim",e:"🔥",n:{en:"Bromo & Ijen from Jogja",id:"Bromo & Ijen Start Jogja"},d:{en:"All-inclusive overland expedition to Mount Bromo & Ijen Crater starting from Yogyakarta (min. 2 pax). Includes 2–3 star hotel (sharing room, 2 guests/room).",id:"Overland Bromo & Kawah Ijen berangkat dari Yogyakarta (minimal 2 pax). Sudah termasuk hotel bintang 2 atau 3 (sharing room 2 orang/kamar)."},sh:4500000,pr:5200000,tm:["07:00"],b:{en:"Overland",id:"Overland"},g:"#4f46e5,#06b6d4",min:2,photos:["bromo-ijen-sunrise-penanjakan.webp"]},
+{id:"bti",c:"jatim",e:"🌊",n:{en:"Bromo, Tumpak Sewu & Ijen from Jogja",id:"Bromo, Tumpak Sewu & Ijen Start Jogja"},d:{en:"Complete East Java overland journey covering Tumpak Sewu Waterfall, Bromo & Ijen Crater (min. 2 pax). Includes 2–3 star hotel (sharing room, 2 guests/room).",id:"Overland Tumpak Sewu, Bromo & Kawah Ijen berangkat dari Jogja (minimal 2 pax). Sudah termasuk hotel bintang 2 atau 3 (sharing room 2 orang/kamar)."},sh:6000000,pr:6800000,tm:["07:00"],b:{en:"Complete",id:"Komplit"},g:"#9333ea,#f97316",min:2,photos:["tumpak-sewu.webp","bromo-ijen-sunrise-penanjakan.webp"]}
 ];
 
 var rp=function(n){return(lang==="en"?"IDR ":"Rp ")+Math.round(n).toLocaleString(lang==="en"?"en-US":"id-ID")};
@@ -391,6 +390,7 @@ function buildCardsAndSelects(){
     a.addEventListener("click",function(){
       pkSel.value=a.dataset.pick;
       syncVariants();
+      ensureMapReady();
     });
   });
 }
@@ -405,7 +405,9 @@ function mountCardPhotos(pkgId, relPaths){
     var img=document.createElement("img");
     img.src=rel.replace(/^\/+/,"");
     img.alt=pkgId+" tour photo "+(idx+1);
-    img.loading=idx===0?"eager":"lazy";
+    img.width=600;
+    img.height=400;
+    img.loading="lazy";
     if(idx===0)img.classList.add("on");
     img.addEventListener("load",function(){pic.classList.add("has")});
     img.addEventListener("error",function(){img.remove()});
@@ -425,45 +427,20 @@ function mountCardPhotos(pkgId, relPaths){
   }
 }
 
-async function fetchRepoImages(folder){
-  var url=folder
-    ? "https://api.github.com/repos/"+OWNER+"/"+REPO+"/contents/"+encodeURIComponent(folder)+"?ref="+BRANCH
-    : "https://api.github.com/repos/"+OWNER+"/"+REPO+"/contents?ref="+BRANCH;
-  var res=await fetch(url);
-  if(!res.ok)return[];
-  var entries=await res.json();
-  if(!Array.isArray(entries))return[];
-  var out=[];
-  for(var i=0;i<entries.length;i++){
-    var item=entries[i];
-    if(item.type==="file"&&/\.(jpe?g|png|webp)$/i.test(item.name)){
-      out.push(item.path);
-    }else if(item.type==="dir"&&item.name!=="css"&&item.name[0]!=="."){
-      var sub=await fetchRepoImages(item.path);
-      out=out.concat(sub);
-    }
-  }
-  return out;
-}
-
-async function loadRepoPhotos(){
-  var files=[];
-  try{files=await fetchRepoImages("")}catch(e){}
-  if(!files.length)files=FALLBACK_FILES.slice();
-
+function loadLocalPhotos(){
   var heroEls=document.querySelectorAll(".hero > img");
-  if(heroEls.length&&files.length){
-    files.slice(0,heroEls.length).forEach(function(fn,i){
-      heroEls[i].src=fn.replace(/^\/+/,"");
+  if(heroEls.length){
+    heroEls.forEach(function(img,i){
+      if(HERO_PHOTOS[i]){
+        img.src=HERO_PHOTOS[i].replace(/^\/+/,"");
+        img.setAttribute("width","1200");
+        img.setAttribute("height","800");
+      }
     });
   }
 
   P.forEach(function(pkg){
-    var matched=files.filter(function(fn){
-      var low=fn.toLowerCase();
-      return (pkg.kw||[]).some(function(k){return low.indexOf(k)!==-1});
-    });
-    if(!matched.length)matched=files.slice(0,2);
+    var matched=(pkg.photos&&pkg.photos.length)?pkg.photos.slice():HERO_PHOTOS.slice(0,1);
     loadedPhotos[pkg.id]=matched;
     mountCardPhotos(pkg.id,matched);
   });
@@ -569,9 +546,9 @@ function calc(){
   goBtn.href="https://wa.me/"+WA+"?text="+encodeURIComponent(txt);
 }
 
-/* Interactive Map (Leaflet) + Geoapify Autocomplete & Reverse Geocoding (with Photon/Nominatim fallback) */
+/* Lazy-loaded Leaflet Map + Geoapify Autocomplete & Reverse Geocoding */
 var pu=$("pu"),sg=$("sg"),puCoordsEl=$("puCoords"),puMapLink=$("puMapLink"),btnGps=$("btnGps");
-var map=null,marker=null,tmo=null,abortCtrl=null;
+var map=null,marker=null,tmo=null,abortCtrl=null,leafletLoading=false,leafletReady=false,pendingMapAction=null;
 
 function hasGeoapifyKey(){
   return GEOAPIFY_KEY && GEOAPIFY_KEY !== "GEOAPIFY_API_KEY_KAMU" && GEOAPIFY_KEY.trim().length > 10;
@@ -586,15 +563,16 @@ function updateMapMeta(lat,lng){
 }
 
 function initFreeMap(){
-  if(typeof L==="undefined")return;
-  map=L.map("puMap",{scrollWheelZoom:false}).setView([DEFAULT_CENTER.lat,DEFAULT_CENTER.lng],13);
+  if(map||typeof L==="undefined")return;
+  var cur=selectedCoords||DEFAULT_CENTER;
+  map=L.map("puMap",{scrollWheelZoom:false}).setView([cur.lat,cur.lng],selectedCoords?16:13);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
     maxZoom:19,
     attribution:"© OpenStreetMap"
   }).addTo(map);
 
-  marker=L.marker([DEFAULT_CENTER.lat,DEFAULT_CENTER.lng],{draggable:true}).addTo(map);
-  updateMapMeta(DEFAULT_CENTER.lat,DEFAULT_CENTER.lng);
+  marker=L.marker([cur.lat,cur.lng],{draggable:true}).addTo(map);
+  updateMapMeta(cur.lat,cur.lng);
 
   marker.on("dragend",function(){
     var pos=marker.getLatLng();
@@ -612,15 +590,53 @@ function initFreeMap(){
     reverseFillAddress(lat,lng);
     calc();
   });
+
+  if(typeof pendingMapAction==="function"){
+    var cb=pendingMapAction;
+    pendingMapAction=null;
+    cb();
+  }
+}
+
+function ensureMapReady(cb){
+  if(cb)pendingMapAction=cb;
+  if(leafletReady&&typeof L!=="undefined"){
+    initFreeMap();
+    return;
+  }
+  if(leafletLoading)return;
+  leafletLoading=true;
+
+  if(!document.querySelector('link[href="'+LEAFLET_CSS+'"]')){
+    var link=document.createElement("link");
+    link.rel="stylesheet";
+    link.href=LEAFLET_CSS;
+    document.head.appendChild(link);
+  }
+
+  var sc=document.createElement("script");
+  sc.src=LEAFLET_JS;
+  sc.async=true;
+  sc.onload=function(){
+    leafletLoading=false;
+    leafletReady=true;
+    initFreeMap();
+  };
+  sc.onerror=function(){
+    leafletLoading=false;
+  };
+  document.body.appendChild(sc);
 }
 
 function setPinLocation(lat,lng,zoom){
   selectedCoords={lat:lat,lng:lng};
   updateMapMeta(lat,lng);
-  if(map&&marker){
-    marker.setLatLng([lat,lng]);
-    map.setView([lat,lng],zoom||16);
-  }
+  ensureMapReady(function(){
+    if(map&&marker){
+      marker.setLatLng([lat,lng]);
+      map.setView([lat,lng],zoom||16);
+    }
+  });
 }
 
 function reverseFillAddress(lat,lng){
@@ -741,7 +757,12 @@ function searchPlaces(q){
   }
 }
 
+pu.addEventListener("focus",function(){
+  ensureMapReady();
+});
+
 pu.addEventListener("input",function(){
+  ensureMapReady();
   calc();
   clearTimeout(tmo);
   var q=pu.value.trim();
@@ -750,6 +771,7 @@ pu.addEventListener("input",function(){
 });
 
 btnGps.addEventListener("click",function(){
+  ensureMapReady();
   if(!navigator.geolocation)return;
   btnGps.style.opacity="0.6";
   navigator.geolocation.getCurrentPosition(function(pos){
@@ -810,6 +832,7 @@ $("hgo").addEventListener("click",function(){
   pkSel.value=hqSel.value;
   if(hdIn.value)dIn.value=hdIn.value;
   syncVariants();
+  ensureMapReady();
   $("booking").scrollIntoView({behavior:"smooth"});
 });
 
@@ -838,13 +861,25 @@ var io=new IntersectionObserver(function(entries){
 },{threshold:.1});
 document.querySelectorAll(".reveal").forEach(function(el){io.observe(el)});
 
+var bookingEl=$("booking");
+if(bookingEl&&typeof IntersectionObserver!=="undefined"){
+  var mapIo=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        ensureMapReady();
+        mapIo.disconnect();
+      }
+    });
+  },{rootMargin:"250px"});
+  mapIo.observe(bookingEl);
+}
+
 var tmr=new Date();tmr.setDate(tmr.getDate()+1);
 var defDate=tmr.toISOString().slice(0,10);
 dIn.value=defDate;hdIn.value=defDate;
 
-initFreeMap();
 applyLang();
-loadRepoPhotos();
+loadLocalPhotos();
 })();
 </script>
 </body>
