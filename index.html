@@ -102,11 +102,11 @@ section{padding:60px 0}h2{font-size:clamp(1.6rem,4vw,2.3rem);margin-bottom:6px}
 .btn-gps{padding:10px 12px;border:1px solid var(--line);border-radius:6px;background:#f8fafc;color:var(--p);font:inherit;font-size:.8rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .2s}
 .btn-gps:hover{background:#e7f0fd}
 .sg{position:absolute;left:0;right:0;top:64px;z-index:1100;list-style:none;margin:2px 0 0;padding:0;background:#fff;border:1px solid var(--line);border-radius:6px;box-shadow:0 10px 24px rgba(12,27,51,.18);max-height:240px;overflow-y:auto}
-.sg li{padding:10px 12px;font-size:.85rem;cursor:pointer;border-bottom:1px solid var(--line);color:var(--ink);font-weight:500;line-height:1.35}
+.sg li{padding:10px 12px;font-size:.85rem;cursor:pointer;border-bottom:1px solid var(--line);color:var(--ink);font-weight:600;line-height:1.35}
 .sg li small{display:block;font-size:.75rem;color:var(--mut);font-weight:400;margin-top:2px}
 .sg li:last-child{border-bottom:none}.sg li:hover{background:var(--bg)}
 .map-box{margin-top:10px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--bg)}
-.map-canvas{width:100%;height:230px;z-index:1}
+.map-canvas{width:100%;height:240px;z-index:1}
 .map-meta{padding:8px 12px;font-size:.78rem;color:var(--mut);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;background:#f8fafc;border-top:1px solid var(--line)}
 .map-meta a{color:var(--p);font-weight:700}
 .bk input[type=number].err{border-color:#dc2626;background:#fef2f2;color:#b91c1c}
@@ -201,6 +201,8 @@ footer{background:var(--pd);color:#a9bdd9;padding:48px 0 22px;font-size:.9rem}fo
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script>
 (function(){
+var GEOAPIFY_KEY="ef0a1bd2d2254e56b8b2469a4b93bc90";
+
 var WA="6285747180428",$=function(i){return document.getElementById(i)};
 var OWNER="ardhoihsanaputra-blip",REPO="wonderfuljogjatrip",BRANCH="main";
 var FALLBACK_FILES=[
@@ -567,9 +569,13 @@ function calc(){
   goBtn.href="https://wa.me/"+WA+"?text="+encodeURIComponent(txt);
 }
 
-/* Free Interactive Map (Leaflet + OpenStreetMap) & Address Autocomplete (Photon / Nominatim) */
+/* Interactive Map (Leaflet) + Geoapify Autocomplete & Reverse Geocoding (with Photon/Nominatim fallback) */
 var pu=$("pu"),sg=$("sg"),puCoordsEl=$("puCoords"),puMapLink=$("puMapLink"),btnGps=$("btnGps");
 var map=null,marker=null,tmo=null,abortCtrl=null;
+
+function hasGeoapifyKey(){
+  return GEOAPIFY_KEY && GEOAPIFY_KEY !== "GEOAPIFY_API_KEY_KAMU" && GEOAPIFY_KEY.trim().length > 10;
+}
 
 function updateMapMeta(lat,lng){
   var t=I18N[lang];
@@ -618,6 +624,20 @@ function setPinLocation(lat,lng,zoom){
 }
 
 function reverseFillAddress(lat,lng){
+  if(hasGeoapifyKey()){
+    var geoUrl="https://api.geoapify.com/v1/geocode/reverse?lat="+lat+"&lon="+lng+"&lang="+lang+"&format=json&apiKey="+encodeURIComponent(GEOAPIFY_KEY);
+    fetch(geoUrl)
+      .then(function(r){return r.ok?r.json():null})
+      .then(function(data){
+        var item=data&&data.results&&data.results[0];
+        if(item&&item.formatted){
+          pu.value=item.formatted;
+          calc();
+        }
+      }).catch(function(){});
+    return;
+  }
+
   fetch("https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat="+lat+"&lon="+lng)
     .then(function(r){return r.ok?r.json():null})
     .then(function(data){
@@ -629,61 +649,21 @@ function reverseFillAddress(lat,lng){
     }).catch(function(){});
 }
 
-function formatPhotonFeature(f){
-  var p=f.properties||{};
-  var name=p.name||"";
-  var parts=[];
-  if(p.street)parts.push(p.street+(p.housenumber?" "+p.housenumber:""));
-  if(p.district||p.suburb||p.village)parts.push(p.district||p.suburb||p.village);
-  if(p.city||p.county)parts.push(p.city||p.county);
-  if(p.state)parts.push(p.state);
-  var sub=parts.filter(Boolean).join(", ");
-  var full=name?(sub&&sub.indexOf(name)!==0?name+", "+sub:name):sub;
-  return {title:name||sub,sub:sub,full:full};
-}
-
-function searchFreePlaces(q){
-  if(abortCtrl)try{abortCtrl.abort()}catch(e){}
-  abortCtrl=typeof AbortController!=="undefined"?new AbortController():null;
-  var sig=abortCtrl?abortCtrl.signal:undefined;
-
-  var url="https://photon.komoot.io/api/?q="+encodeURIComponent(q)+"&lat="+DEFAULT_CENTER.lat+"&lon="+DEFAULT_CENTER.lng+"&limit=6";
-  fetch(url,{signal:sig})
-    .then(function(r){return r.ok?r.json():{features:[]}})
-    .then(function(data){
-      var feats=(data&&data.features)||[];
-      var idFeats=feats.filter(function(f){
-        var p=f.properties||{};
-        return !p.countrycode||String(p.countrycode).toUpperCase()==="ID";
-      });
-      renderSuggestions(idFeats.length?idFeats:feats);
-    })
-    .catch(function(err){
-      if(err&&err.name==="AbortError")return;
-      sg.hidden=true;
-    });
-}
-
-function renderSuggestions(features){
+function renderSuggestionItems(items){
   sg.innerHTML="";
-  features.forEach(function(f){
-    var coords=f.geometry&&f.geometry.coordinates;
-    if(!coords||coords.length<2)return;
-    var lng=Number(coords[0]),lat=Number(coords[1]);
-    var info=formatPhotonFeature(f);
-    if(!info.full)return;
-
+  items.forEach(function(item){
+    if(!item||typeof item.lat!=="number"||typeof item.lng!=="number"||!item.full)return;
     var li=document.createElement("li");
-    li.textContent=info.title;
-    if(info.sub&&info.sub!==info.title){
+    li.textContent=item.title||item.full;
+    if(item.sub&&item.sub!==item.title){
       var sm=document.createElement("small");
-      sm.textContent=info.sub;
+      sm.textContent=item.sub;
       li.appendChild(sm);
     }
     li.addEventListener("click",function(){
-      pu.value=info.full;
+      pu.value=item.full;
       sg.hidden=true;
-      setPinLocation(lat,lng,16);
+      setPinLocation(item.lat,item.lng,16);
       calc();
     });
     sg.appendChild(li);
@@ -691,12 +671,82 @@ function renderSuggestions(features){
   sg.hidden=!sg.children.length;
 }
 
+function searchPhotonFallback(q,sig){
+  var url="https://photon.komoot.io/api/?q="+encodeURIComponent(q)+"&lat="+DEFAULT_CENTER.lat+"&lon="+DEFAULT_CENTER.lng+"&limit=6";
+  return fetch(url,{signal:sig})
+    .then(function(r){return r.ok?r.json():{features:[]}})
+    .then(function(data){
+      var feats=(data&&data.features)||[];
+      var idFeats=feats.filter(function(f){
+        var p=f.properties||{};
+        return !p.countrycode||String(p.countrycode).toUpperCase()==="ID";
+      });
+      var list=(idFeats.length?idFeats:feats).map(function(f){
+        var coords=f.geometry&&f.geometry.coordinates;
+        var p=f.properties||{};
+        var name=p.name||"";
+        var parts=[];
+        if(p.street)parts.push(p.street+(p.housenumber?" "+p.housenumber:""));
+        if(p.district||p.suburb||p.village)parts.push(p.district||p.suburb||p.village);
+        if(p.city||p.county)parts.push(p.city||p.county);
+        if(p.state)parts.push(p.state);
+        var sub=parts.filter(Boolean).join(", ");
+        var full=name?(sub&&sub.indexOf(name)!==0?name+", "+sub:name):sub;
+        return coords&&coords.length>=2?{
+          title:name||sub,
+          sub:sub,
+          full:full,
+          lat:Number(coords[1]),
+          lng:Number(coords[0])
+        }:null;
+      }).filter(Boolean);
+      renderSuggestionItems(list);
+    });
+}
+
+function searchPlaces(q){
+  if(abortCtrl)try{abortCtrl.abort()}catch(e){}
+  abortCtrl=typeof AbortController!=="undefined"?new AbortController():null;
+  var sig=abortCtrl?abortCtrl.signal:undefined;
+
+  if(hasGeoapifyKey()){
+    var url="https://api.geoapify.com/v1/geocode/autocomplete?text="+encodeURIComponent(q)+"&filter=countrycode:id&bias=proximity:"+DEFAULT_CENTER.lng+","+DEFAULT_CENTER.lat+"&limit=6&lang="+lang+"&format=json&apiKey="+encodeURIComponent(GEOAPIFY_KEY);
+    fetch(url,{signal:sig})
+      .then(function(r){return r.ok?r.json():Promise.reject()})
+      .then(function(data){
+        var results=(data&&data.results)||[];
+        var mapped=results.map(function(res){
+          var title=res.name||res.address_line1||res.formatted||"";
+          var sub=res.address_line2||[res.suburb||res.district,res.city||res.county,res.state].filter(Boolean).join(", ");
+          var full=res.formatted||(title+(sub?", "+sub:""));
+          return (typeof res.lat==="number"&&typeof res.lon==="number")?{
+            title:title,
+            sub:sub,
+            full:full,
+            lat:res.lat,
+            lng:res.lon
+          }:null;
+        }).filter(Boolean);
+        renderSuggestionItems(mapped);
+      })
+      .catch(function(err){
+        if(err&&err.name==="AbortError")return;
+        searchPhotonFallback(q,sig).catch(function(){sg.hidden=true});
+      });
+  }else{
+    searchPhotonFallback(q,sig).catch(function(err){
+      if(err&&err.name==="AbortError")return;
+      sg.hidden=true;
+    });
+  }
+}
+
 pu.addEventListener("input",function(){
   calc();
   clearTimeout(tmo);
   var q=pu.value.trim();
   if(q.length<3){sg.hidden=true;return}
-  tmo=setTimeout(function(){searchFreePlaces(q)},320);
+  tmo=setTimeout(function(){searchPlaces(q)},300);
 });
 
 btnGps.addEventListener("click",function(){
