@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://ardhoihsanaputra-blip.github.io/wonderfuljogjatrip/sitemap.xml
+
+Sitemap: https://wonderfultripjogja.com/sitemap.xml
