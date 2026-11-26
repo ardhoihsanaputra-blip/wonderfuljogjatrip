@@ -1,4 +1,4 @@
-name: Delete All WebP
+name: Delete Selected WebP
 on:
   workflow_dispatch:
 
@@ -10,14 +10,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Remove all .webp files
+      - name: Remove selected .webp files
         run: |
-          git rm -r --ignore-unmatch -- '*.webp'
+          git rm -r --ignore-unmatch -- \
+            Bromo-sunrise-penanjakan-1.webp \
+            bromo-sunrise-penanjakan-1.webp \
+            bromo-sunrise-penanjakan-2.webp \
+            ijen-crater-1.webp \
+            tumpak-sewu-waterfall-1.webp \
+            tumpak-sewu-waterfall-2.webp
           if git diff --cached --quiet; then
-            echo "No .webp files found"
+            echo "No matching files to remove"
           else
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git commit -m "Delete all .webp files"
+            git commit -m "Delete 5 selected WebP images"
             git push
           fi
