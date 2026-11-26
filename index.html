@@ -14,6 +14,7 @@
 <meta property="og:title" content="Wonderful Trip Jogja | Yogyakarta, Borobudur, Merapi, Caves &amp; Bromo Ijen Tours">
 <meta property="og:description" content="Sharing &amp; private tours in Yogyakarta, Bromo, Tumpak Sewu &amp; Ijen with free beer for every guest, private AC car, and 2-3 star sharing hotel on overland trips.">
 <meta property="og:image" content="https://wonderfultripjogja.com/borobudur-sunrise-1.webp">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
 {"@type":"TravelAgency","name":"Wonderful Trip Jogja","url":"https://wonderfultripjogja.com/","telephone":"+6285747180428","availableLanguage":["English","Indonesian"],"image":"https://wonderfultripjogja.com/borobudur-sunrise-1.webp","address":{"@type":"PostalAddress","streetAddress":"Dukuh II, Margoagung, Seyegan","addressLocality":"Sleman","addressRegion":"DI Yogyakarta","addressCountry":"ID"},"sameAs":["https://www.instagram.com/wonderful.trip.jogja/","https://www.facebook.com/wonderful.jogja.trip","https://www.tiktok.com/@wonderful_trip_jogja"]},
@@ -34,7 +35,7 @@ a{color:inherit;text-decoration:none}.w{max-width:1140px;margin:auto;padding:0 1
 h1,h2,h3{font-weight:800;line-height:1.2}
 .lang{border:1px solid #cbd5e1;background:#fff;border-radius:99px;padding:6px 13px;color:var(--ink);font:inherit;font-weight:700;font-size:.82rem;cursor:pointer;transition:border-color .2s,color .2s}
 .lang:hover{border-color:var(--p);color:var(--p)}
-header{position:sticky;top:0;z-index:9;background:#fff;box-shadow:0 2px 14px rgba(12,27,51,.08)}
+header{position:sticky;top:0;z-index:1000;background:#fff;box-shadow:0 2px 14px rgba(12,27,51,.08)}
 header .w{display:flex;align-items:center;justify-content:space-between;height:66px;gap:12px}
 .hdr-r{display:flex;align-items:center;gap:10px}
 .logo{font-weight:800;font-size:1.3rem;color:var(--p);display:flex;align-items:center;gap:8px}.logo b{color:var(--pd)}.logo img{height:36px;width:auto}
@@ -95,10 +96,17 @@ section{padding:60px 0}h2{font-size:clamp(1.6rem,4vw,2.3rem);margin-bottom:6px}
 .bk label{font-size:.78rem;color:var(--mut);display:grid;gap:3px;font-weight:700}
 .bk select,.bk input[type=date],.bk input[type=number]{padding:10px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);font:inherit;width:100%}
 .bk input[type=text]{padding:10px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);font:inherit;width:100%}
-.sg{position:absolute;left:0;right:0;top:100%;z-index:20;list-style:none;margin:2px 0 0;padding:0;background:#fff;border:1px solid var(--line);border-radius:6px;box-shadow:0 8px 20px rgba(12,27,51,.15);max-height:240px;overflow-y:auto}
-.sg li{padding:10px 12px;font-size:.85rem;cursor:pointer;border-bottom:1px solid var(--line);color:var(--ink);font-weight:500}.sg li:last-child{border-bottom:none}.sg li:hover{background:var(--bg)}
-.map-box{margin-top:8px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--bg)}
-.map-canvas{width:100%;height:240px}
+.pu-wrap{position:relative}
+.pu-input-row{display:flex;gap:8px;align-items:center}
+.pu-input-row input{flex:1}
+.btn-gps{padding:10px 12px;border:1px solid var(--line);border-radius:6px;background:#f8fafc;color:var(--p);font:inherit;font-size:.8rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .2s}
+.btn-gps:hover{background:#e7f0fd}
+.sg{position:absolute;left:0;right:0;top:64px;z-index:1100;list-style:none;margin:2px 0 0;padding:0;background:#fff;border:1px solid var(--line);border-radius:6px;box-shadow:0 10px 24px rgba(12,27,51,.18);max-height:240px;overflow-y:auto}
+.sg li{padding:10px 12px;font-size:.85rem;cursor:pointer;border-bottom:1px solid var(--line);color:var(--ink);font-weight:500;line-height:1.35}
+.sg li small{display:block;font-size:.75rem;color:var(--mut);font-weight:400;margin-top:2px}
+.sg li:last-child{border-bottom:none}.sg li:hover{background:var(--bg)}
+.map-box{margin-top:10px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--bg)}
+.map-canvas{width:100%;height:230px;z-index:1}
 .map-meta{padding:8px 12px;font-size:.78rem;color:var(--mut);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;background:#f8fafc;border-top:1px solid var(--line)}
 .map-meta a{color:var(--p);font-weight:700}
 .bk input[type=number].err{border-color:#dc2626;background:#fef2f2;color:#b91c1c}
@@ -113,7 +121,7 @@ summary{font-weight:700;cursor:pointer}details p{margin-top:8px;color:var(--mut)
 footer{background:var(--pd);color:#a9bdd9;padding:48px 0 22px;font-size:.9rem}footer b,footer h4{color:#fff}
 .fg{display:grid;gap:28px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}.fg h4{margin-bottom:10px}.fg a{display:block;padding:2px 0}.fg a:hover{color:#fff}
 .cp{border-top:1px solid #243a5c;margin-top:28px;padding-top:16px;font-size:.8rem}
-.fab{position:fixed;right:16px;bottom:16px;z-index:9;box-shadow:0 6px 18px rgba(0,0,0,.3);border-radius:99px}
+.fab{position:fixed;right:16px;bottom:16px;z-index:1000;box-shadow:0 6px 18px rgba(0,0,0,.3);border-radius:99px}
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .6s,transform .6s}.reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.hero>img:first-child{opacity:1}.reveal{opacity:1;transform:none}}
 </style>
@@ -158,14 +166,18 @@ footer{background:var(--pd);color:#a9bdd9;padding:48px 0 22px;font-size:.9rem}fo
 <label id="vrw" class="full" style="display:none"><span data-i18n="bkRoute">Route option</span><select id="vr"></select></label>
 <label><span data-i18n="bkType">Tour type</span><select id="ty"><option value="sharing" data-i18n="optShare">Sharing (per person)</option><option value="private" data-i18n="optPriv">Private</option></select></label>
 <label><span data-i18n="bkPax">Participants</span><input type="number" id="ni" min="1" max="30" value="2"></label>
-<div class="full" style="position:relative">
-  <label><span data-i18n="bkPickup">Pickup location</span><input type="text" id="pu" autocomplete="off"></label>
+<div class="full pu-wrap">
+  <label for="pu" style="margin-bottom:4px"><span data-i18n="bkPickup">Pickup location</span></label>
+  <div class="pu-input-row">
+    <input type="text" id="pu" autocomplete="off">
+    <button type="button" class="btn-gps" id="btnGps" data-i18n="gpsBtn">📍 My Location</button>
+  </div>
   <ul id="sg" class="sg" hidden></ul>
-  <div class="map-box" id="puMapWrap" hidden>
+  <div class="map-box" id="puMapWrap">
     <div id="puMap" class="map-canvas"></div>
     <div class="map-meta">
       <span id="puCoords"></span>
-      <a id="puMapLink" href="#" target="_blank" rel="noopener" hidden>Google Maps</a>
+      <a id="puMapLink" href="https://www.google.com/maps?q=-7.797000,110.370000" target="_blank" rel="noopener">Google Maps</a>
     </div>
   </div>
 </div>
@@ -186,6 +198,7 @@ footer{background:var(--pd);color:#a9bdd9;padding:48px 0 22px;font-size:.9rem}fo
 </div><p class="cp">© Wonderful Trip Jogja</p></div></footer>
 <a class="btn wa fab" href="https://wa.me/6285747180428" rel="noopener" data-i18n="fabWa">Chat on WhatsApp</a>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script>
 (function(){
 var WA="6285747180428",$=function(i){return document.getElementById(i)};
@@ -228,8 +241,9 @@ var I18N={
     bkDate:"Departure date",bkPkg:"Tour package",bkTime:"Pickup time",bkRoute:"Route option",
     bkType:"Tour type",optShare:"Sharing (per person)",optPriv:"Private",bkPax:"Participants",
     bkWa:"Book via WhatsApp",
-    bkPickup:"Pickup location (hotel / address)",puPh:"Type your hotel name or address",
-    mapHint:"Drag pin or click map to adjust pickup point",openMaps:"Open in Google Maps",
+    bkPickup:"Pickup location (hotel / address)",puPh:"Type hotel name or address (e.g. Phoenix, Malioboro)...",
+    gpsBtn:"📍 My Location",
+    mapHint:"Drag pin or tap map to adjust pickup point",openMaps:"Open in Google Maps",
     minErr:function(m){return"Cannot book with 1 participant: minimum "+m+" participants required for overland tours."},
     emptyPaxErr:"Please enter the number of participants (minimum 2 for overland tours).",
     monNote:"Note: Prambanan main temple zone occasionally has Monday climbing restrictions.",
@@ -268,8 +282,9 @@ var I18N={
     bkDate:"Tanggal berangkat",bkPkg:"Paket",bkTime:"Jam jemput",bkRoute:"Pilihan tur",
     bkType:"Tipe tur",optShare:"Sharing (per orang)",optPriv:"Private",bkPax:"Jumlah peserta",
     bkWa:"Pesan via WhatsApp",
-    bkPickup:"Lokasi jemput (hotel / alamat)",puPh:"Ketik nama hotel atau alamat",
-    mapHint:"Geser pin atau klik peta untuk menyesuaikan titik jemput",openMaps:"Buka di Google Maps",
+    bkPickup:"Lokasi jemput (hotel / alamat)",puPh:"Ketik nama hotel atau alamat (mis. Phoenix, Malioboro)...",
+    gpsBtn:"📍 Lokasi Saya",
+    mapHint:"Geser pin atau ketuk peta untuk menyesuaikan titik jemput",openMaps:"Buka di Google Maps",
     minErr:function(m){return"Tidak bisa dipesan untuk 1 peserta: paket overland minimal "+m+" pax."},
     emptyPaxErr:"Masukkan jumlah peserta terlebih dahulu (minimal 2 pax untuk paket overland).",
     monNote:"Catatan: Candi Prambanan terkadang memiliki pembatasan naik candi setiap hari Senin.",
@@ -310,6 +325,7 @@ var P=[
 
 var rp=function(n){return(lang==="en"?"IDR ":"Rp ")+Math.round(n).toLocaleString(lang==="en"?"en-US":"id-ID")};
 
+var DEFAULT_CENTER={lat:-7.7970,lng:110.3700};
 var selectedCoords=null;
 
 function getPricing(pkg, variant, ty, n){
@@ -551,12 +567,161 @@ function calc(){
   goBtn.href="https://wa.me/"+WA+"?text="+encodeURIComponent(txt);
 }
 
+/* Free Interactive Map (Leaflet + OpenStreetMap) & Address Autocomplete (Photon / Nominatim) */
+var pu=$("pu"),sg=$("sg"),puCoordsEl=$("puCoords"),puMapLink=$("puMapLink"),btnGps=$("btnGps");
+var map=null,marker=null,tmo=null,abortCtrl=null;
+
+function updateMapMeta(lat,lng){
+  var t=I18N[lang];
+  var url="https://www.google.com/maps?q="+lat.toFixed(6)+","+lng.toFixed(6);
+  puMapLink.href=url;
+  puMapLink.textContent=t.openMaps;
+  puCoordsEl.textContent=lat.toFixed(5)+", "+lng.toFixed(5)+" · "+t.mapHint;
+}
+
+function initFreeMap(){
+  if(typeof L==="undefined")return;
+  map=L.map("puMap",{scrollWheelZoom:false}).setView([DEFAULT_CENTER.lat,DEFAULT_CENTER.lng],13);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
+    maxZoom:19,
+    attribution:"© OpenStreetMap"
+  }).addTo(map);
+
+  marker=L.marker([DEFAULT_CENTER.lat,DEFAULT_CENTER.lng],{draggable:true}).addTo(map);
+  updateMapMeta(DEFAULT_CENTER.lat,DEFAULT_CENTER.lng);
+
+  marker.on("dragend",function(){
+    var pos=marker.getLatLng();
+    selectedCoords={lat:pos.lat,lng:pos.lng};
+    updateMapMeta(pos.lat,pos.lng);
+    reverseFillAddress(pos.lat,pos.lng);
+    calc();
+  });
+
+  map.on("click",function(e){
+    var lat=e.latlng.lat,lng=e.latlng.lng;
+    marker.setLatLng([lat,lng]);
+    selectedCoords={lat:lat,lng:lng};
+    updateMapMeta(lat,lng);
+    reverseFillAddress(lat,lng);
+    calc();
+  });
+}
+
+function setPinLocation(lat,lng,zoom){
+  selectedCoords={lat:lat,lng:lng};
+  updateMapMeta(lat,lng);
+  if(map&&marker){
+    marker.setLatLng([lat,lng]);
+    map.setView([lat,lng],zoom||16);
+  }
+}
+
+function reverseFillAddress(lat,lng){
+  fetch("https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat="+lat+"&lon="+lng)
+    .then(function(r){return r.ok?r.json():null})
+    .then(function(data){
+      if(data&&data.display_name){
+        var shortAddr=data.display_name.split(",").slice(0,3).join(",").trim();
+        if(shortAddr)pu.value=shortAddr;
+        calc();
+      }
+    }).catch(function(){});
+}
+
+function formatPhotonFeature(f){
+  var p=f.properties||{};
+  var name=p.name||"";
+  var parts=[];
+  if(p.street)parts.push(p.street+(p.housenumber?" "+p.housenumber:""));
+  if(p.district||p.suburb||p.village)parts.push(p.district||p.suburb||p.village);
+  if(p.city||p.county)parts.push(p.city||p.county);
+  if(p.state)parts.push(p.state);
+  var sub=parts.filter(Boolean).join(", ");
+  var full=name?(sub&&sub.indexOf(name)!==0?name+", "+sub:name):sub;
+  return {title:name||sub,sub:sub,full:full};
+}
+
+function searchFreePlaces(q){
+  if(abortCtrl)try{abortCtrl.abort()}catch(e){}
+  abortCtrl=typeof AbortController!=="undefined"?new AbortController():null;
+  var sig=abortCtrl?abortCtrl.signal:undefined;
+
+  var url="https://photon.komoot.io/api/?q="+encodeURIComponent(q)+"&lat="+DEFAULT_CENTER.lat+"&lon="+DEFAULT_CENTER.lng+"&limit=6";
+  fetch(url,{signal:sig})
+    .then(function(r){return r.ok?r.json():{features:[]}})
+    .then(function(data){
+      var feats=(data&&data.features)||[];
+      var idFeats=feats.filter(function(f){
+        var p=f.properties||{};
+        return !p.countrycode||String(p.countrycode).toUpperCase()==="ID";
+      });
+      renderSuggestions(idFeats.length?idFeats:feats);
+    })
+    .catch(function(err){
+      if(err&&err.name==="AbortError")return;
+      sg.hidden=true;
+    });
+}
+
+function renderSuggestions(features){
+  sg.innerHTML="";
+  features.forEach(function(f){
+    var coords=f.geometry&&f.geometry.coordinates;
+    if(!coords||coords.length<2)return;
+    var lng=Number(coords[0]),lat=Number(coords[1]);
+    var info=formatPhotonFeature(f);
+    if(!info.full)return;
+
+    var li=document.createElement("li");
+    li.textContent=info.title;
+    if(info.sub&&info.sub!==info.title){
+      var sm=document.createElement("small");
+      sm.textContent=info.sub;
+      li.appendChild(sm);
+    }
+    li.addEventListener("click",function(){
+      pu.value=info.full;
+      sg.hidden=true;
+      setPinLocation(lat,lng,16);
+      calc();
+    });
+    sg.appendChild(li);
+  });
+  sg.hidden=!sg.children.length;
+}
+
+pu.addEventListener("input",function(){
+  calc();
+  clearTimeout(tmo);
+  var q=pu.value.trim();
+  if(q.length<3){sg.hidden=true;return}
+  tmo=setTimeout(function(){searchFreePlaces(q)},320);
+});
+
+btnGps.addEventListener("click",function(){
+  if(!navigator.geolocation)return;
+  btnGps.style.opacity="0.6";
+  navigator.geolocation.getCurrentPosition(function(pos){
+    btnGps.style.opacity="1";
+    var lat=pos.coords.latitude,lng=pos.coords.longitude;
+    setPinLocation(lat,lng,16);
+    reverseFillAddress(lat,lng);
+    calc();
+  },function(){
+    btnGps.style.opacity="1";
+  },{enableHighAccuracy:true,timeout:8000});
+});
+
+document.addEventListener("click",function(e){
+  if(e.target!==pu&&!sg.contains(e.target))sg.hidden=true;
+});
+
 function applyLang(){
   var t=I18N[lang];
   document.documentElement.lang=lang;
   $("langBtn").textContent=t.switchBtn;
   $("pu").placeholder=t.puPh;
-  $("puMapLink").textContent=t.openMaps;
   $("heroTitle").innerHTML=t.heroTitle;
   $("heroSub").textContent=t.heroSub;
   $("infoWrap").innerHTML=t.infoHtml;
@@ -566,6 +731,9 @@ function applyLang(){
     var key=el.getAttribute("data-i18n");
     if(typeof t[key]==="string")el.textContent=t[key];
   });
+
+  var curPos=selectedCoords||DEFAULT_CENTER;
+  updateMapMeta(curPos.lat,curPos.lng);
 
   buildCardsAndSelects();
   syncVariants();
@@ -615,130 +783,6 @@ niIn.addEventListener("input",function(){
   calc();
 });
 
-/* Pickup location + Google Maps autocomplete & interactive pin map */
-var MAPS_KEY="API_KEY_KAMU",pu=$("pu"),sg=$("sg"),puMapWrap=$("puMapWrap"),puMapEl=$("puMap"),puCoordsEl=$("puCoords"),puMapLink=$("puMapLink");
-var mp=null,tok=null,tmo,gMap=null,gMarker=null,MapLib=null,MarkerLib=null;
-var DEFAULT_CENTER={lat:-7.797,lng:110.37};
-
-function loadMaps(){
-  if(!MAPS_KEY||MAPS_KEY==="API_KEY_KAMU")return Promise.reject();
-  if(mp)return mp;
-  mp=new Promise(function(resolve,reject){
-    window.__pm=function(){
-      Promise.all([
-        google.maps.importLibrary("places"),
-        google.maps.importLibrary("maps"),
-        google.maps.importLibrary("marker")
-      ]).then(function(libs){
-        MapLib=libs[1];
-        MarkerLib=libs[2];
-        resolve(libs[0]);
-      }).catch(reject);
-    };
-    var s=document.createElement("script");
-    s.src="https://maps.googleapis.com/maps/api/js?key="+MAPS_KEY+"&loading=async&callback=__pm";
-    s.async=true;
-    s.onerror=reject;
-    document.head.appendChild(s);
-  });
-  return mp;
-}
-
-function setMapPin(lat, lng, labelText){
-  if(typeof lat!=="number"||typeof lng!=="number")return;
-  selectedCoords={lat:lat,lng:lng};
-  puMapWrap.hidden=false;
-  var t=I18N[lang];
-  var url="https://www.google.com/maps?q="+lat.toFixed(6)+","+lng.toFixed(6);
-  puMapLink.href=url;
-  puMapLink.hidden=false;
-  puCoordsEl.textContent=(labelText?labelText+" · ":"")+lat.toFixed(5)+", "+lng.toFixed(5)+" ("+t.mapHint+")";
-
-  if(!gMap&&MapLib&&MarkerLib){
-    gMap=new MapLib.Map(puMapEl,{
-      center:{lat:lat,lng:lng},
-      zoom:15,
-      mapId:"WTJ_PICKUP_MAP",
-      streetViewControl:false,
-      mapTypeControl:false
-    });
-    gMarker=new MarkerLib.AdvancedMarkerElement({
-      map:gMap,
-      position:{lat:lat,lng:lng},
-      gmpDraggable:true
-    });
-    gMarker.addListener("dragend",function(ev){
-      var pos=ev.latLng||gMarker.position;
-      var nLat=typeof pos.lat==="function"?pos.lat():pos.lat;
-      var nLng=typeof pos.lng==="function"?pos.lng():pos.lng;
-      setMapPin(nLat,nLng,pu.value.trim());
-      calc();
-    });
-    gMap.addListener("click",function(ev){
-      if(!ev.latLng)return;
-      var nLat=ev.latLng.lat();
-      var nLng=ev.latLng.lng();
-      gMarker.position={lat:nLat,lng:nLng};
-      setMapPin(nLat,nLng,pu.value.trim());
-      calc();
-    });
-  }else if(gMap&&gMarker){
-    gMap.setCenter({lat:lat,lng:lng});
-    gMap.setZoom(15);
-    gMarker.position={lat:lat,lng:lng};
-  }
-}
-
-pu.addEventListener("focus",function(){loadMaps().catch(function(){})});
-pu.addEventListener("input",function(){
-  selectedCoords=null;
-  puMapLink.hidden=true;
-  calc();clearTimeout(tmo);
-  var q=pu.value.trim();
-  if(q.length<3){sg.hidden=true;return}
-  tmo=setTimeout(function(){
-    loadMaps().then(function(placesLib){
-      tok=tok||new placesLib.AutocompleteSessionToken();
-      return placesLib.AutocompleteSuggestion.fetchAutocompleteSuggestions({
-        input:q,
-        sessionToken:tok,
-        includedRegionCodes:["id"],
-        locationBias:{center:DEFAULT_CENTER,radius:50000}
-      });
-    }).then(function(r){
-      sg.innerHTML="";
-      (r.suggestions||[]).forEach(function(x){
-        if(!x.placePrediction)return;
-        var displayText=x.placePrediction.text.toString();
-        var li=document.createElement("li");
-        li.textContent=displayText;
-        li.addEventListener("click",function(){
-          pu.value=displayText;
-          sg.hidden=true;
-          var placeObj=x.placePrediction.toPlace();
-          placeObj.fetchFields({fields:["location","formattedAddress"]}).then(function(res){
-            var pl=res.place||placeObj;
-            if(pl.formattedAddress)pu.value=pl.formattedAddress;
-            if(pl.location){
-              var lat=typeof pl.location.lat==="function"?pl.location.lat():pl.location.lat;
-              var lng=typeof pl.location.lng==="function"?pl.location.lng():pl.location.lng;
-              setMapPin(lat,lng,pu.value.trim());
-            }
-            tok=null;
-            calc();
-          }).catch(function(){
-            tok=null;
-            calc();
-          });
-        });
-        sg.appendChild(li);
-      });
-      sg.hidden=!sg.children.length;
-    }).catch(function(){sg.hidden=true});
-  },300);
-});
-document.addEventListener("click",function(e){if(e.target!==pu&&!sg.contains(e.target))sg.hidden=true});
-
 var io=new IntersectionObserver(function(entries){
   entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}});
 },{threshold:.1});
@@ -748,6 +792,7 @@ var tmr=new Date();tmr.setDate(tmr.getDate()+1);
 var defDate=tmr.toISOString().slice(0,10);
 dIn.value=defDate;hdIn.value=defDate;
 
+initFreeMap();
 applyLang();
 loadRepoPhotos();
 })();
