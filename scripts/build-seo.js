@@ -70,7 +70,7 @@ function renderLd() {
 function sitemapLastmod() {
   try {
     const dirty = execSync("git status --porcelain index.html").toString().trim();
-    if (dirty) return today(); // index.html baru berubah di run ini
+    if (dirty) return today();
     const d = execSync("git log -1 --format=%cs -- index.html").toString().trim();
     return d || today();
   } catch {
@@ -89,6 +89,20 @@ function renderSitemap() {
     )
     .join("\n");
 
+  const articles = fs.existsSync("data/articles.json")
+    ? JSON.parse(fs.readFileSync("data/articles.json", "utf8"))
+    : [];
+  const articleUrls = articles
+    .map(
+      (a) => `  <url>
+    <loc>${SITE}/articles/${a.slug}.html</loc>
+    <lastmod>${a.date}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>`
+    )
+    .join("\n");
+
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
@@ -99,6 +113,7 @@ function renderSitemap() {
     <priority>1.0</priority>
 ${images}
   </url>
+${articleUrls}
 </urlset>
 `;
 }
