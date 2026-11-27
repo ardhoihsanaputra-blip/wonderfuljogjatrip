@@ -2,9 +2,14 @@ const fs = require("fs");
 const { execSync } = require("child_process");
 
 const data = JSON.parse(fs.readFileSync("data/packages.json", "utf8"));
+
+// Hanya artikel yang file HTML-nya masih ada yang masuk ke beranda dan sitemap
 const articles = fs.existsSync("data/articles.json")
-  ? JSON.parse(fs.readFileSync("data/articles.json", "utf8"))
+  ? JSON.parse(fs.readFileSync("data/articles.json", "utf8")).filter((a) =>
+      fs.existsSync(`articles/${a.slug}.html`)
+    )
   : [];
+
 const SITE = data.site;
 const today = () => new Date().toISOString().slice(0, 10);
 
@@ -159,4 +164,4 @@ fs.writeFileSync("index.html", html);
 fs.writeFileSync("sitemap.xml", renderSitemap());
 console.log(
   `Build selesai: ${data.cards.length} kartu, ${articles.length} artikel, ${data.offers.length} offer`
-); 
+);
