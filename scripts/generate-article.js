@@ -1,10 +1,11 @@
 const fs = require("fs");
 
 const API_KEY = process.env.GROQ_API_KEY;
-const MODEL = process.env.ARTICLE_MODEL || "llama-3.3-70b-versatile";
+const MODEL = process.env.ARTICLE_MODEL || "openai/gpt-oss-120b";
 const SITE = "https://wonderfultripjogja.com";
 const BOOKING_URL = `${SITE}/#booking`;
 const TODAY = new Date().toISOString().slice(0, 10);
+const MAX_ATTEMPTS = 3;
 
 if (!API_KEY) throw new Error("GROQ_API_KEY belum diset di GitHub Secrets");
 
@@ -19,11 +20,11 @@ if (!topic) {
   process.exit(0);
 }
 
-// Daftar harga yang boleh muncul di artikel (diambil dari data resmi)
-const allowedPrices = new Set([
-  ...data.cards.map((c) => c.startPrice),
-  ...data.offers.map((o) => o.price),
-]);
+// Daftar harga resmi (hanya angka ini yang boleh muncul di artikel)
+const allowedPrices = [
+  ...new Set([...data.cards.map((c) => c.startPrice), ...data.offers.map((o) => o.price)]),
+].sort((a, b) => a - b);
+const allowedPriceList = allowedPrices.map((p) => "IDR " + p.toLocaleString("en-US")).join(", ");
 
 const packageSummary = data.cards
   .map(
@@ -36,16 +37,18 @@ const packageSummary = data.cards
 
 const SYSTEM = `You write travel articles for Wonderful Trip Jogja, a tour operator in Yogyakarta, Indonesia.
 Audience: foreign tourists planning a trip to Java.
+
 Rules:
 - Be accurate and practical. Never invent prices, opening hours, policies, or statistics.
-- Only use prices from the package list provided. Write them as "IDR 450,000".
+- Prices: the ONLY prices you may write are these: ${allowedPriceList}. Write them exactly as "IDR 450,000". Do not write any other IDR amount.
 - For Yogyakarta day tours, state that attraction entrance tickets are NOT included.
 - Every trip includes a free beer for each participant. Mention it once, naturally.
 - Mention that visitors should check current conditions with the operator before traveling.
-- Length: 700 to 1000 words of body content.
+- Length: 800 to 1000 words of body content. This is mandatory.
 - Use only these HTML tags in bodyHtml: h2, h3, p, ul, li, strong, a. No scripts, no images, no inline styles.
 - Include one link to ${SITE}/#packages and one call to action linking to ${BOOKING_URL}.
 - Write in English.
+
 Output: ONLY a JSON object with exactly these keys:
 "title" (string, max 65 characters), "description" (string, 110 to 155 characters), "bodyHtml" (string containing the HTML body).`;
 
@@ -57,7 +60,7 @@ ${packageSummary}
 
 Write the article now.`;
 
-async function callModel() {
+async function callModel(messages) {
   const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
     method: "POST",
     headers: {
@@ -69,42 +72,74 @@ async function callModel() {
       temperature: 0.4,
       max_tokens: 4000,
       response_format: { type: "json_object" },
-      messages: [
-        { role: "system", content: SYSTEM },
-        { role: "user", content: userPrompt },
-      ],
+      messages,
     }),
   });
   const json = await res.json();
   if (!res.ok) throw new Error("Groq API error: " + JSON.stringify(json));
-  const text = json.choices[0].message.content;
-  return JSON.parse(text);
+  return json.choices[0].message.content;
 }
 
 function validate(a) {
   const problems = [];
-  if (!a.title || a.title.length > 70) problems.push(`title ${a.title?.length} karakter`);
-  if (!a.description || a.description.length < 70 || a.description.length > 165)
-    problems.push(`description ${a.description?.length} karakter`);
-  if (!a.bodyHtml) problems.push("bodyHtml kosong");
+  if (!a || !a.title || a.title.length > 70) problems.push(`title ${a?.title?.length ?? 0} karakter (maks 65)`);
+  if (!a || !a.description || a.description.length < 70 || a.description.length > 165)
+    problems.push(`description ${a?.description?.length ?? 0} karakter (110 sampai 155)`);
+  if (!a || !a.bodyHtml) problems.push("bodyHtml kosong");
 
-  const words = (a.bodyHtml || "").replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length;
-  if (words < 600 || words > 1300) problems.push(`jumlah kata ${words}`);
+  const body = a?.bodyHtml || "";
+  const words = body.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length;
+  if (words < 700 || words > 1300) problems.push(`jumlah kata ${words} (harus 800 sampai 1000)`);
 
-  if (/<script|<iframe|<img|style=/i.test(a.bodyHtml || "")) problems.push("tag terlarang ditemukan");
-  if (!(a.bodyHtml || "").includes(BOOKING_URL)) problems.push("link booking tidak ada");
+  if (/<script|<iframe|<img|style=/i.test(body)) problems.push("tag terlarang ditemukan");
+  if (!body.includes(BOOKING_URL)) problems.push("link booking tidak ada");
 
-  for (const m of (a.bodyHtml || "").matchAll(/IDR\s?([\d.,]+)/g)) {
-    const n = Number(m[1].replace(/[.,]/g, ""));
-    if (!allowedPrices.has(n)) problems.push(`harga tidak dikenal: IDR ${m[1]}`);
+  // Regex hanya menangkap format angka ribuan, sehingga koma di akhir kalimat tidak ikut terbaca
+  for (const m of body.matchAll(/IDR\s?(\d{1,3}(?:,\d{3})+)/g)) {
+    const n = Number(m[1].replace(/,/g, ""));
+    if (!allowedPrices.includes(n)) problems.push(`harga tidak dikenal: IDR ${m[1]}`);
   }
   return problems;
+}
+
+async function generateValidArticle() {
+  const messages = [
+    { role: "system", content: SYSTEM },
+    { role: "user", content: userPrompt },
+  ];
+
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    const raw = await callModel(messages);
+
+    let article = null;
+    let problems;
+    try {
+      article = JSON.parse(raw);
+      problems = validate(article);
+    } catch (e) {
+      problems = ["output bukan JSON yang valid"];
+    }
+
+    if (!problems.length) return article;
+
+    console.log(`Percobaan ${attempt} gagal: ${problems.join("; ")}`);
+    if (attempt === MAX_ATTEMPTS) break;
+
+    messages.push({ role: "assistant", content: raw });
+    messages.push({
+      role: "user",
+      content: `Your output failed these checks: ${problems.join("; ")}. Rewrite the COMPLETE JSON object and fix every problem. The body must be 800 to 1000 words. Use only these prices: ${allowedPriceList}.`,
+    });
+  }
+
+  throw new Error(`Artikel gagal validasi setelah ${MAX_ATTEMPTS} percobaan`);
 }
 
 const slugify = (s) =>
   s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 80);
 
-const escAttr = (s) => String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+const escAttr = (s) =>
+  String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
 
 function renderPage(a, slug) {
   const url = `${SITE}/articles/${slug}.html`;
@@ -165,12 +200,7 @@ ${a.bodyHtml}
 }
 
 (async () => {
-  const article = await callModel();
-  const problems = validate(article);
-  if (problems.length) {
-    console.error("Artikel gagal validasi:\n- " + problems.join("\n- "));
-    process.exit(1);
-  }
+  const article = await generateValidArticle();
 
   const slug = `${TODAY}-${slugify(topic.keyword)}`;
   fs.mkdirSync("articles", { recursive: true });
