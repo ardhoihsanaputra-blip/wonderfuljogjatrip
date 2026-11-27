@@ -1,0 +1,65 @@
+name: SEO Automation
+
+on:
+  push:
+    branches: [main]
+    paths: ["index.html", "data/**", "scripts/**", "robots.txt", "*.webp", "logo.png"]
+  pull_request:
+  schedule:
+    - cron: "0 2 * * 1"   # setiap Senin 09:00 WIB
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: seo-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # diperlukan agar lastmod dihitung dari git log
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build (kartu, JSON-LD, sitemap)
+        run: node scripts/build-seo.js
+
+      - name: Validasi
+        run: node scripts/check-seo.js
+
+      - name: Commit hasil build
+        if: github.event_name != 'pull_request'
+        run: |
+          git config user.name "seo-bot"
+          git config user.email "seo-bot@users.noreply.github.com"
+          git add index.html sitemap.xml
+          if git diff --staged --quiet; then
+            echo "Tidak ada perubahan"
+            exit 0
+          fi
+          git commit -m "chore(seo): auto build [skip ci]"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+  lighthouse:
+    needs: build
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: treosh/lighthouse-ci-action@v12
+        continue-on-error: true   # jangan gagalkan pipeline jika situs sedang down
+        with:
+          urls: |
+            https://wonderfultripjogja.com/
+          runs: 3
+          uploadArtifacts: true
+          temporaryPublicStorage: false
