@@ -1,0 +1,101 @@
+{
+  "site": "https://wonderfultripjogja.com",
+  "organization": {
+    "name": "Wonderful Trip Jogja",
+    "telephone": "+6285747180428",
+    "availableLanguage": ["English", "Indonesian"],
+    "image": "borobudur-sunrise-1.webp",
+    "address": {
+      "streetAddress": "Dukuh II, Margoagung, Seyegan",
+      "addressLocality": "Sleman",
+      "addressRegion": "DI Yogyakarta",
+      "addressCountry": "ID"
+    },
+    "sameAs": [
+      "https://www.instagram.com/wonderful.trip.jogja/",
+      "https://www.facebook.com/wonderful.jogja.trip",
+      "https://www.tiktok.com/@wonderful_trip_jogja"
+    ]
+  },
+  "cards": [
+    {
+      "filter": "temple",
+      "badge": "Best Seller",
+      "name": "Temple Tour",
+      "desc": "Borobudur, Prambanan, and golden sunrise viewpoints. Choose your route in the booking form: Borobudur Sunrise Only, Borobudur & Prambanan, Punthuk Setumbu Sunrise + Borobudur + Prambanan, or Borobudur Sunrise + Prambanan.",
+      "pickup": ["07:00"],
+      "startPrice": 450000,
+      "colors": ["#5b21b6", "#be185d"],
+      "image": "borobudur-sunrise-1.webp",
+      "imageAlt": "Borobudur Sunrise Tour Yogyakarta",
+      "hotel": false
+    },
+    {
+      "filter": "volcano",
+      "badge": "Popular",
+      "name": "Merapi 4x4 Jeep Tour",
+      "desc": "Explore Indonesia's most active volcano on rugged 4x4 trails. (4x4 Jeep rental not included)",
+      "pickup": ["07:00", "13:00"],
+      "startPrice": 400000,
+      "colors": ["#c2410c", "#b91c1c"],
+      "image": "merapi-jeep-1.webp",
+      "imageAlt": "Mount Merapi 4x4 Jeep Lava Tour",
+      "hotel": false
+    },
+    {
+      "filter": "nature",
+      "badge": "Adventure",
+      "name": "Jomblang & Pindul Cave",
+      "desc": "Vertical rappel into Jomblang Cave and underground river tubing at Pindul Cave in Gunungkidul.",
+      "pickup": ["07:00"],
+      "startPrice": 450000,
+      "colors": ["#0f766e", "#0369a1"],
+      "image": "jomblang-cave-1.webp",
+      "imageAlt": "Jomblang and Pindul Cave Adventure Yogyakarta",
+      "hotel": false
+    },
+    {
+      "filter": "jatim",
+      "badge": "Overland",
+      "name": "Bromo & Ijen from Jogja",
+      "desc": "All-inclusive overland expedition to Mount Bromo and Ijen Crater starting from Yogyakarta (min. 2 pax). Includes 2–3 star hotel (sharing room, 2 guests/room).",
+      "pickup": ["07:00"],
+      "startPrice": 4500000,
+      "colors": ["#3730a3", "#0e7490"],
+      "image": "bromo-sunrise-penanjakan-1.webp",
+      "imageAlt": "Mount Bromo and Ijen Crater Tour from Jogja",
+      "hotel": true
+    },
+    {
+      "filter": "jatim",
+      "badge": "Complete",
+      "name": "Bromo, Tumpak Sewu & Ijen from Jogja",
+      "desc": "Complete East Java overland journey covering Tumpak Sewu Waterfall, Mount Bromo and Ijen Crater (min. 2 pax). Includes 2–3 star hotel (sharing room, 2 guests/room).",
+      "pickup": ["07:00"],
+      "startPrice": 6000000,
+      "colors": ["#6b21a8", "#c2410c"],
+      "image": "tumpak-sewu-waterfall-1.webp",
+      "imageAlt": "Tumpak Sewu Waterfall, Bromo and Ijen Tour from Yogyakarta",
+      "hotel": true
+    }
+  ],
+  "offers": [
+    { "name": "Borobudur & Prambanan Temple Tour", "price": 450000 },
+    { "name": "Borobudur Sunrise Tour", "price": 500000 },
+    { "name": "Borobudur Sunrise & Prambanan Tour", "price": 550000 },
+    { "name": "Punthuk Setumbu Sunrise, Borobudur & Prambanan Tour", "price": 550000 },
+    { "name": "Jomblang & Pindul Cave Adventure", "price": 450000 },
+    { "name": "Mount Merapi 4x4 Jeep Lava Tour", "price": 400000 },
+    { "name": "Mount Bromo & Ijen Crater Tour from Jogja", "price": 4500000 },
+    { "name": "Mount Bromo, Tumpak Sewu Waterfall & Ijen Crater from Jogja", "price": 6000000 }
+  ],
+  "sitemapImages": [
+    { "file": "borobudur-sunrise-1.webp", "title": "Borobudur Sunrise Tour Yogyakarta" },
+    { "file": "prambanan-temple-1.webp", "title": "Prambanan Temple Tour Yogyakarta" },
+    { "file": "punthuk-setumbu-sunrise-1.webp", "title": "Punthuk Setumbu Sunrise Tour" },
+    { "file": "merapi-jeep-1.webp", "title": "Mount Merapi 4x4 Jeep Lava Tour" },
+    { "file": "jomblang-cave-1.webp", "title": "Jomblang and Pindul Cave Adventure" },
+    { "file": "bromo-sunrise-penanjakan-1.webp", "title": "Mount Bromo and Ijen Crater Tour from Jogja" },
+    { "file": "tumpak-sewu-waterfall-1.webp", "title": "Tumpak Sewu Waterfall, Bromo and Ijen Tour from Yogyakarta" }
+  ]
+}
