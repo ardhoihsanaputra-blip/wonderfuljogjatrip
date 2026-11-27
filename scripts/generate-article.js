@@ -6,6 +6,7 @@ const SITE = "https://wonderfultripjogja.com";
 const BOOKING_URL = `${SITE}/#booking`;
 const TODAY = new Date().toISOString().slice(0, 10);
 const MAX_ATTEMPTS = 3;
+const MAX_RATE_RETRIES = 5;
 
 if (!API_KEY) throw new Error("GROQ_API_KEY belum diset di GitHub Secrets");
 
@@ -61,23 +62,40 @@ ${packageSummary}
 Write the article now.`;
 
 async function callModel(messages) {
-  const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      authorization: `Bearer ${API_KEY}`,
-    },
-    body: JSON.stringify({
-      model: MODEL,
-      temperature: 0.4,
-      max_tokens: 4000,
-      response_format: { type: "json_object" },
-      messages,
-    }),
-  });
-  const json = await res.json();
-  if (!res.ok) throw new Error("Groq API error: " + JSON.stringify(json));
-  return json.choices[0].message.content;
+  for (let tryNo = 1; tryNo <= MAX_RATE_RETRIES; tryNo++) {
+    const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: MODEL,
+        temperature: 0.4,
+        max_tokens: 3000,
+        response_format: { type: "json_object" },
+        messages,
+      }),
+    });
+
+    const json = await res.json();
+    if (res.ok) return json.choices[0].message.content;
+
+    const msg = json?.error?.message || "";
+    const isRateLimit = res.status === 429 || json?.error?.code === "rate_limit_exceeded";
+
+    if (isRateLimit && tryNo < MAX_RATE_RETRIES) {
+      // Ambil angka detik dari pesan, misalnya "Please try again in 5.6775s"
+      const m = msg.match(/try again in ([\d.]+)s/i);
+      const waitSec = m ? Math.ceil(parseFloat(m[1])) + 2 : 15;
+      console.log(`Rate limit, menunggu ${waitSec} detik (percobaan ${tryNo})`);
+      await new Promise((r) => setTimeout(r, waitSec * 1000));
+      continue;
+    }
+
+    throw new Error("Groq API error: " + JSON.stringify(json));
+  }
+  throw new Error("Rate limit: percobaan habis");
 }
 
 function validate(a) {
@@ -103,10 +121,12 @@ function validate(a) {
 }
 
 async function generateValidArticle() {
-  const messages = [
+  const baseMessages = [
     { role: "system", content: SYSTEM },
     { role: "user", content: userPrompt },
   ];
+
+  let messages = [...baseMessages];
 
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
     const raw = await callModel(messages);
@@ -125,11 +145,14 @@ async function generateValidArticle() {
     console.log(`Percobaan ${attempt} gagal: ${problems.join("; ")}`);
     if (attempt === MAX_ATTEMPTS) break;
 
-    messages.push({ role: "assistant", content: raw });
-    messages.push({
-      role: "user",
-      content: `Your output failed these checks: ${problems.join("; ")}. Rewrite the COMPLETE JSON object and fix every problem. The body must be 800 to 1000 words. Use only these prices: ${allowedPriceList}.`,
-    });
+    // Hanya kirim prompt awal + daftar masalah, tanpa jawaban lama, agar token tidak membengkak
+    messages = [
+      ...baseMessages,
+      {
+        role: "user",
+        content: `Your previous output failed these checks: ${problems.join("; ")}. Write the COMPLETE JSON object again and fix every problem. The body must be 800 to 1000 words. Use only these prices: ${allowedPriceList}.`,
+      },
+    ];
   }
 
   throw new Error(`Artikel gagal validasi setelah ${MAX_ATTEMPTS} percobaan`);
