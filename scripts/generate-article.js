@@ -1,4 +1,5 @@
 const fs = require("fs");
+const { pickImage, altText, placeName } = require("./image-picker");
 
 const API_KEY = process.env.GROQ_API_KEY;
 const MODEL = process.env.ARTICLE_MODEL || "openai/gpt-oss-120b";
@@ -15,9 +16,9 @@ if (!API_KEY) throw new Error("GROQ_API_KEY belum diset di GitHub Secrets");
 
 const topicsFile = JSON.parse(fs.readFileSync("data/topics.json", "utf8"));
 const articles = JSON.parse(fs.readFileSync("data/articles.json", "utf8"));
-
-// Daftar paket hanya untuk konteks nama destinasi, tanpa harga
 const data = JSON.parse(fs.readFileSync("data/packages.json", "utf8"));
+
+// Nama tur hanya sebagai referensi, tanpa harga
 const destinationList = data.cards.map((c) => c.name).join("; ");
 
 const SYSTEM = `You write SHORT travel blog posts for Wonderful Trip Jogja, a tour operator in Yogyakarta, Indonesia.
@@ -123,7 +124,7 @@ async function refillTopics() {
       {
         role: "user",
         content: `Suggest 8 new English blog topics. Each topic must focus on ONE single place in Java, such as a temple, a cave, a volcano, a waterfall, a crater, a village, or a market in Yogyakarta, Central Java, or East Java. Do not suggest general travel tips, itineraries, or comparisons. Avoid these existing keywords: ${[...used].join("; ")}.
-Return JSON exactly in this form: {"queue":[{"keyword":"Name of the place plus 'travel guide' or 'what to see'","angle":"one sentence on what to say about this single place"}]}`,
+Return JSON exactly in this form: {"queue":[{"keyword":"Name of the place plus 'travel guide'","angle":"one sentence on what to say about this single place"}]}`,
       },
     ],
     1500
@@ -207,13 +208,15 @@ const slugify = (s) =>
 const escAttr = (s) =>
   String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
 
-function renderPage(a, slug) {
+function renderPage(a, slug, imgFile, imgAlt) {
   const url = `${SITE}/articles/${slug}.html`;
+  const imgUrl = `${SITE}/${imgFile}`;
   const ld = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: a.title,
     description: a.description,
+    image: imgUrl,
     datePublished: TODAY,
     dateModified: TODAY,
     author: { "@type": "Organization", name: "Wonderful Trip Jogja" },
@@ -237,7 +240,7 @@ function renderPage(a, slug) {
 <meta property="og:title" content="${escAttr(a.title)}">
 <meta property="og:description" content="${escAttr(a.description)}">
 <meta property="og:url" content="${url}">
-<meta property="og:image" content="${SITE}/borobudur-sunrise-1.webp">
+<meta property="og:image" content="${imgUrl}">
 <link rel="icon" href="/logo.png" sizes="64x64" type="image/png">
 <script type="application/ld+json">
 ${JSON.stringify(ld, null, 2)}
@@ -257,6 +260,7 @@ h2{margin-top:1.6em}
 <a class="back" href="${SITE}/">← Wonderful Trip Jogja</a>
 <h1>${escAttr(a.title)}</h1>
 <p><small>Published ${TODAY}</small></p>
+<img src="${imgUrl}" alt="${escAttr(imgAlt)}" width="1200" height="800" loading="eager" decoding="async" style="display:block;width:100%;height:auto;border-radius:10px;margin:16px 0">
 ${a.bodyHtml}
 <p><a class="cta" href="${BOOKING_URL}">Ask about a tour on WhatsApp</a></p>
 </div>
@@ -281,11 +285,16 @@ ${a.bodyHtml}
     console.log(`Antrian diisi ulang dengan ${fresh.length} topik baru.`);
   }
 
+  // Gambar dipilih dari file yang ada di root repo, bukan dibuat model
+  const image = pickImage(topic, articles);
+  const imgAlt = altText(topic);
+  console.log(`Gambar dipilih: ${image} (${placeName(topic.keyword)})`);
+
   const article = await generateValidArticle(topic);
 
   const slug = `${TODAY}-${slugify(topic.keyword)}`;
   fs.mkdirSync("articles", { recursive: true });
-  fs.writeFileSync(`articles/${slug}.html`, renderPage(article, slug));
+  fs.writeFileSync(`articles/${slug}.html`, renderPage(article, slug, image, imgAlt));
 
   articles.unshift({
     keyword: topic.keyword,
@@ -293,6 +302,7 @@ ${a.bodyHtml}
     title: article.title,
     description: article.description,
     date: TODAY,
+    image,
   });
   fs.writeFileSync("data/articles.json", JSON.stringify(articles, null, 2) + "\n");
 
