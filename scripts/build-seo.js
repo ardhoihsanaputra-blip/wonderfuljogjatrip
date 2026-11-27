@@ -2,12 +2,16 @@ const fs = require("fs");
 const { execSync } = require("child_process");
 
 const data = JSON.parse(fs.readFileSync("data/packages.json", "utf8"));
+const articles = fs.existsSync("data/articles.json")
+  ? JSON.parse(fs.readFileSync("data/articles.json", "utf8"))
+  : [];
 const SITE = data.site;
 const today = () => new Date().toISOString().slice(0, 10);
 
 const esc = (s) =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const idr = (n) => "IDR " + n.toLocaleString("en-US");
+const q = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 // ---------- 1. Kartu paket ----------
 function renderCard(c) {
@@ -37,7 +41,29 @@ function renderCard(c) {
   </article>`;
 }
 
-// ---------- 2. JSON-LD ----------
+// ---------- 2. Daftar artikel terbaru ----------
+function renderLatest() {
+  if (!articles.length) return "";
+  const cards = articles
+    .slice(0, 6)
+    .map(
+      (a) => `      <a class="lt-card" href="${SITE}/articles/${esc(a.slug)}.html">
+        <small>${esc(a.date)}</small>
+        <h3>${esc(a.title)}</h3>
+        <p>${esc(a.description)}</p>
+        <span class="lt-more">Read article →</span>
+      </a>`
+    )
+    .join("\n");
+
+  return `  <h2>Travel Guides &amp; Tips</h2>
+  <p class="sub">Practical notes from our team for planning your Java trip.</p>
+  <div class="lt-grid">
+${cards}
+  </div>`;
+}
+
+// ---------- 3. JSON-LD ----------
 function renderLd() {
   const org = data.organization;
   const ld = {
@@ -66,7 +92,7 @@ function renderLd() {
   return `<script type="application/ld+json">\n${JSON.stringify(ld, null, 2)}\n</script>`;
 }
 
-// ---------- 3. Sitemap ----------
+// ---------- 4. Sitemap ----------
 function sitemapLastmod() {
   try {
     const dirty = execSync("git status --porcelain index.html").toString().trim();
@@ -89,9 +115,6 @@ function renderSitemap() {
     )
     .join("\n");
 
-  const articles = fs.existsSync("data/articles.json")
-    ? JSON.parse(fs.readFileSync("data/articles.json", "utf8"))
-    : [];
   const articleUrls = articles
     .map(
       (a) => `  <url>
@@ -119,18 +142,21 @@ ${articleUrls}
 }
 
 // ---------- Jalankan ----------
-const q = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+function replaceBlock(html, name, content) {
+  const start = `<!-- AUTO:${name}:START -->`;
+  const end = `<!-- AUTO:${name}:END -->`;
+  const re = new RegExp(`${q(start)}[\\s\\S]*?${q(end)}`);
+  if (!re.test(html)) throw new Error(`Marker AUTO:${name} tidak ditemukan di index.html`);
+  return html.replace(re, () => `${start}\n${content}\n${end}`);
+}
 
 let html = fs.readFileSync("index.html", "utf8");
-
-const startM = "<!-- AUTO:CARDS:START -->";
-const endM = "<!-- AUTO:CARDS:END -->";
-const re = new RegExp(`(${q(startM)})[\\s\\S]*?(${q(endM)})`);
-if (!re.test(html)) throw new Error("Marker AUTO:CARDS tidak ditemukan di index.html");
-html = html.replace(re, (_, a, b) => `${a}\n${data.cards.map(renderCard).join("\n\n")}\n${b}`);
-
+html = replaceBlock(html, "CARDS", data.cards.map(renderCard).join("\n\n"));
+html = replaceBlock(html, "LATEST", renderLatest());
 html = html.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, () => renderLd());
 
 fs.writeFileSync("index.html", html);
 fs.writeFileSync("sitemap.xml", renderSitemap());
-console.log(`Build selesai: ${data.cards.length} kartu, ${data.offers.length} offer, sitemap diperbarui`);
+console.log(
+  `Build selesai: ${data.cards.length} kartu, ${articles.length} artikel, ${data.offers.length} offer`
+);
