@@ -22,9 +22,10 @@ jobs:
         with:
           node-version: 20
 
-      - name: Generate artikel
+            - name: Generate artikel
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          ARTICLE_MODEL: nama-model-dari-daftar-groq
         run: node scripts/generate-article.js
 
       - name: Build sitemap dan kartu
