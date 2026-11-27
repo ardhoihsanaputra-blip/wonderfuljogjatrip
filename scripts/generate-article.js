@@ -6,7 +6,7 @@ const SITE = "https://wonderfultripjogja.com";
 const BOOKING_URL = `${SITE}/#booking`;
 const TODAY = new Date().toISOString().slice(0, 10);
 const MAX_ATTEMPTS = 3;
-const MAX_RATE_RETRIES = 5;
+const MAX_API_RETRIES = 5;
 
 if (!API_KEY) throw new Error("GROQ_API_KEY belum diset di GitHub Secrets");
 
@@ -47,10 +47,11 @@ Rules:
 - Mention that visitors should check current conditions with the operator before traveling.
 - Length: 800 to 1000 words of body content. This is mandatory.
 - Use only these HTML tags in bodyHtml: h2, h3, p, ul, li, strong, a. No scripts, no images, no inline styles.
+- Inside bodyHtml, every double quote character must be written as &quot; or replaced with single quotes, so the JSON stays valid.
 - Include one link to ${SITE}/#packages and one call to action linking to ${BOOKING_URL}.
 - Write in English.
 
-Output: ONLY a JSON object with exactly these keys:
+Output: ONLY a single JSON object with exactly these keys, and nothing before or after it:
 "title" (string, max 65 characters), "description" (string, 110 to 155 characters), "bodyHtml" (string containing the HTML body).`;
 
 const userPrompt = `Topic keyword: ${topic.keyword}
@@ -62,7 +63,7 @@ ${packageSummary}
 Write the article now.`;
 
 async function callModel(messages) {
-  for (let tryNo = 1; tryNo <= MAX_RATE_RETRIES; tryNo++) {
+  for (let tryNo = 1; tryNo <= MAX_API_RETRIES; tryNo++) {
     const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -71,8 +72,8 @@ async function callModel(messages) {
       },
       body: JSON.stringify({
         model: MODEL,
-        temperature: 0.4,
-        max_tokens: 3000,
+        temperature: 0.3,
+        max_tokens: 4000,
         response_format: { type: "json_object" },
         messages,
       }),
@@ -82,20 +83,40 @@ async function callModel(messages) {
     if (res.ok) return json.choices[0].message.content;
 
     const msg = json?.error?.message || "";
-    const isRateLimit = res.status === 429 || json?.error?.code === "rate_limit_exceeded";
+    const code = json?.error?.code || "";
+    const isRateLimit = res.status === 429 || code === "rate_limit_exceeded";
+    const isBadJson = code === "json_validate_failed";
 
-    if (isRateLimit && tryNo < MAX_RATE_RETRIES) {
-      // Ambil angka detik dari pesan, misalnya "Please try again in 5.6775s"
-      const m = msg.match(/try again in ([\d.]+)s/i);
-      const waitSec = m ? Math.ceil(parseFloat(m[1])) + 2 : 15;
-      console.log(`Rate limit, menunggu ${waitSec} detik (percobaan ${tryNo})`);
+    if ((isRateLimit || isBadJson) && tryNo < MAX_API_RETRIES) {
+      let waitSec = 3;
+      if (isRateLimit) {
+        const m = msg.match(/try again in ([\d.]+)s/i);
+        waitSec = m ? Math.ceil(parseFloat(m[1])) + 2 : 15;
+      }
+      console.log(
+        `${isRateLimit ? "Rate limit" : "JSON tidak valid"}, mencoba ulang dalam ${waitSec} detik (percobaan ${tryNo})`
+      );
       await new Promise((r) => setTimeout(r, waitSec * 1000));
       continue;
     }
 
     throw new Error("Groq API error: " + JSON.stringify(json));
   }
-  throw new Error("Rate limit: percobaan habis");
+  throw new Error("Percobaan API habis");
+}
+
+// Mengambil objek JSON dari teks, termasuk jika model menambahkan penjelasan di sekitarnya
+function parseArticleJson(raw) {
+  try {
+    return JSON.parse(raw);
+  } catch (e) {
+    const start = raw.indexOf("{");
+    const end = raw.lastIndexOf("}");
+    if (start !== -1 && end > start) {
+      return JSON.parse(raw.slice(start, end + 1));
+    }
+    throw e;
+  }
 }
 
 function validate(a) {
@@ -134,7 +155,7 @@ async function generateValidArticle() {
     let article = null;
     let problems;
     try {
-      article = JSON.parse(raw);
+      article = parseArticleJson(raw);
       problems = validate(article);
     } catch (e) {
       problems = ["output bukan JSON yang valid"];
@@ -150,7 +171,7 @@ async function generateValidArticle() {
       ...baseMessages,
       {
         role: "user",
-        content: `Your previous output failed these checks: ${problems.join("; ")}. Write the COMPLETE JSON object again and fix every problem. The body must be 800 to 1000 words. Use only these prices: ${allowedPriceList}.`,
+        content: `Your previous output failed these checks: ${problems.join("; ")}. Write the COMPLETE JSON object again and fix every problem. The body must be 800 to 1000 words. Use only these prices: ${allowedPriceList}. Escape all double quotes inside bodyHtml.`,
       },
     ];
   }
