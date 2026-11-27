@@ -11,15 +11,8 @@ const MAX_API_RETRIES = 5;
 if (!API_KEY) throw new Error("GROQ_API_KEY belum diset di GitHub Secrets");
 
 const data = JSON.parse(fs.readFileSync("data/packages.json", "utf8"));
-const topics = JSON.parse(fs.readFileSync("data/topics.json", "utf8"));
+const topicsFile = JSON.parse(fs.readFileSync("data/topics.json", "utf8"));
 const articles = JSON.parse(fs.readFileSync("data/articles.json", "utf8"));
-
-// Pilih topik pertama yang belum pernah dipakai
-const topic = topics.queue.find((t) => !articles.some((a) => a.keyword === t.keyword));
-if (!topic) {
-  console.log("Antrian topik kosong. Tambahkan topik baru di data/topics.json");
-  process.exit(0);
-}
 
 // Daftar harga resmi (hanya angka ini yang boleh muncul di artikel)
 const allowedPrices = [
@@ -54,15 +47,17 @@ Rules:
 Output: ONLY a single JSON object with exactly these keys, and nothing before or after it:
 "title" (string, max 65 characters), "description" (string, 110 to 155 characters), "bodyHtml" (string containing the HTML body).`;
 
-const userPrompt = `Topic keyword: ${topic.keyword}
+function buildUserPrompt(topic) {
+  return `Topic keyword: ${topic.keyword}
 Angle: ${topic.angle}
 
 Our packages:
 ${packageSummary}
 
 Write the article now.`;
+}
 
-async function callModel(messages) {
+async function callModel(messages, maxTokens = 4000) {
   for (let tryNo = 1; tryNo <= MAX_API_RETRIES; tryNo++) {
     const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
@@ -73,7 +68,7 @@ async function callModel(messages) {
       body: JSON.stringify({
         model: MODEL,
         temperature: 0.3,
-        max_tokens: 4000,
+        max_tokens: maxTokens,
         response_format: { type: "json_object" },
         messages,
       }),
@@ -106,17 +101,54 @@ async function callModel(messages) {
 }
 
 // Mengambil objek JSON dari teks, termasuk jika model menambahkan penjelasan di sekitarnya
-function parseArticleJson(raw) {
+function parseJson(raw) {
   try {
     return JSON.parse(raw);
   } catch (e) {
     const start = raw.indexOf("{");
     const end = raw.lastIndexOf("}");
-    if (start !== -1 && end > start) {
-      return JSON.parse(raw.slice(start, end + 1));
-    }
+    if (start !== -1 && end > start) return JSON.parse(raw.slice(start, end + 1));
     throw e;
   }
+}
+
+function pickTopic() {
+  return topicsFile.queue.find((t) => !articles.some((a) => a.keyword === t.keyword));
+}
+
+// Meminta ide topik baru saat antrian habis, lalu menyaring yang sudah pernah dipakai
+async function refillTopics() {
+  const used = new Set(
+    [...topicsFile.queue.map((t) => t.keyword), ...articles.map((a) => a.keyword)].map((k) => k.toLowerCase())
+  );
+  const raw = await callModel(
+    [
+      {
+        role: "system",
+        content:
+          "You suggest SEO keyword ideas for the blog of a Yogyakarta tour operator aimed at foreign tourists. Output ONLY a JSON object.",
+      },
+      {
+        role: "user",
+        content: `Suggest 8 new long-tail English keywords about travel in Java: Yogyakarta, Borobudur, Prambanan, Merapi, caves, Mount Bromo, Ijen, Tumpak Sewu, East Java overland, and Java travel tips. Avoid these existing keywords: ${[...used].join("; ")}.
+Return JSON exactly in this form: {"queue":[{"keyword":"...","angle":"short description of what the article should cover"}]}`,
+      },
+    ],
+    1500
+  );
+
+  const parsed = parseJson(raw);
+  const list = Array.isArray(parsed.queue) ? parsed.queue : [];
+  const seen = new Set();
+  return list
+    .filter((t) => t && typeof t.keyword === "string" && typeof t.angle === "string")
+    .filter((t) => {
+      const k = t.keyword.toLowerCase();
+      if (used.has(k) || seen.has(k)) return false;
+      seen.add(k);
+      return true;
+    })
+    .slice(0, 8);
 }
 
 function validate(a) {
@@ -133,7 +165,6 @@ function validate(a) {
   if (/<script|<iframe|<img|style=/i.test(body)) problems.push("tag terlarang ditemukan");
   if (!body.includes(BOOKING_URL)) problems.push("link booking tidak ada");
 
-  // Regex hanya menangkap format angka ribuan, sehingga koma di akhir kalimat tidak ikut terbaca
   for (const m of body.matchAll(/IDR\s?(\d{1,3}(?:,\d{3})+)/g)) {
     const n = Number(m[1].replace(/,/g, ""));
     if (!allowedPrices.includes(n)) problems.push(`harga tidak dikenal: IDR ${m[1]}`);
@@ -141,12 +172,11 @@ function validate(a) {
   return problems;
 }
 
-async function generateValidArticle() {
+async function generateValidArticle(topic) {
   const baseMessages = [
     { role: "system", content: SYSTEM },
-    { role: "user", content: userPrompt },
+    { role: "user", content: buildUserPrompt(topic) },
   ];
-
   let messages = [...baseMessages];
 
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
@@ -155,7 +185,7 @@ async function generateValidArticle() {
     let article = null;
     let problems;
     try {
-      article = parseArticleJson(raw);
+      article = parseJson(raw);
       problems = validate(article);
     } catch (e) {
       problems = ["output bukan JSON yang valid"];
@@ -166,7 +196,6 @@ async function generateValidArticle() {
     console.log(`Percobaan ${attempt} gagal: ${problems.join("; ")}`);
     if (attempt === MAX_ATTEMPTS) break;
 
-    // Hanya kirim prompt awal + daftar masalah, tanpa jawaban lama, agar token tidak membengkak
     messages = [
       ...baseMessages,
       {
@@ -244,7 +273,22 @@ ${a.bodyHtml}
 }
 
 (async () => {
-  const article = await generateValidArticle();
+  let topic = pickTopic();
+
+  if (!topic) {
+    console.log("Antrian topik habis, meminta ide topik baru...");
+    const fresh = await refillTopics();
+    if (!fresh.length) {
+      console.log("Tidak ada topik baru yang valid. Berhenti tanpa membuat artikel.");
+      process.exit(0);
+    }
+    topicsFile.queue.push(...fresh);
+    fs.writeFileSync("data/topics.json", JSON.stringify(topicsFile, null, 2) + "\n");
+    topic = pickTopic();
+    console.log(`Antrian diisi ulang dengan ${fresh.length} topik baru.`);
+  }
+
+  const article = await generateValidArticle(topic);
 
   const slug = `${TODAY}-${slugify(topic.keyword)}`;
   fs.mkdirSync("articles", { recursive: true });
@@ -260,4 +304,7 @@ ${a.bodyHtml}
   fs.writeFileSync("data/articles.json", JSON.stringify(articles, null, 2) + "\n");
 
   console.log(`Artikel dibuat: articles/${slug}.html`);
-})();
+})().catch((e) => {
+  console.error(e.message);
+  process.exit(1);
+});
