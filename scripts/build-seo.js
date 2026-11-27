@@ -159,4 +159,4 @@ fs.writeFileSync("index.html", html);
 fs.writeFileSync("sitemap.xml", renderSitemap());
 console.log(
   `Build selesai: ${data.cards.length} kartu, ${articles.length} artikel, ${data.offers.length} offer`
-);
+); 
