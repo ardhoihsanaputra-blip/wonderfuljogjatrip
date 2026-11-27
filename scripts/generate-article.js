@@ -4,60 +4,52 @@ const API_KEY = process.env.GROQ_API_KEY;
 const MODEL = process.env.ARTICLE_MODEL || "openai/gpt-oss-120b";
 const SITE = "https://wonderfultripjogja.com";
 const BOOKING_URL = `${SITE}/#booking`;
+const PACKAGES_URL = `${SITE}/#packages`;
 const TODAY = new Date().toISOString().slice(0, 10);
 const MAX_ATTEMPTS = 3;
 const MAX_API_RETRIES = 5;
+const MIN_WORDS = 220;
+const MAX_WORDS = 450;
 
 if (!API_KEY) throw new Error("GROQ_API_KEY belum diset di GitHub Secrets");
 
-const data = JSON.parse(fs.readFileSync("data/packages.json", "utf8"));
 const topicsFile = JSON.parse(fs.readFileSync("data/topics.json", "utf8"));
 const articles = JSON.parse(fs.readFileSync("data/articles.json", "utf8"));
 
-// Daftar harga resmi (hanya angka ini yang boleh muncul di artikel)
-const allowedPrices = [
-  ...new Set([...data.cards.map((c) => c.startPrice), ...data.offers.map((o) => o.price)]),
-].sort((a, b) => a - b);
-const allowedPriceList = allowedPrices.map((p) => "IDR " + p.toLocaleString("en-US")).join(", ");
+// Daftar paket hanya untuk konteks nama destinasi, tanpa harga
+const data = JSON.parse(fs.readFileSync("data/packages.json", "utf8"));
+const destinationList = data.cards.map((c) => c.name).join("; ");
 
-const packageSummary = data.cards
-  .map(
-    (c) =>
-      `- ${c.name}: starting from IDR ${c.startPrice.toLocaleString("en-US")}/pax, pickup ${c.pickup.join(", ")}${
-        c.hotel ? ", includes 2–3 star hotel" : ", entrance tickets NOT included"
-      }`
-  )
-  .join("\n");
-
-const SYSTEM = `You write travel articles for Wonderful Trip Jogja, a tour operator in Yogyakarta, Indonesia.
-Audience: foreign tourists planning a trip to Java.
+const SYSTEM = `You write SHORT travel blog posts for Wonderful Trip Jogja, a tour operator in Yogyakarta, Indonesia.
+Audience: foreign tourists.
 
 Rules:
-- Be accurate and practical. Never invent prices, opening hours, policies, or statistics.
-- Prices: the ONLY prices you may write are these: ${allowedPriceList}. Write them exactly as "IDR 450,000". Do not write any other IDR amount.
-- For Yogyakarta day tours, state that attraction entrance tickets are NOT included.
-- Every trip includes a free beer for each participant. Mention it once, naturally.
-- Mention that visitors should check current conditions with the operator before traveling.
-- Length: 800 to 1000 words of body content. This is mandatory.
-- Use only these HTML tags in bodyHtml: h2, h3, p, ul, li, strong, a. No scripts, no images, no inline styles.
-- Inside bodyHtml, every double quote character must be written as &quot; or replaced with single quotes, so the JSON stays valid.
-- Include one link to ${SITE}/#packages and one call to action linking to ${BOOKING_URL}.
+- Focus on ONE destination only: the topic keyword. Do not drift into other destinations or general Java travel.
+- Tell the reader about the place: what it is, what to see, the atmosphere, the best time to visit, and one or two practical visiting tips.
+- Keep facts general. Never invent opening hours, prices, statistics, or policies.
+- Do NOT talk about tour packages, inclusions, exclusions, tickets, prices, costs, beer, hotels, or booking details.
+- Never write these words: included, excluded, inclusion, exclusion, ticket, tickets, beer, price, IDR, Rp.
+- Length: 250 to 380 words of body content. Keep it short and focused.
+- Structure: one <h2> heading, then 3 or 4 short <p> paragraphs. You may add one <ul> with at most 3 <li> items.
+- Use only these HTML tags in bodyHtml: h2, p, ul, li, strong, a. No scripts, no images, no inline styles.
+- Inside bodyHtml, write every double quote as &quot; so the JSON stays valid.
+- Include one link to ${PACKAGES_URL} inside the text, naturally.
+- End with one short sentence containing a link to ${BOOKING_URL} that invites the reader to ask about a tour.
 - Write in English.
 
 Output: ONLY a single JSON object with exactly these keys, and nothing before or after it:
 "title" (string, max 65 characters), "description" (string, 110 to 155 characters), "bodyHtml" (string containing the HTML body).`;
 
 function buildUserPrompt(topic) {
-  return `Topic keyword: ${topic.keyword}
+  return `Topic keyword (the ONE destination to write about): ${topic.keyword}
 Angle: ${topic.angle}
 
-Our packages:
-${packageSummary}
+Our tour names for reference only (do not list them or their prices): ${destinationList}
 
-Write the article now.`;
+Write the short article now.`;
 }
 
-async function callModel(messages, maxTokens = 4000) {
+async function callModel(messages, maxTokens = 2000) {
   for (let tryNo = 1; tryNo <= MAX_API_RETRIES; tryNo++) {
     const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
@@ -116,7 +108,7 @@ function pickTopic() {
   return topicsFile.queue.find((t) => !articles.some((a) => a.keyword === t.keyword));
 }
 
-// Meminta ide topik baru saat antrian habis, lalu menyaring yang sudah pernah dipakai
+// Meminta ide topik baru (satu destinasi per topik) saat antrian habis
 async function refillTopics() {
   const used = new Set(
     [...topicsFile.queue.map((t) => t.keyword), ...articles.map((a) => a.keyword)].map((k) => k.toLowerCase())
@@ -126,12 +118,12 @@ async function refillTopics() {
       {
         role: "system",
         content:
-          "You suggest SEO keyword ideas for the blog of a Yogyakarta tour operator aimed at foreign tourists. Output ONLY a JSON object.",
+          "You suggest blog topics for a Yogyakarta tour operator aimed at foreign tourists. Output ONLY a JSON object.",
       },
       {
         role: "user",
-        content: `Suggest 8 new long-tail English keywords about travel in Java: Yogyakarta, Borobudur, Prambanan, Merapi, caves, Mount Bromo, Ijen, Tumpak Sewu, East Java overland, and Java travel tips. Avoid these existing keywords: ${[...used].join("; ")}.
-Return JSON exactly in this form: {"queue":[{"keyword":"...","angle":"short description of what the article should cover"}]}`,
+        content: `Suggest 8 new English blog topics. Each topic must focus on ONE single place in Java, such as a temple, a cave, a volcano, a waterfall, a crater, a village, or a market in Yogyakarta, Central Java, or East Java. Do not suggest general travel tips, itineraries, or comparisons. Avoid these existing keywords: ${[...used].join("; ")}.
+Return JSON exactly in this form: {"queue":[{"keyword":"Name of the place plus 'travel guide' or 'what to see'","angle":"one sentence on what to say about this single place"}]}`,
       },
     ],
     1500
@@ -160,15 +152,16 @@ function validate(a) {
 
   const body = a?.bodyHtml || "";
   const words = body.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length;
-  if (words < 700 || words > 1300) problems.push(`jumlah kata ${words} (harus 800 sampai 1000)`);
+  if (words < MIN_WORDS || words > MAX_WORDS)
+    problems.push(`jumlah kata ${words} (harus ${MIN_WORDS} sampai ${MAX_WORDS})`);
 
   if (/<script|<iframe|<img|style=/i.test(body)) problems.push("tag terlarang ditemukan");
   if (!body.includes(BOOKING_URL)) problems.push("link booking tidak ada");
+  if (!body.includes(PACKAGES_URL)) problems.push("link paket tidak ada");
 
-  for (const m of body.matchAll(/IDR\s?(\d{1,3}(?:,\d{3})+)/g)) {
-    const n = Number(m[1].replace(/,/g, ""));
-    if (!allowedPrices.includes(n)) problems.push(`harga tidak dikenal: IDR ${m[1]}`);
-  }
+  const banned = body.match(/\b(includ\w*|exclud\w*|tickets?|beer|price\w*|cost\w*|IDR|Rp)\b/gi);
+  if (banned) problems.push(`kata terlarang: ${[...new Set(banned)].join(", ")}`);
+
   return problems;
 }
 
@@ -200,7 +193,7 @@ async function generateValidArticle(topic) {
       ...baseMessages,
       {
         role: "user",
-        content: `Your previous output failed these checks: ${problems.join("; ")}. Write the COMPLETE JSON object again and fix every problem. The body must be 800 to 1000 words. Use only these prices: ${allowedPriceList}. Escape all double quotes inside bodyHtml.`,
+        content: `Your previous output failed these checks: ${problems.join("; ")}. Write the COMPLETE JSON object again. Keep the body between ${MIN_WORDS} and ${MAX_WORDS} words, focus only on the one destination, do not mention inclusions, tickets, beer, or prices, and escape all double quotes inside bodyHtml.`,
       },
     ];
   }
@@ -251,10 +244,10 @@ ${JSON.stringify(ld, null, 2)}
 </script>
 <style>
 body{font:17px/1.7 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#0c1b33;margin:0;background:#f4f7fb}
-.w{max-width:760px;margin:auto;padding:24px 18px 60px;background:#fff}
+.w{max-width:720px;margin:auto;padding:24px 18px 60px;background:#fff}
 a{color:#0f52ba}
 h1{font-size:2rem;line-height:1.2}
-h2{margin-top:2em}
+h2{margin-top:1.6em}
 .back{font-weight:700;display:inline-block;margin-bottom:12px}
 .cta{display:inline-block;background:#15803d;color:#fff;padding:12px 24px;border-radius:6px;font-weight:700;text-decoration:none}
 </style>
@@ -265,7 +258,7 @@ h2{margin-top:2em}
 <h1>${escAttr(a.title)}</h1>
 <p><small>Published ${TODAY}</small></p>
 ${a.bodyHtml}
-<p><a class="cta" href="${BOOKING_URL}">Check prices &amp; book on WhatsApp</a></p>
+<p><a class="cta" href="${BOOKING_URL}">Ask about a tour on WhatsApp</a></p>
 </div>
 </body>
 </html>
@@ -307,4 +300,4 @@ ${a.bodyHtml}
 })().catch((e) => {
   console.error(e.message);
   process.exit(1);
-}); 
+});
